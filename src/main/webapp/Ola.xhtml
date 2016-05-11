@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:body>
+	<h:form>
+	    <h1>Olá #{olaBean.nomeCompleto}</h1>
+		
+  					 Nome: <h:inputText value="#{olaBean.nome}" />
+		<br />  	 Sobrenome: <h:inputText value="#{olaBean.sobrenome}" />
+		<br />
+		<h:commandButton value="Dizer olá" action="#{olaBean.dizerOla()}" />
+	</h:form>
+</h:body>
+</html>

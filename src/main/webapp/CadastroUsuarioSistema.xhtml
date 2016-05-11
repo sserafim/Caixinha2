@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<f:metadata>
+		<o:viewParam name="id" value="#{cadastroUsuarioSistemaBean.usuarioSistema}" />
+		<f:viewAction action="#{cadastroUsuarioSistemaBean.prepararCadastro}" />
+	</f:metadata>
+
+   <ui:define name="titulo">Cadastro de Usuário</ui:define>
+   
+   <ui:define name="corpo">
+		<h1>Cadastro de Usuário</h1>
+				
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+				<p:panelGrid columns="2" id="grid">
+				
+					<p:outputLabel value="Nome Completo" for="nomeCompleto" />
+					<p:inputText id="nomeCompleto" size="100" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.nomeCompleto}">
+		 			</p:inputText>
+
+					<p:outputLabel value="Login Usuário" for="loginUsuario" />
+					<p:inputText id="loginUsuario" size="50" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.loginUsuario}">
+		 			</p:inputText>	
+		 				 			
+					<p:outputLabel value="Empresa" for="empresa" />
+					<p:inputText id="empresa" size="4" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresa}">
+		 			</p:inputText>
+		 			
+		 			<p:outputLabel value="Unidade" for="unidade" />
+					<p:inputText id="unidade" size="2" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.unidade}">
+		 			</p:inputText>				 	
+		 			
+					<p:outputLabel value="Senha" for="senha" />
+					<p:inputText id="senha" size="2" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.senha}">
+		 			</p:inputText>				 
+		 						
+					<p:outputLabel value="Administrador" for="administrator" />
+					<p:inputText id="administrator" size="1" 
+						value="#{cadastroUsuarioSistemaBean.usuarioSistema.administrator}">
+		 			</p:inputText>				
+				
+					<h:outputLabel />
+				    <p:commandButton value="Salvar" action="#{cadastroUsuarioSistemaBean.salvar}"
+					icon="ui-icon-disk" update="@form" />
+
+				</p:panelGrid>
+	
+		</h:form>
+	</ui:define>		
+</ui:composition>
+
+	

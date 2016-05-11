@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata> 
+		<o:viewParam name="id" value="#{cadastroEmpresaBean.empresa}" />
+		<f:viewAction action="#{cadastroEmpresaBean.prepararCadastro}" />
+		<f:viewAction action="#{consultaEmpresaBean.consultar}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">Cadastro de Empresa</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Unidade Negócio</h1>
+		
+		<h:form id="frm">
+		
+		<p:toolbar style="margin: 10px 10px">
+		    	<p:toolbarGroup>
+		    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroEmpresa?faces-redirect=true"/>
+		    	</p:toolbarGroup>
+		    </p:toolbar>
+		
+
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<p:panelGrid columns="2" id="grid">		
+			<p:outputLabel value="Código" for="codigo" />
+			<p:inputText id="codigo" size="3" 
+				value="#{cadastroEmpresaBean.empresa.codigo}">
+		 	</p:inputText>	
+		 	
+		 	<p:outputLabel value="Empresa" for="empresa" />
+			<p:inputText id="empresa" size="3" 
+				value="#{cadastroEmpresaBean.empresa.empresa}">
+		 	</p:inputText>			
+			
+		 	<p:outputLabel value="Nome" for="nome" />
+			<p:inputText style="text-transform:uppercase"  id="nome" size="70" 
+				value="#{cadastroEmpresaBean.empresa.nome}">
+		 	</p:inputText>
+
+		 	<p:outputLabel value="Unidade" for="nomeUnidade" />
+			<p:inputText style="text-transform:uppercase" id="nomeUnidade" size="70" 
+				value="#{cadastroEmpresaBean.empresa.nomeUnidade}">
+		 	</p:inputText>			 	
+		 	
+		 	<p:outputLabel value="CNPJ" for="CNPJ" />
+			<p:inputText id="CNPJ" size="15" 
+				value="#{cadastroEmpresaBean.empresa.CNPJ}">
+		 	</p:inputText>
+		 	
+		 	<p:outputLabel value="Inscrição Estadual" for="inscEst" />
+			<p:inputText id="inscEst" size="15" 
+				value="#{cadastroEmpresaBean.empresa.inscEst}">
+		 	</p:inputText>
+		 	
+		 	<p:outputLabel value="Email Apoio Local" for="emailApoioLocal" />
+			<p:inputText style="text-transform:lowercase" id="emailApoioLocal" size="100" 
+				value="#{cadastroEmpresaBean.empresa.emailApoioLocal}">
+		 	</p:inputText>		 	
+		 	 	
+		 	<h:outputLabel />
+			<p:commandButton value="Salvar" action="#{cadastroEmpresaBean.salvar}"
+					icon="ui-icon-disk" update="frm" />
+		 	
+			</p:panelGrid>
+
+	<h1 style="margin-top: 40px">Unidades Negócio</h1>	
+			
+	<p:dataTable value="#{consultaEmpresaBean.empresas}" var="empresa"
+				 border="1" cellspacing="0" cellpadding="2"
+			  	 paginator="true" rows="5" paginatorPosition="bottom">
+			
+		<p:column  filterStyle="width:50px" filterBy="#{empresa.codigo}" footerText="contains" filterMatchMode="contains" width="100" headerText="Código" sortBy="#{empresa.codigo}">
+		<h:outputText value="#{empresa.codigo}"  />
+		</p:column>	
+		
+		<p:column width="100" headerText="Empresa" sortBy="#{empresa.empresa}">
+		<h:outputText  value="#{empresa.empresa}" />
+		</p:column>
+
+		<p:column width="250" headerText="Nome" sortBy="#{empresa.nome}">
+		<h:outputText value="#{empresa.nome}" />
+		</p:column>
+
+		<p:column width="100" headerText="Unidade" sortBy="#{empresa.nomeUnidade}">
+		<h:outputText value="#{empresa.nomeUnidade}" />
+		</p:column>			
+
+		<p:column width="120" headerText="CNPJ" sortBy="#{empresa.CNPJ}">
+		<h:outputText value="#{empresa.CNPJ}" size="12"/>
+		</p:column>				
+
+		<p:column width="200" headerText="Email Apoio Local" sortBy="#{empresa.emailApoioLocal}">
+		<h:outputText value="#{empresa.emailApoioLocal}" />
+		</p:column>										
+	
+		<p:column width="70" style="text-align: center">
+		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroEmpresa">	
+			<f:param name="id" value="#{empresa.id}" />						
+		</p:button>
+				
+		<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+			action="#{consultaEmpresaBean.excluir}">
+		<f:setPropertyActionListener value="#{empresa}" 
+			target="#{consultaEmpresaBean.empresaSelecionada}" />		  				
+		</p:commandButton>
+		</p:column>
+		
+	</p:dataTable>
+						
+		</h:form>		
+	</ui:define>	
+
+
+</ui:composition>
+
+	

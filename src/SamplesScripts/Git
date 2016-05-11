@@ -1,0 +1,6 @@
+Instalar Git 					(https://github.com)
+Verifica a versão no terminal 	(git --version)
+Inicializa o Git 				(git init)
+Commit estrutura de pasta 		(git commit -m "commit")
+Add projeto Git 				(git remote add origin https://github.com/sserafim/Caixinha.git)
+Push Git						(git push origin master)

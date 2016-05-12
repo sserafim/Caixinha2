@@ -6,22 +6,21 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import com.samuex.financeiro.model.CentroCusto;
-import com.samuex.financeiro.repository.CentroCustos;
+import com.samuex.financeiro.model.ContaContabil;
+import com.samuex.financeiro.repository.ContasContabeis;
 
-@FacesConverter(forClass = CentroCusto.class)
-public class CentroCustoConverter implements Converter{ 
-	
-	
+@FacesConverter(forClass = ContaContabil.class)
+public class ContaContabilConverter implements Converter{ 
+
 	@Inject
-	private CentroCustos centroCustos;
+	private ContasContabeis contasContabeis;
 		
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		CentroCusto retorno = null;
+		ContaContabil retorno = null;
 		
 		if (value != null && !"".equals(value)) {
-			retorno = this.centroCustos.porId(new Long(value));
+			retorno = this.contasContabeis.porId(new Long(value));
 		}
 
 		return retorno;
@@ -30,10 +29,10 @@ public class CentroCustoConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			CentroCusto centroCusto = ((CentroCusto) value); 
-			return centroCusto.getId() == null ? null : centroCusto.getId().toString();
+			ContaContabil contaContabil = ((ContaContabil) value); 
+			return contaContabil.getId() == null ? null : contaContabil.getId().toString();
 		}
 		return null;
 	}
-
+		
 }

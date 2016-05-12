@@ -1,5 +1,6 @@
 package com.samuex.financeiro.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 import com.samuex.financeiro.model.ContaContabil;
 
-public class ContasContabeis{
+public class ContasContabeis implements Serializable {
 	
 	public static final long serialVersionUID = 1L;
 

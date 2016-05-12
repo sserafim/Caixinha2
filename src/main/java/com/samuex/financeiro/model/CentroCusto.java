@@ -91,7 +91,7 @@ public class CentroCusto implements Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(length = 2, nullable = false)	
+	@Column(length = 2)	
 	public Date getDataExclusao() {
 		return dataExclusao;
 	}

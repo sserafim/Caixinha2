@@ -30,22 +30,22 @@
 			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 
 			<p:panelGrid columns="2" id="grid">		
-			<p:outputLabel value="Código" for="codigo" />
+			<p:outputLabel value="Código Unidade" for="codigo" />
 			<p:inputText id="codigo" size="3" 
 				value="#{cadastroEmpresaBean.empresa.codigo}">
 		 	</p:inputText>	
 		 	
-		 	<p:outputLabel value="Empresa" for="empresa" />
+		 	<p:outputLabel value="Código Empresa" for="empresa" />
 			<p:inputText id="empresa" size="3" 
 				value="#{cadastroEmpresaBean.empresa.empresa}">
 		 	</p:inputText>			
 			
-		 	<p:outputLabel value="Nome" for="nome" />
+		 	<p:outputLabel value="Nome Empresa" for="nome" />
 			<p:inputText style="text-transform:uppercase"  id="nome" size="70" 
 				value="#{cadastroEmpresaBean.empresa.nome}">
 		 	</p:inputText>
 
-		 	<p:outputLabel value="Unidade" for="nomeUnidade" />
+		 	<p:outputLabel value="Nome Unidade" for="nomeUnidade" />
 			<p:inputText style="text-transform:uppercase" id="nomeUnidade" size="70" 
 				value="#{cadastroEmpresaBean.empresa.nomeUnidade}">
 		 	</p:inputText>			 	
@@ -73,7 +73,7 @@
 
 	<h1 style="margin-top: 40px">Unidades Negócio</h1>	
 			
-	<p:dataTable value="#{consultaEmpresaBean.empresas}" var="empresa"
+	<p:dataTable value="#{cadastroEmpresaBean.listEmpresas()}" var="empresa"
 				 border="1" cellspacing="0" cellpadding="2"
 			  	 paginator="true" rows="5" paginatorPosition="bottom">
 			

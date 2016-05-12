@@ -29,26 +29,90 @@
 
 	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
-	
+
 	<p:outputLabel value="Empresa" for="empresa" />
 	<p:selectOneMenu value="#{cadastroCCustoBean.centroCusto.empresa}"
 	  id="empresa" filter="true" filterMatchMode="contains">		
 		<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 		<f:selectItems value="#{cadastroCCustoBean.todasEmpresas}"
 			var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nomeUnidade.concat(' - ').concat(empresa.nome)}"  />		
-	</p:selectOneMenu>
-	
-	
-	
-	
-	
-	
-	
+	</p:selectOneMenu>	
+
+ 	<p:outputLabel value="Codigo Centro Custo" for="codigo" />
+	<p:inputText id="codigo" size="6" 
+		value="#{cadastroCCustoBean.centroCusto.codigo}">
+ 	</p:inputText>
+
+ 	<p:outputLabel value="Descricao" for="descricao" />
+	<p:inputText id="descricao" size="78" 
+		value="#{cadastroCCustoBean.centroCusto.descricao}">
+ 	</p:inputText>
+
+ 	<p:outputLabel value="CodigoGC" for="codigoGC" />
+	<p:inputText id="codigoGC" size="6" 
+		value="#{cadastroCCustoBean.centroCusto.codigoGc}">
+ 	</p:inputText>
+
+ 	<p:outputLabel value="CodigoGcReduzido" for="codigoGcReduzido" />
+	<p:inputText id="codigoGcReduzido" size="6" 
+		value="#{cadastroCCustoBean.centroCusto.codigoGcReduzido}">
+ 	</p:inputText>
+
+ 	<p:outputLabel value="Data Exclusao" for="dataExclusao" />
+	<p:calendar id="dataExclusao" size="12"  pattern="dd/mm/yyyy"
+		value="#{cadastroCCustoBean.centroCusto.dataExclusao}" />
+
+	<h:outputLabel />
+		<p:commandButton value="Salvar" action="#{cadastroCCustoBean.salvar()}"
+			icon="ui-icon-disk" update="frm" />
 	</p:panelGrid>	
+	
+	
+	<h1 style="margin-top: 20px">Centro de Custos</h1>
+
+	<p:dataTable value="#{cadastroCCustoBean.listCentroCusto()}" var="centroCusto"
+		border="1" cellspacing="0" cellpadding="2"
+		paginator="true" rows="5" paginatorPosition="bottom">	
+	
+	
+	<p:column headerText="Código" sortBy="#{centroCusto.codigo}" width="50">
+		<h:outputText value="#{centroCusto.codigo}" />
+	</p:column>
+
+	<p:column headerText="Descrição" width="180" sortBy="#{centroCusto.descricao}">
+		<h:outputText value="#{centroCusto.descricao}" />
+	</p:column>
+	
+	<p:column headerText="CódigoGC" sortBy="#{centroCusto.codigoGc}" width="60">
+		<h:outputText value="#{centroCusto.codigoGc}" />
+	</p:column>	
+
+	<p:column headerText="Cód. GC Red." sortBy="#{centroCusto.codigoGcReduzido}" width="60">
+		<h:outputText value="#{centroCusto.codigoGcReduzido}" />
+	</p:column>		
+
+	<p:column headerText="Data Exclusão" width="60" sortBy="#{centroCusto.dataExclusao}">
+		<h:outputText value="#{centroCusto.dataExclusao}" />
+	</p:column>	
+
+	<p:column headerText="Empresa / Unidade" width="100" sortBy="#{centroCusto.empresa.empresa.concat(' - ').concat(centroCusto.empresa.nomeUnidade)}">
+		<h:outputText value="#{centroCusto.empresa.empresa.concat(' - ').concat(centroCusto.empresa.nomeUnidade)}" />
+	</p:column>	
+	
+	<p:column width="70" style="text-align: center">
+	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCCusto">
+		<f:param name="id" value="#{centroCusto.id}" />
+	</p:button>
+	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+			action="#{consultaCCustoBean.excluir}">
+ 				<f:setPropertyActionListener value="#{centroCusto}" 
+ 					target="#{consultaCCustoBean.centroCustoSelecionado}" />
+ 			</p:commandButton>
+</p:column>
+	
+	</p:dataTable>
+	
+
 	</h:form>
-
-
-
 	</ui:define>
-
 </ui:composition>	

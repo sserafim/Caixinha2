@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.samuex.financeiro.model.ContaContabil;
 import com.samuex.financeiro.repository.ContasContabeis;
 import com.samuex.financeiro.service.CadastroCContabil;
 import com.samuex.financeiro.service.NegocioException;
 
+@Named
+@ViewScoped
 public class ConsultaCContabilBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

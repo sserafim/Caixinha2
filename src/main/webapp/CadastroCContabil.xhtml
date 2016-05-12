@@ -11,22 +11,81 @@
 	<f:metadata>
 		<o:viewParam name="id" value="#{cadastroCContabilBean.contaContabil}" />
 		<f:viewAction action="#{cadastroCContabilBean.prepararCadastro()}" />
-		<f:viewAction action="#{consultaCContabilBean.}" />
+		<f:viewAction action="#{consultaCContabilBean.consultar}" />
 	</f:metadata>
 	
+	<ui:define name="titulo">Cadastro Conta Contábil</ui:define>
 
+	<ui:define name="corpo">
+
+		<h1>Cadastro Conta Contábil</h1>
+
+	<h:form id="frm">
+	
+	<p:toolbar style="margin: 10px 10px">
+    	<p:toolbarGroup>
+    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroCContabil?faces-redirect=true"/>
+    	</p:toolbarGroup>
+    </p:toolbar>
 	
 	
+	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+	<p:panelGrid columns="2" id="grid">
+	
+	
+	<p:outputLabel value="Conta Contábil Exp" for="CContabilExp" />
+	<p:inputText id="CContabilExp" size="8" 
+		value="#{cadastroCContabilBean.contaContabil.contaContabilExp}">
+ 	</p:inputText>
+
+	<p:outputLabel value="Descrição" for="Descricao" />
+	<p:inputText id="Descricao" size="8" 
+		value="#{cadastroCContabilBean.contaContabil.descricao}">
+ 	</p:inputText>	
+
+	<p:outputLabel value="Conta Contábil Exp" for="CContabilRed" />
+	<p:inputText id="CContabilRed" size="6" 
+		value="#{cadastroCContabilBean.contaContabil.contaContabilRed}">
+ 	</p:inputText>		
+	
+	<h:outputLabel />
+		<p:commandButton value="Salvar" action="#{cadastroCContabilBean.salvar()}"
+			icon="ui-icon-disk" update="frm" />
+	</p:panelGrid>	
+
+	<h1 style="margin-top: 20px">Contas Contabeis</h1>	
 
 
+	<p:dataTable value="#{cadastroCContabilBean.listContasContabeis()}" var="contaContabil"
+		border="1" cellspacing="0" cellpadding="2"
+		paginator="true" rows="5" paginatorPosition="bottom">	
+		
+	<p:column headerText="Conta Contabil Exp" sortBy="#{contaContabil.contaContabilExp}" width="50">
+ 		<h:outputText value="#{contaContabil.contaContabilExp}" />
+	</p:column>
+	
+	<p:column headerText="Descrição" sortBy="#{contaContabil.descricao}" width="50">
+ 		<h:outputText value="#{contaContabil.descricao}" />
+	</p:column>
 
+	<p:column headerText="Conta Contabil Red" sortBy="#{contaContabil.contaContabilRed}" width="50">
+ 		<h:outputText value="#{contaContabil.contaContabilRed}" />
+	</p:column>	
+	
+	<p:column width="70" style="text-align: center">
+	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCContabil">
+		<f:param name="id" value="#{contaContabil.id}" />
+	</p:button>
+	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+			action="#{consultaCContabilBean.excluir}">
+ 				<f:setPropertyActionListener value="#{contaContabil}" 
+ 					target="#{consultaCContabilBean.contaContabilSelecionado}" />
+ 			</p:commandButton>
+	</p:column>	
 
-
-
-
-
-
-
+	</p:dataTable>
+		
+	</h:form>		
 	</ui:define>
 </ui:composition>	
 	

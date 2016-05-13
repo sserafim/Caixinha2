@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -30,6 +33,8 @@ public class ContaContabil implements Serializable{
 		this.id = id;
 	}
 	
+	@NotEmpty
+	@NotNull
 	@Column(length = 8, nullable = false)
 	public String getContaContabilExp() {
 		return contaContabilExp;
@@ -39,6 +44,8 @@ public class ContaContabil implements Serializable{
 		this.contaContabilExp = contaContabilExp;
 	}
 	
+	@NotEmpty
+	@NotNull
 	@Column(length = 50, nullable = false)
 	public String getDescricao() {
 		return descricao;
@@ -48,6 +55,8 @@ public class ContaContabil implements Serializable{
 		this.descricao = descricao;
 	}
 	
+	@NotEmpty
+	@NotNull
 	@Column(length = 5, nullable = false)
 	public String getContaContabilRed() {
 		return contaContabilRed;

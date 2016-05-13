@@ -23,13 +23,15 @@
 	<div style="background-color: #c5c5c5;border-radius:3px ;padding: 4px ; margin-top: 0px">
     	
     	<div style="float: left ;width: 100px">
-    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroCContabil?faces-redirect=true"/>
+    		<h:form>
+    			<p:commandButton value="Novo" id="botaoNovo" action="/CadastroCContabil?faces-redirect=true"/>
+    	    </h:form>
     	</div>    
     	
     	<div style="float: left; width: 500px">
     	<h:form>
-    		<p:fileUpload label="Selecione Arquivo CSV" fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced" dragDropSupport="false"
-           		update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+    		<p:fileUpload value="#{fileUploadView.file}" label="Selecione Arquivo CSV" fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced" dragDropSupport="false"
+           		update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" skinSimple="true"/>
     		<p:growl id="messages" showDetail="true" />
 		</h:form>
 		</div>
@@ -42,8 +44,7 @@
 
 	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
-	
-	
+		
 	<p:outputLabel value="Conta Contábil Exp" for="CContabilExp" />
 	<p:inputText id="CContabilExp" size="8" 
 		value="#{cadastroCContabilBean.contaContabil.contaContabilExp}">
@@ -54,7 +55,7 @@
 		value="#{cadastroCContabilBean.contaContabil.descricao}">
  	</p:inputText>	
 
-	<p:outputLabel value="Conta Contábil Exp" for="CContabilRed" />
+	<p:outputLabel value="Conta Contábil Red" for="CContabilRed" />
 	<p:inputText id="CContabilRed" size="8" 
 		value="#{cadastroCContabilBean.contaContabil.contaContabilRed}">
  	</p:inputText>		

@@ -8,6 +8,7 @@ import com.samuex.financeiro.model.ContaContabil;
 import com.samuex.financeiro.repository.ContasContabeis;
 import com.samuex.financeiro.util.Transactional;
 
+
 public class CadastroCContabil implements Serializable{
 	
 	public static final long serialVersionUID = 1L;	

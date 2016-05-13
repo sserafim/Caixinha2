@@ -5,30 +5,35 @@ package com.samuex.financeiro.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.StringTokenizer;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.samuex.financeiro.model.ContaContabil;
-	
-@ManagedBean
-public class FileUploadView {
+import com.samuex.financeiro.service.CadastroCContabil;
+
+
+@Named
+@javax.faces.view.ViewScoped
+public class FileUploadView implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private UploadedFile file;
 	
-	private String contaExpandida;
-	private String descricao;
-	private String contaReduzida;
-	
 	private ContaContabil contaContabil;
-
-	String line = null;
 	
+	@Inject
+	private CadastroCContabil cadastro;
+	
+	String line = null;
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		
@@ -52,44 +57,26 @@ public class FileUploadView {
 				
 				while (st.hasMoreElements()) {
 					
-					this.contaExpandida = st.nextElement().toString();
-					this.descricao = st.nextElement().toString();
-					this.contaReduzida = st.nextElement().toString();
+					this.contaContabil = new ContaContabil();
+					
+					
+					this.contaContabil.setContaContabilExp(st.nextElement().toString()); 
+					this.contaContabil.setDescricao(st.nextElement().toString()); 
+					this.contaContabil.setContaContabilRed(st.nextElement().toString());  
 
-				}				
-				  //System.out.println(this.contaExpandida + " - "   + this.descricao + " - " + this.contaReduzida);
+					salvar();
+				}	
 			}				
-	}
+	}	
 	
 	
+	public void salvar(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		this.cadastro.salvar(this.contaContabil);
+		context.addMessage(null, new FacesMessage("Conta(s) Contábil carregadas com sucesso!!"));		
+	}
 	
-	
-
-	
-	public String getContaExpandida() {
-		return contaExpandida;
-	}
-
-	public void setContaExpandida(String contaExpandida) {
-		this.contaExpandida = contaExpandida;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getContaReduzida() {
-		return contaReduzida;
-	}
-
-	public void setContaReduzida(String contaReduzida) {
-		this.contaReduzida = contaReduzida;
-	}
-
 	public UploadedFile getFile() {
 		return file;
 	}
@@ -105,11 +92,7 @@ public class FileUploadView {
 	public void setContaContabil(ContaContabil contaContabil) {
 		this.contaContabil = contaContabil;
 	}
-
-	
 	
 }
-
-
 
     

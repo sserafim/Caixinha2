@@ -64,8 +64,9 @@ public class FileUploadView implements Serializable{
 					this.contaContabil.setDescricao(st.nextElement().toString()); 
 					this.contaContabil.setContaContabilRed(st.nextElement().toString());  
 
-					salvar();
+				
 				}	
+				salvar();
 			}				
 	}	
 	

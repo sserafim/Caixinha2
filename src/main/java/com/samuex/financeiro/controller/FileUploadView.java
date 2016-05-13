@@ -53,7 +53,7 @@ public class FileUploadView implements Serializable{
 		
 		while((line = buff.readLine()) != null) {
 		
-				StringTokenizer st = new StringTokenizer(line, ",");		
+				StringTokenizer st = new StringTokenizer(line, "#");		
 				
 				while (st.hasMoreElements()) {
 					

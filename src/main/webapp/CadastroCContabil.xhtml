@@ -35,6 +35,13 @@
     		<p:growl id="messages" showDetail="true" />
 		</h:form>
 		</div>
+		
+		<div style="float: left ;width: 100px">
+    		<h:form>
+    			<p:commandButton style="width: 100px" value="Excluir Todos" id="botaoExcluir" action="#{consultaCContabilBean.delRecords}" process="@this" />
+    	    </h:form>
+    	</div>  
+		
     		<div style="clear:both"> </div>
     </div>
 
@@ -91,7 +98,7 @@
 	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 			action="#{consultaCContabilBean.excluir}">
  				<f:setPropertyActionListener value="#{contaContabil}" 
- 					target="#{consultaCContabilBean.contaContabilSelecionado}" />
+ 					target="#{consultaCContabilBean.contaContabil}" />
  			</p:commandButton>
 	</p:column>	
 

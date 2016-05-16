@@ -28,13 +28,13 @@ public class ConsultaCContabilBean implements Serializable {
 	
 	private List<ContaContabil> contasContabeis;
 	
-	private ContaContabil contaContabilSelecionado;
+	private ContaContabil contaContabil;
 	
 	public void excluir() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
-			this.cadastro.excluir(this.contaContabilSelecionado);
+			this.cadastro.excluir(this.contaContabil);
 			this.consultar();
 			
 			context.addMessage(null, new FacesMessage("Conta Contabil excluído com sucesso!"));
@@ -45,6 +45,16 @@ public class ConsultaCContabilBean implements Serializable {
 			context.addMessage(null, mensagem);
 		}
 	}
+		
+	public void delRecords(){		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		this.cadastro.excluirTodas();
+		this.consultar();
+
+		context.addMessage(null, new FacesMessage("Todos os registro foram deletados!"));
+	}
+		
 	
 	public void consultar(){
 		this.contasContabeis = lancamentosRepository.todas();
@@ -54,16 +64,12 @@ public class ConsultaCContabilBean implements Serializable {
 		return contasContabeis;
 	}
 
-	public ContaContabil getContaContabilSelecionado() {
-		return contaContabilSelecionado;
+	public ContaContabil getContaContabil() {
+		return contaContabil;
 	}
 
-	public void setContaContabilSelecionado(ContaContabil contaContabilSelecionado) {
-		this.contaContabilSelecionado = contaContabilSelecionado;
+	public void setContaContabil(ContaContabil contaContabil) {
+		this.contaContabil = contaContabil;
 	}
-	
-	
-	
-	
 	
 }

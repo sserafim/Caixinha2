@@ -27,5 +27,10 @@ public class CadastroCContabil implements Serializable{
 		
 		this.contasContabeis.remover(contaContabil);
 	}
+	
+	@Transactional
+	public void excluirTodas(){
+		this.contasContabeis.deletarTodas();
+	}
 
 }

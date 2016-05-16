@@ -34,6 +34,7 @@ public class FileUploadView implements Serializable{
 	private CadastroCContabil cadastro;
 	
 	String line = null;
+	Integer x = 1;
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		
@@ -49,9 +50,13 @@ public class FileUploadView implements Serializable{
 	
 	public void carregaArquivo(UploadedFile file) throws IOException{
 		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
 		BufferedReader buff = new BufferedReader(new InputStreamReader(file.getInputstream()));
 		
 		while((line = buff.readLine()) != null) {
+			
+			x = x +1;
 		
 				StringTokenizer st = new StringTokenizer(line, "#");		
 				
@@ -64,18 +69,18 @@ public class FileUploadView implements Serializable{
 					this.contaContabil.setDescricao(st.nextElement().toString()); 
 					this.contaContabil.setContaContabilRed(st.nextElement().toString());  
 
-				
+					salvar();
 				}	
-				salvar();
-			}				
+				
+			}		
+		context.addMessage(null, new FacesMessage("Carregado " + x + " Conta(s) Contábil, com sucesso!!"));	
 	}	
 	
 	
-	public void salvar(){
-		FacesContext context = FacesContext.getCurrentInstance();
+	public void salvar(){		
 		
 		this.cadastro.salvar(this.contaContabil);
-		context.addMessage(null, new FacesMessage("Conta(s) Contábil carregadas com sucesso!!"));		
+			
 	}
 	
 	public UploadedFile getFile() {

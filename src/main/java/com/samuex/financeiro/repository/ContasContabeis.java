@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.samuex.financeiro.model.ContaContabil;
@@ -31,6 +32,11 @@ public class ContasContabeis implements Serializable {
 		return query.getResultList();
 
 	}
+	
+	public void deletarTodas(){
+		Query query = manager.createNativeQuery("DELETE FROM CONTACONTABIL");		
+		query.executeUpdate();		
+	}	
 	
 	public void adicionar (ContaContabil contaContabil){
 		this.manager.persist(contaContabil);

@@ -87,7 +87,7 @@
  		<h:outputText value="#{contaContabil.descricao}" />
 	</p:column>
 
-	<p:column headerText="Conta Contabil Red" sortBy="#{contaContabil.contaContabilRed}" width="50">
+	<p:column  filterStyle="width:50px" filterBy="#{contaContabil.contaContabilRed}" footerText="contains" filterMatchMode="contains" width="50" headerText="Conta Contabil Red" sortBy="#{contaContabil.contaContabilRed}">
  		<h:outputText value="#{contaContabil.contaContabilRed}" />
 	</p:column>	
 	

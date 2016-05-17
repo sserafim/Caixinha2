@@ -2,12 +2,17 @@ package com.samuex.financeiro.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 
@@ -23,14 +28,36 @@ public class HistoricoPadrao implements Serializable {
 	@GenericGenerator(name ="inc" , strategy = "increment")
 	private Long 		id;
 	
-	
+	@NotNull
+	@NotEmpty
+	@Enumerated(EnumType.ORDINAL)
+	@Column(length = 2,nullable = false)
 	private TipoLote 	tipoLote;
+	
+	@NotNull
+	@NotEmpty
+	@Column(length = 100, nullable = false)	
 	private String 		utilizacao;
+	
+	@NotNull
+	@NotEmpty
+	@Column(length = 4, nullable = false)
 	private Integer 	codHistorico;
-	private Integer 	CtaCtbCred;
-	private Integer 	CtaCtbDeb;
+	
+	@NotNull
+	@NotEmpty
+	@Column(length = 3, nullable = false)
 	private Integer 	CodHistCred;
+	
+	@NotNull
+	@NotEmpty
+	@Column(length = 3, nullable = false)
 	private Integer 	CodHistDeb;
+	
+	@Column(length = 1, nullable = false)
+	private String 		Historico;
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -38,7 +65,6 @@ public class HistoricoPadrao implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public TipoLote getTipoLote() {
 		return tipoLote;
 	}
@@ -57,18 +83,6 @@ public class HistoricoPadrao implements Serializable {
 	public void setCodHistorico(Integer codHistorico) {
 		this.codHistorico = codHistorico;
 	}
-	public Integer getCtaCtbCred() {
-		return CtaCtbCred;
-	}
-	public void setCtaCtbCred(Integer ctaCtbCred) {
-		CtaCtbCred = ctaCtbCred;
-	}
-	public Integer getCtaCtbDeb() {
-		return CtaCtbDeb;
-	}
-	public void setCtaCtbDeb(Integer ctaCtbDeb) {
-		CtaCtbDeb = ctaCtbDeb;
-	}
 	public Integer getCodHistCred() {
 		return CodHistCred;
 	}
@@ -80,7 +94,14 @@ public class HistoricoPadrao implements Serializable {
 	}
 	public void setCodHistDeb(Integer codHistDeb) {
 		CodHistDeb = codHistDeb;
+	}		
+	public String getHistorico() {
+		return Historico;
+	}	
+	public void setHistorico(String historico) {
+		Historico = historico;
 	}
+	
 	
 	@Override
 	public int hashCode() {
@@ -106,12 +127,5 @@ public class HistoricoPadrao implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }

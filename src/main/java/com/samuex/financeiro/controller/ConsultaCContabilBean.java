@@ -18,7 +18,7 @@ import com.samuex.financeiro.service.NegocioException;
 @ViewScoped
 public class ConsultaCContabilBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	public static final long serialVersionUID = 1L;
 	
 	@Inject
 	private ContasContabeis lancamentosRepository;

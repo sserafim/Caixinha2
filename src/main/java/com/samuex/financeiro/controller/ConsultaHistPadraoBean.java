@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.samuex.financeiro.model.HistoricoPadrao;
 import com.samuex.financeiro.repository.HistoricosPadrao;
 import com.samuex.financeiro.service.CadastroHistPadrao;
 
+@Named
+@ViewScoped
 public class ConsultaHistPadraoBean implements Serializable {
 
 	public static final long serialVersionUID = 1L;

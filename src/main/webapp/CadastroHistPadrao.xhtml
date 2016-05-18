@@ -10,19 +10,42 @@
 
 	<f:metadata>
 		<o:viewParam name="id" value="#{cadastroHistPadraoBean.historicoPadrao}" />
-		<f:viewAction action="#{cadastroHistPadraoBean.prepararCadastro()}" />
-		<f:viewAction action="#{consu}" />
+		<f:viewAction action="#{cadastroHistPadraoBean.prepararCadastro}" />
+		<f:viewAction action="#{consultaHistPadraoBean.consultar}" />
 	</f:metadata>
+	
+	<ui:define name="titulo">Cadastro Historico Padrão</ui:define>
+
+	<ui:define name="corpo">
+		
+		<h1>Cadastro Histórico Padrão</h1>	
+
+	
+	<h:form id="frm">
+
+	<p:toolbar style="margin: 10px 10px">
+    	<p:toolbarGroup>
+    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroHistPadrao?faces-redirect=true"/>
+    	</p:toolbarGroup>
+    </p:toolbar>
+    
+   	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+	<p:panelGrid columns="2" id="grid">
+    
+     <p:outputLabel value="Codigo Centro Custo" for="codigo" />
+	<p:inputText id="codigo" size="6" 
+		value="#{cadastroCCustoBean.centroCusto.codigo}">
+ 	</p:inputText>
+    
+    
+    
 
 
 
 
 
-
-
-
-
-
+	</h:form>		
+	</ui:define>
 
 
 </ui:composition>	

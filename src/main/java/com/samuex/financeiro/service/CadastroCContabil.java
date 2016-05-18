@@ -23,7 +23,7 @@ public class CadastroCContabil implements Serializable{
 		
 	@Transactional	
 	public void excluir (ContaContabil contaContabil) throws NegocioException{
-		contaContabil = this.contasContabeis.porId(contaContabil.getId());
+		contaContabil = this.contasContabeis.porId(contaContabil.getContaContabilRed());
 		
 		this.contasContabeis.remover(contaContabil);
 	}

@@ -22,7 +22,7 @@ public class ContasContabeis implements Serializable {
 	}	
 		
 	
-	public ContaContabil porId(Long id){
+	public ContaContabil porId(String id){
 		return manager.find(ContaContabil.class, id);
 	}
 		

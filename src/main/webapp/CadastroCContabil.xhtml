@@ -93,7 +93,7 @@
 	
 	<p:column width="70" style="text-align: center">
 	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCContabil">
-		<f:param name="id" value="#{contaContabil.id}" />
+		<f:param name="id" value="#{contaContabil.contaContabilRed}" />
 	</p:button>
 	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 			action="#{consultaCContabilBean.excluir}">

@@ -20,7 +20,7 @@ public class ContaContabilConverter implements Converter{
 		ContaContabil retorno = null;
 		
 		if (value != null && !"".equals(value)) {
-			retorno = this.contasContabeis.porId(new Long(value));
+			retorno = this.contasContabeis.porId(new String(value));
 		}
 
 		return retorno;
@@ -30,7 +30,7 @@ public class ContaContabilConverter implements Converter{
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
 			ContaContabil contaContabil = ((ContaContabil) value); 
-			return contaContabil.getId() == null ? null : contaContabil.getId().toString();
+			return contaContabil.getContaContabilRed() == null ? null : contaContabil.getContaContabilRed().toString();
 		}
 		return null;
 	}

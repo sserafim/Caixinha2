@@ -101,17 +101,17 @@
 		<h:outputText value="#{empresa.emailApoioLocal}" />
 		</p:column>										
 	
-		<p:column width="70" style="text-align: center">
-		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroEmpresa">	
-			<f:param name="id" value="#{empresa.id}" />						
-		</p:button>
-				
-		<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
-			action="#{consultaEmpresaBean.excluir}">
-		<f:setPropertyActionListener value="#{empresa}" 
-			target="#{consultaEmpresaBean.empresaSelecionada}" />		  				
-		</p:commandButton>
-		</p:column>
+			<p:column width="70" style="text-align: center">
+			<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroEmpresa">	
+				<f:param name="id" value="#{empresa.id}" />						
+			</p:button>
+					
+			<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+				action="#{consultaEmpresaBean.excluir}">
+			<f:setPropertyActionListener value="#{empresa}" 
+				target="#{consultaEmpresaBean.empresaSelecionada}" />		  				
+			</p:commandButton>
+			</p:column>
 		
 	</p:dataTable>
 						

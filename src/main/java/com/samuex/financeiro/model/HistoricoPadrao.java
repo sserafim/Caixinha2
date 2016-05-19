@@ -27,11 +27,9 @@ public class HistoricoPadrao implements Serializable {
 	private String codHistorico;
 
 	
-	@NotNull
-	@NotEmpty
-	@Enumerated(EnumType.ORDINAL)
-	@Column(length = 2,nullable = false)
-	private TipoLote 	tipoLote;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private TipoLote tipoLote;
 	
 	@NotNull
 	@NotEmpty
@@ -49,67 +47,81 @@ public class HistoricoPadrao implements Serializable {
 	@NotNull
 	@NotEmpty
 	@Column(length = 3, nullable = false)
-	private String 	CodHistCred;
+	private String 	codHistCred;
 	
 	@NotNull
 	@NotEmpty
 	@Column(length = 3, nullable = false)
-	private String 	CodHistDeb;
+	private String 	codHistDeb;
 	
 	@Column(length = 1, nullable = false)
-	private String 		Historico;
-	
+	private String historico;
 
+	
 	public String getCodHistorico() {
 		return codHistorico;
 	}
+
 	public void setCodHistorico(String codHistorico) {
 		this.codHistorico = codHistorico;
 	}
+
 	public TipoLote getTipoLote() {
 		return tipoLote;
 	}
+
 	public void setTipoLote(TipoLote tipoLote) {
 		this.tipoLote = tipoLote;
 	}
-	public ContaContabil getCtaCtbCred() {
-		return ctaCtbCred;
-	}
-	public void setCtaCtbCred(ContaContabil ctaCtbCred) {
-		this.ctaCtbCred = ctaCtbCred;
-	}
-	public ContaContabil getCtaCtbDeb() {
-		return ctaCtbDeb;
-	}
-	public void setCtaCtbDeb(ContaContabil ctaCtbDeb) {
-		this.ctaCtbDeb = ctaCtbDeb;
-	}
+
 	public String getUtilizacao() {
 		return utilizacao;
 	}
+
 	public void setUtilizacao(String utilizacao) {
 		this.utilizacao = utilizacao;
 	}
+
+	public ContaContabil getCtaCtbCred() {
+		return ctaCtbCred;
+	}
+
+	public void setCtaCtbCred(ContaContabil ctaCtbCred) {
+		this.ctaCtbCred = ctaCtbCred;
+	}
+
+	public ContaContabil getCtaCtbDeb() {
+		return ctaCtbDeb;
+	}
+
+	public void setCtaCtbDeb(ContaContabil ctaCtbDeb) {
+		this.ctaCtbDeb = ctaCtbDeb;
+	}
+
 	public String getCodHistCred() {
-		return CodHistCred;
+		return codHistCred;
 	}
+
 	public void setCodHistCred(String codHistCred) {
-		CodHistCred = codHistCred;
+		this.codHistCred = codHistCred;
 	}
+
 	public String getCodHistDeb() {
-		return CodHistDeb;
+		return codHistDeb;
 	}
+
 	public void setCodHistDeb(String codHistDeb) {
-		CodHistDeb = codHistDeb;
-	}		
-	public String getHistorico() {
-		return Historico;
-	}	
-	public void setHistorico(String historico) {
-		Historico = historico;
+		this.codHistDeb = codHistDeb;
 	}
-	
-	
+
+	public String getHistorico() {
+		return historico;
+	}
+
+	public void setHistorico(String historico) {
+		this.historico = historico;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

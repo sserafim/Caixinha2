@@ -92,15 +92,57 @@
 	
 	<h1 style="margin-top: 20px">Histórico Padrão</h1>
 	
-	<p:column headerText="Código" sortBy="#{centroCusto.codigo}" width="50">
-		<h:outputText value="#{centroCusto.codigo}" />
+	<p:dataTable value="#{cadastroHistPadraoBean.listHistoricoPadrao()}" var="historicoP"
+				 border="1" cellspacing="0" cellpadding="2"
+			  	 paginator="true" rows="5" paginatorPosition="bottom">
+	
+	<p:column  filterStyle="width:50px" filterBy="#{historicoP.codHistorico}" footerText="contains" filterMatchMode="contains" width="100" headerText="Código" sortBy="#{historicoP.codHistorico}">
+		<h:outputText value="#{historicoP.codHistorico}"  />
+	</p:column>	
+	
+	<p:column width="100" headerText="Utilização" sortBy="#{historicoP.utilizacao}">
+		<h:outputText  value="#{historicoP.utilizacao}" />
 	</p:column>
 	
+	<p:column width="100" headerText="Tipo Lote" sortBy="#{historicoP.tipoLote.id}">
+		<h:outputText  value="#{historicoP.tipoLote.id}" />
+	</p:column>
+
+	<p:column width="100" headerText="Conta ctb Créd." sortBy="#{historicoP.ctaCtbCred}">
+		<h:outputText  value="#{historicoP.ctaCtbCred}" />
+	</p:column>		
 	
+	<p:column width="100" headerText="Conta ctb Créd." sortBy="#{historicoP.ctaCtbDeb}">
+		<h:outputText  value="#{historicoP.ctaCtbDeb}" />
+	</p:column>
+
+	<p:column width="100" headerText="Cód. Hist Créd." sortBy="#{historicoP.codHistCred}">
+		<h:outputText  value="#{historicoP.codHistCred}" />
+	</p:column>	
 	
+	<p:column width="100" headerText="Cód. Hist Déb." sortBy="#{historicoP.codHistDeb}">
+		<h:outputText  value="#{historicoP.codHistDeb}" />
+	</p:column>	
+	
+	<p:column width="100" headerText="Histórico" sortBy="#{historicoP.historico}">
+		<h:outputText  value="#{historicoP.historico}" />
+	</p:column>		
 
-
-
+	<p:column width="70" style="text-align: center">
+	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroHistPadrao">	
+		<f:param name="id" value="#{historicoP.codHistorico}" />						
+	</p:button>
+			
+	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+		action="#{consultaHistPadraoBean.excluir()}">
+	<f:setPropertyActionListener value="#{historicoP}" 
+		target="#{consultaHistPadraoBean.historicoPadrao}" />		  				
+	</p:commandButton>
+	</p:column>
+	
+	</p:dataTable>
+						
+		
 	</h:form>		
 	</ui:define>
 

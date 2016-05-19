@@ -2,15 +2,15 @@ package com.samuex.financeiro.model;
 
 public enum TipoLote {
 	
-	TipoDoLote(2);
+	DOIS("2");
 	
-	private int id;
+	private String id;
 	
-	TipoLote(int id){
+	TipoLote(String id){
 		this.id = id;
 	}
 	
-	public int getId(){
+	public String getId(){
 		return id;
 	}
 	

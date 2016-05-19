@@ -65,6 +65,11 @@
 			<location>C:/Users/samuelos/Pictures/loading.gif</location>
 		</link>
 		<link>
+			<name>src/main/webapp/resources/image/log-out.png</name>
+			<type>1</type>
+			<location>C:/Users/samuelos/Pictures/log-out.png</location>
+		</link>
+		<link>
 			<name>src/main/webapp/resources/image/logo.png</name>
 			<type>1</type>
 			<location>C:/Users/samuelos/Pictures/logo.png</location>

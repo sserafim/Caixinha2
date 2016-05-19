@@ -2,7 +2,7 @@ package com.samuex.financeiro.model;
 
 public enum TipoLote {
 	
-	DOIS("2");
+	Dois("2");
 	
 	private String id;
 	

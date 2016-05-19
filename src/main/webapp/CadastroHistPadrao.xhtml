@@ -93,19 +93,19 @@
 	<h1 style="margin-top: 20px">Histórico Padrão</h1>
 	
 	<p:dataTable value="#{cadastroHistPadraoBean.listHistoricoPadrao()}" var="historicoP"
-				 border="1" cellspacing="0" cellpadding="2"
+				 border="1" cellspacing="0" cellpadding="2" 
 			  	 paginator="true" rows="5" paginatorPosition="bottom">
 	
-	<p:column  filterStyle="width:50px" filterBy="#{historicoP.codHistorico}" footerText="contains" filterMatchMode="contains" width="100" headerText="Código" sortBy="#{historicoP.codHistorico}">
-		<h:outputText value="#{historicoP.codHistorico}"  />
+	<p:column  filterStyle="width:50px" filterBy="#{historicoP.codHistorico}" footerText="contains" filterMatchMode="contains" width="100"  headerText="Código" sortBy="#{historicoP.codHistorico}">
+		<h:outputText value="#{historicoP.codHistorico}"   />
 	</p:column>	
 	
-	<p:column width="100" headerText="Utilização" sortBy="#{historicoP.utilizacao}">
+	<p:column width="100"  headerText="Utilização" sortBy="#{historicoP.utilizacao}">
 		<h:outputText  value="#{historicoP.utilizacao}" />
 	</p:column>
 	
 	<p:column width="100" headerText="Tipo Lote" sortBy="#{historicoP.tipoLote.id}">
-		<h:outputText  value="#{historicoP.tipoLote.id}" />
+		<h:outputText  style="center" value="#{historicoP.tipoLote.id}" />
 	</p:column>
 
 	<p:column width="100" headerText="Conta ctb Créd." sortBy="#{historicoP.ctaCtbCred}">

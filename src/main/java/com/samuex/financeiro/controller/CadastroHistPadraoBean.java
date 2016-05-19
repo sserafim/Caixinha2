@@ -8,7 +8,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.samuex.financeiro.model.ContaContabil;
 import com.samuex.financeiro.model.HistoricoPadrao;
+import com.samuex.financeiro.model.TipoLote;
+import com.samuex.financeiro.repository.ContasContabeis;
 import com.samuex.financeiro.repository.HistoricosPadrao;
 import com.samuex.financeiro.service.CadastroHistPadrao;
 import com.samuex.financeiro.service.NegocioException;
@@ -21,6 +24,11 @@ public class CadastroHistPadraoBean implements Serializable {
 	
 	private HistoricoPadrao historicoPadrao;
 	
+	private List<ContaContabil> todasCtaCtb;
+	
+	@Inject
+	private ContasContabeis contasContabeis;
+	
 	@Inject
 	private HistoricosPadrao historicosPadrao;
 	
@@ -29,6 +37,8 @@ public class CadastroHistPadraoBean implements Serializable {
 	
 	
 	public void prepararCadastro(){
+		
+		this.todasCtaCtb = this.contasContabeis.todas();
 		
 		if(this.historicoPadrao == null){
 			this.historicoPadrao = new HistoricoPadrao();
@@ -44,10 +54,14 @@ public class CadastroHistPadraoBean implements Serializable {
 	}
 
 	
+	public TipoLote[] getTipoLote(){
+		return TipoLote.values();
+	} 
+	
+	
 	public List<HistoricoPadrao> listHistoricoPadrao(){
 		return historicosPadrao.todos();
 	}
-	
 	
 
 	public HistoricoPadrao getHistoricoPadrao() {
@@ -58,9 +72,11 @@ public class CadastroHistPadraoBean implements Serializable {
 	public void setHistoricoPadrao(HistoricoPadrao historicoPadrao) {
 		this.historicoPadrao = historicoPadrao;
 	}
-	
-	
-	
-	
+
+
+	public List<ContaContabil> getTodasCtaCtb() {
+		return todasCtaCtb;
+	}
+
 
 }

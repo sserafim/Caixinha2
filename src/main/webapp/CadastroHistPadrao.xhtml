@@ -32,15 +32,72 @@
    	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
     
-     <p:outputLabel value="Codigo Centro Custo" for="codigo" />
-	<p:inputText id="codigo" size="6" 
-		value="#{cadastroCCustoBean.centroCusto.codigo}">
+    <p:outputLabel value="Codigo Histórico" for="codHistorico" />
+	<p:inputText id="codHistorico" size="5" 
+		value="#{cadastroHistPadraoBean.historicoPadrao.codHistorico}">
  	</p:inputText>
     
-    
-    
+    <p:outputLabel value="Utilização" for="utilizacao" />
+	<p:inputText id="utilizacao" size="78" 
+		value="#{cadastroHistPadraoBean.historicoPadrao.utilizacao}">
+ 	</p:inputText>  
+ 	
+ 	<p:outputLabel value="Tipo Lote" for="tipoLote" />
+ 	<p:selectOneMenu value="#{cadastroHistPadraoBean.historicoPadrao.tipoLote}"
+ 	id="tipoLote" filter="true" filterMatchMode="contains">
+ 	<f:selectItem  itemLabel="Selecione"  noSelectionOption="true" />
+ 	<f:selectItems value="#{cadastroHistPadraoBean.tipoLote}"  
+	  var="tipoLote" itemValue="#{tipoLote}" itemLabel="#{tipoLote.id}"/>
+ 	</p:selectOneMenu>
+ 	
+ 	<p:outputLabel value="Conta Red. Crédito" for="ctaCtbCred"  />
+ 	<p:selectOneMenu value="#{cadastroHistPadraoBean.historicoPadrao.ctaCtbCred}" 
+ 	  id="ctaCtbCred" filter="true" filterMatchMode="contains">
+	<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+	<f:selectItems value="#{cadastroHistPadraoBean.todasCtaCtb}" 
+	  var="ctaCtbCred" itemValue="#{ctaCtbCred}" itemLabel="#{ctaCtbCred.contaContabilRed.concat(' - ').concat(ctaCtbCred.descricao)}" /> 
+	</p:selectOneMenu>
 
+ 	
+ 	<p:outputLabel value="Conta Red. Débito" for="ctaCtbDeb"  />
+ 	<p:selectOneMenu value="#{cadastroHistPadraoBean.historicoPadrao.ctaCtbDeb}" 
+ 	  id="ctaCtbDeb" filter="true" filterMatchMode="contains">
+	<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+	<f:selectItems value="#{cadastroHistPadraoBean.todasCtaCtb}" 
+	  var="ctaCtbDeb" itemValue="#{ctaCtbDeb}" itemLabel="#{ctaCtbDeb.contaContabilRed.concat(' - ').concat(ctaCtbDeb.descricao)}" /> 
+	</p:selectOneMenu>	
 
+    <p:outputLabel value="Cód. Hist. Créd." for="codHistCred" />
+	<p:inputText id="codHistCred" size="5" 
+		value="#{cadastroHistPadraoBean.historicoPadrao.codHistCred}">
+ 	</p:inputText>
+ 	  
+    <p:outputLabel value="Cód. Hist. Déb." for="codHistDeb" />
+	<p:inputText id="codHistDeb" size="5" 
+		value="#{cadastroHistPadraoBean.historicoPadrao.codHistDeb}">
+ 	</p:inputText>   
+ 	
+ 	
+ 	<p:outputLabel for="historico" value="Histórco:" />
+        <p:selectOneRadio id="historico" value="#{cadastroHistPadraoBean.historicoPadrao.historico}">
+            <f:selectItem itemLabel="Sim" itemValue="S" />
+            <f:selectItem itemLabel="Não" itemValue="N" />
+        </p:selectOneRadio>	  
+	
+		<h:outputLabel />
+		<p:commandButton value="Salvar" action="#{cadastroHistPadraoBean.salvar()}"
+			icon="ui-icon-disk" update="frm" />
+			
+	</p:panelGrid>
+	
+	<h1 style="margin-top: 20px">Histórico Padrão</h1>
+	
+	<p:column headerText="Código" sortBy="#{centroCusto.codigo}" width="50">
+		<h:outputText value="#{centroCusto.codigo}" />
+	</p:column>
+	
+	
+	
 
 
 

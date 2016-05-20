@@ -29,7 +29,7 @@ public class CadastroCContabil implements Serializable{
 	}
 	
 	@Transactional
-	public void excluirTodas(){
+	public void excluirTodas() {
 		this.contasContabeis.deletarTodas();
 	}
 

@@ -60,6 +60,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/main/webapp/resources/image/exit.png</name>
+			<type>1</type>
+			<location>C:/Users/samuelos/Pictures/exit.png</location>
+		</link>
+		<link>
 			<name>src/main/webapp/resources/image/loading.gif</name>
 			<type>1</type>
 			<location>C:/Users/samuelos/Pictures/loading.gif</location>

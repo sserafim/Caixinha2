@@ -49,10 +49,13 @@ public class ConsultaCContabilBean implements Serializable {
 	public void delRecords(){		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		this.cadastro.excluirTodas();
-		this.consultar();
+	
+			this.cadastro.excluirTodas();
+			this.consultar();
 
-		context.addMessage(null, new FacesMessage("Todos os registro foram deletados!"));
+			context.addMessage(null, new FacesMessage("Todos os registro foram deletados!"));
+
+
 	}
 		
 	

@@ -20,7 +20,7 @@ public class CadastroUsuarioSistema implements Serializable{
 	}
 		
 	@Transactional
-	public void excluir(UsuarioSistema usuario){
+	public void excluir(UsuarioSistema usuario) throws NegocioException{
 		usuario = this.usuarioSistemas.porID(usuario.getId());
 		
 		this.usuarioSistemas.remover(usuario);

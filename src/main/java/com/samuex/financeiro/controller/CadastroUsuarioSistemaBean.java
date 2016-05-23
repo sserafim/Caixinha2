@@ -1,13 +1,18 @@
 package com.samuex.financeiro.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.samuex.financeiro.model.Empresa;
+import com.samuex.financeiro.model.TipoPerfil;
 import com.samuex.financeiro.model.UsuarioSistema;
+import com.samuex.financeiro.repository.Empresas;
 import com.samuex.financeiro.repository.UsuarioSistemas;
 
 @Named
@@ -17,6 +22,13 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 	public static final long serialVersionUID = 1L;
 
 	private UsuarioSistema usuarioSistema;
+
+	@Inject
+	private UsuarioSistemas usuarioSistemas;
+	
+	@Inject
+	private Empresas listEmpresas;
+	
 	
 	public void prepararCadastro(){
 		
@@ -25,9 +37,11 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 		}
 	}
 	
-	@Inject
-	private UsuarioSistemas usuarioSistemas;
 	
+	public void empresaSelecionada(AjaxBehaviorEvent event){
+	
+		
+	}
 	
 	
 	public void salvar(){
@@ -35,6 +49,19 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 		
 		this.usuarioSistemas.guardar(this.usuarioSistema);		
 		context.addMessage(null, new FacesMessage("Usuário salvo com sucesso!!!"));
+	}
+	
+	public List<UsuarioSistema> listUsuariosSistema(){
+		return usuarioSistemas.todos();
+	}
+	
+	
+	public List<Empresa> listaEmpresas(){
+		return this.listEmpresas.todas();
+	}
+	
+	public TipoPerfil[] getTipoPerfil(){
+		return TipoPerfil.values();
 	}
 	
 

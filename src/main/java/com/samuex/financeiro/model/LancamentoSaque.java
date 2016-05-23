@@ -13,7 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -25,71 +26,88 @@ public class LancamentoSaque implements Serializable{
 	private Long 			id;
 	private Long			numeroSaque;
 	private BigDecimal 		valorSaque;
-	private Date 			DataLancamento;
-	private TipoSaque 		tipo;
-	private Long 			LocalLancamento; 
-	
+	private Date 			DataSaque;
+	private TipoSaque 		tipoSaque;
+	private String 			LocalSaque;
+	private String 			usuarioSaque;
 	
 	@Id
 	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+//----------------
 	
-	@NotNull
+	@NotEmpty
+	@Column(length = 20, nullable = false)
 	public Long getNumeroSaque() {
 		return numeroSaque;
 	}
-	
+
 	public void setNumeroSaque(Long numeroSaque) {
 		this.numeroSaque = numeroSaque;
 	}
+//----------------
 	
-	
+	@NotEmpty
 	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValorSaque() {
 		return valorSaque;
 	}
-	
+
 	public void setValorSaque(BigDecimal valorSaque) {
 		this.valorSaque = valorSaque;
 	}
+//----------------
 	
-	
-	@Column(name = "localLancamento", nullable = true)
-	public Long getLocalLancamento() {
-		return LocalLancamento;
-	}
-
-	public void setLocalLancamento(Long localLancamento) {
-		LocalLancamento = localLancamento;
-	}
-
-	@NotNull
+	@NotEmpty
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dataLancamento", nullable = false)
-	public Date getDataLancamento() {
-		return DataLancamento;
+	@Column(name = "datasaque", nullable = false)
+	public Date getDataSaque() {
+		return DataSaque;
 	}
-	
-	public void setDataLancamento(Date dataLancamento) {
-		DataLancamento = dataLancamento;
+
+	public void setDataSaque(Date dataSaque) {
+		DataSaque = dataSaque;
 	}
-	
-	@NotNull
+//----------------
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	public TipoSaque getTipo() {
-		return tipo;
+	public TipoSaque getTipoSaque() {
+		return tipoSaque;
 	}
+
+	public void setTipoSaque(TipoSaque tipoSaque) {
+		this.tipoSaque = tipoSaque;
+	}
+//----------------
 	
-	public void setTipo(TipoSaque tipo) {
-		this.tipo = tipo;
+	@Column(length = 80, nullable = false)
+	public String getLocalSaque() {
+		return LocalSaque;
 	}
+
+	public void setLocalSaque(String localSaque) {
+		LocalSaque = localSaque;
+	}
+//----------------
+	
+	@Column(length = 80, nullable = false)
+	public String getUsuarioSaque() {
+		return usuarioSaque;
+	}
+
+	public void setUsuarioSaque(String usuarioSaque) {
+		this.usuarioSaque = usuarioSaque;
+	}
+
+//----------------	
+	
 	
 	@Override
 	public int hashCode() {

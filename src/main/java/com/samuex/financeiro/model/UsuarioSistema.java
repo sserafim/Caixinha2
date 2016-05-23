@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usuarioSistema")
@@ -18,10 +19,10 @@ public class UsuarioSistema implements Serializable {
 		private Long id;
 		private String nomeCompleto;
 		private String loginUsuario;
-		private int empresa;
+		private String empresa;
 		private String unidade;
 		private String senha;
-		private int administrator;
+		private TipoPerfil tipoPerfil;
 		
 		
 		@Id
@@ -32,37 +33,35 @@ public class UsuarioSistema implements Serializable {
 		public void setId(Long id) {
 			this.id = id;
 		}
-		@NotNull
+		
 		@Column(name = "nomeCompleto", nullable = true)
 		public String getNomeCompleto() {
 			return nomeCompleto;
 		}
 		
 		public void setNomeCompleto(String nomeCompleto) {
-			this.nomeCompleto = nomeCompleto;
+			this.nomeCompleto = nomeCompleto.toUpperCase();
 		}
-		
-		@NotNull
+				
 		@Column(name = "loginUsuario", nullable = true)
 		public String getLoginUsuario() {
 			return loginUsuario;
 		}
 		
 		public void setLoginUsuario(String loginUsuario) {
-			this.loginUsuario = loginUsuario;
+			this.loginUsuario = loginUsuario.toUpperCase();
 		}
-		
-		@NotNull
+			
 		@Column(name = "empresa", nullable = true)
-		public int getEmpresa() {
+		public String getEmpresa() {
 			return empresa;
 		}
 		
-		public void setEmpresa(int empresa) {
+		public void setEmpresa(String empresa) {
 			this.empresa = empresa;
 		}
 		
-		@NotNull
+		
 		@Column(name = "unidade", nullable = true)
 		public String getUnidade() {
 			return unidade;
@@ -72,27 +71,27 @@ public class UsuarioSistema implements Serializable {
 			this.unidade = unidade;
 		}
 		
-		@NotNull
+		
 		@Column(name = "senha", nullable = true)
 		public String getSenha() {
 			return senha;
 		}
 		
 		public void setSenha(String senha) {
-			this.senha = senha;
+			this.senha = senha.toUpperCase();
 		}
 		
-		@NotNull
-		@Column(name = "administrator", nullable = true)
-		public int getAdministrator() {
-			return administrator;
+		@Enumerated(EnumType.STRING)
+		@Column(nullable = false)
+		public TipoPerfil getTipoPerfil() {
+			return tipoPerfil;
 		}
+		
+		public void setTipoPerfil(TipoPerfil tipoPerfil) {
+			this.tipoPerfil = tipoPerfil;
+		}
+		
 				
-		public void setAdministrator(int administrator) {
-			this.administrator = administrator;
-		}
-
-		
 		@Override
 		public int hashCode() {
 			final int prime = 31;

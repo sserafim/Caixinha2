@@ -20,46 +20,52 @@
 		<h:form id="frm">
 			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 
-				<p:panelGrid columns="2" id="grid">
-				
-					<p:outputLabel value="Nome Completo" for="nomeCompleto" />
-					<p:inputText id="nomeCompleto" size="100" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.nomeCompleto}">
-		 			</p:inputText>
+			<p:panelGrid columns="2" id="grid">
+			
+				<p:outputLabel value="Nome Completo" for="nomeCompleto" />
+				<p:inputText id="nomeCompleto" size="78" style="text-transform:uppercase"
+					value="#{cadastroUsuarioSistemaBean.usuarioSistema.nomeCompleto}">
+	 			</p:inputText>
 
-					<p:outputLabel value="Login Usuário" for="loginUsuario" />
-					<p:inputText id="loginUsuario" size="50" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.loginUsuario}">
-		 			</p:inputText>	
-		 				 			
-					<p:outputLabel value="Empresa" for="empresa" />
-					<p:inputText id="empresa" size="4" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresa}">
-		 			</p:inputText>
-		 			
-		 			<p:outputLabel value="Unidade" for="unidade" />
-					<p:inputText id="unidade" size="2" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.unidade}">
-		 			</p:inputText>				 	
-		 			
-					<p:outputLabel value="Senha" for="senha" />
-					<p:inputText id="senha" size="2" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.senha}">
-		 			</p:inputText>				 
-		 						
-					<p:outputLabel value="Administrador" for="administrator" />
-					<p:inputText id="administrator" size="1" 
-						value="#{cadastroUsuarioSistemaBean.usuarioSistema.administrator}">
-		 			</p:inputText>				
-				
-					<h:outputLabel />
-				    <p:commandButton value="Salvar" action="#{cadastroUsuarioSistemaBean.salvar}"
-					icon="ui-icon-disk" update="@form" />
+				<p:outputLabel value="Login Usuário" for="loginUsuario" />
+				<p:inputText id="loginUsuario" size="35" style="text-transform:uppercase"
+					value="#{cadastroUsuarioSistemaBean.usuarioSistema.loginUsuario}">
+	 			</p:inputText>	
 
-				</p:panelGrid>
+	 			<p:outputLabel value="Unidade" for="unidade" />
+			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.unidade}" 
+			 	  id="unidade" filter="true" filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{cadastroUsuarioSistemaBean.listaEmpresas()}" 
+				  var="listEmpresa" itemValue="listEmpresa" itemLabel="#{listEmpresa.nome.concat(' - ').concat(listEmpresa.nomeUnidade)}" /> 
+				</p:selectOneMenu>	 			
+	 				 			
+				<p:outputLabel value="Empresa" for="empresa" />
+				<p:inputText id="empresa" size="8" 
+					value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresa}">
+	 			</p:inputText>
+			
+				<p:outputLabel value="Senha" for="senha" />
+				<p:inputText id="senha" size="8" style="text-transform:uppercase"
+					value="#{cadastroUsuarioSistemaBean.usuarioSistema.senha}">
+	 			</p:inputText>			 
+
+			 	<p:outputLabel value="Tipo Acesso" for="tipoPerfil" />
+			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.tipoPerfil}"
+			 		id="tipoPerfil" filter="true" filterMatchMode="contains">
+			 	<f:selectItem  itemLabel="Selecione"  noSelectionOption="true" />
+			 	<f:selectItems value="#{cadastroUsuarioSistemaBean.tipoPerfil}"  
+				  	var="tipoPerfil" itemValue="#{tipoPerfil}" itemLabel="#{tipoPerfil.descricao}"/>
+			 	</p:selectOneMenu>
+								
+				<h:outputLabel />
+			    <p:commandButton value="Salvar" action="#{cadastroUsuarioSistemaBean.salvar}"
+				icon="ui-icon-disk" update="@form" />
+
+			</p:panelGrid>
 	
 		</h:form>
-	</ui:define>		
+	 </ui:define>		
 </ui:composition>
 
 	

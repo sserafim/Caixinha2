@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import com.samuex.financeiro.model.UsuarioSistema;
 
 public class UsuarioSistemas implements Serializable{
+	
 	public static final long serialVersionUID = 1L;
 	
 	private EntityManager manager;
@@ -25,10 +26,23 @@ public class UsuarioSistemas implements Serializable{
 	
 	public List<UsuarioSistema> todos(){
 		TypedQuery<UsuarioSistema> query = manager.createQuery("from UsuarioSistema", UsuarioSistema.class);
-		return query.getResultList();
-		
+		return query.getResultList();	
 	}
 	
+	
+	public String buscaLogin(String login) {
+		TypedQuery<String> query = manager.createQuery(
+				"select loginUsuario from UsuarioSistema "
+				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
+				String.class);
+		query.setParameter("loginUsuario",login);
+		return query.getSingleResult();
+	}
+	
+	public void adicionar(UsuarioSistema usuarioSistema){
+		this.manager.persist(usuarioSistema);
+	}
+	 
 	public UsuarioSistema guardar(UsuarioSistema usuario){
 		return this.manager.merge(usuario); 
 	}

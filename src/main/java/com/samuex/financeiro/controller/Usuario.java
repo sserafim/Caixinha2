@@ -23,6 +23,7 @@ public class Usuario implements Serializable {
 		return nome;
 	}
 
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

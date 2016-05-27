@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.samuex.financeiro.repository.UsuarioSistemas;
+
 @Named
 @RequestScoped
 public class LoginBean {
@@ -16,13 +18,17 @@ public class LoginBean {
 	@Inject
 	private Usuario usuario;
 	
+	@Inject
+	private UsuarioSistemas usuarios;
+	
 	private String nomeUsuario;
 	private String senha;
 
+	
 	public String login() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		if ("samuel".equals(this.nomeUsuario) && "123".equals(this.senha)) {
+		if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
 			
@@ -56,5 +62,6 @@ public class LoginBean {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
 
 }

@@ -8,7 +8,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "usuarioSistema")
@@ -19,8 +25,7 @@ public class UsuarioSistema implements Serializable {
 		private Long id;
 		private String nomeCompleto;
 		private String loginUsuario;
-		private String empresa;
-		private String unidade;
+		private Empresa empresaUnidade;
 		private String senha;
 		private TipoPerfil tipoPerfil;
 		
@@ -34,7 +39,20 @@ public class UsuarioSistema implements Serializable {
 			this.id = id;
 		}
 		
-		@Column(name = "nomeCompleto", nullable = true)
+		@NotNull
+		@ManyToOne(optional = false)
+		@JoinColumn(name = "empresa_id")
+		public Empresa getEmpresaUnidade() {
+			return empresaUnidade;
+		}
+		
+		public void setEmpresaUnidade(Empresa empresaUnidade) {
+			this.empresaUnidade = empresaUnidade;
+		}		
+		
+		@NotEmpty
+		@Size(max = 100)
+		@Column(length = 100, name = "nomeCompleto", nullable = true)
 		public String getNomeCompleto() {
 			return nomeCompleto;
 		}
@@ -42,37 +60,21 @@ public class UsuarioSistema implements Serializable {
 		public void setNomeCompleto(String nomeCompleto) {
 			this.nomeCompleto = nomeCompleto.toUpperCase();
 		}
-				
-		@Column(name = "loginUsuario", nullable = true)
+		
+		@NotEmpty
+		@Size(max = 50)
+		@Column(length = 50, name = "loginUsuario", nullable = true)
 		public String getLoginUsuario() {
 			return loginUsuario;
 		}
 		
 		public void setLoginUsuario(String loginUsuario) {
 			this.loginUsuario = loginUsuario.toUpperCase();
-		}
-			
-		@Column(name = "empresa", nullable = true)
-		public String getEmpresa() {
-			return empresa;
-		}
-		
-		public void setEmpresa(String empresa) {
-			this.empresa = empresa;
-		}
-		
-		
-		@Column(name = "unidade", nullable = true)
-		public String getUnidade() {
-			return unidade;
-		}
-		
-		public void setUnidade(String unidade) {
-			this.unidade = unidade;
-		}
-		
-		
-		@Column(name = "senha", nullable = true)
+		}			
+
+		@NotEmpty
+		@Size(max = 12)
+		@Column(length = 12, name = "senha", nullable = true)
 		public String getSenha() {
 			return senha;
 		}

@@ -18,6 +18,13 @@
 		<h1>Cadastro de Usuário</h1>
 				
 		<h:form id="frm">
+		
+			<p:toolbar style="margin: 10px 10px">
+		    	<p:toolbarGroup>
+		    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroUsuarioSistema?faces-redirect=true"/>
+		    	</p:toolbarGroup>
+		    </p:toolbar>
+		
 			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 
 			<p:panelGrid columns="2" id="grid">
@@ -32,19 +39,14 @@
 					value="#{cadastroUsuarioSistemaBean.usuarioSistema.loginUsuario}">
 	 			</p:inputText>	
 
-	 			<p:outputLabel value="Unidade" for="unidade" />
-			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.unidade}" 
-			 	  id="unidade" filter="true" filterMatchMode="contains">
-				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-				<f:selectItems value="#{cadastroUsuarioSistemaBean.listaEmpresas()}" 
-				  var="listEmpresa" itemValue="listEmpresa" itemLabel="#{listEmpresa.nome.concat(' - ').concat(listEmpresa.nomeUnidade)}" /> 
-				</p:selectOneMenu>	 			
-	 				 			
-				<p:outputLabel value="Empresa" for="empresa" />
-				<p:inputText id="empresa" size="8" 
-					value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresa}">
-	 			</p:inputText>
-			
+	 			<p:outputLabel value="Empresa/Unidade" for="empresa" />
+			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresaUnidade}" 
+			 	  id="empresa" filter="true" filterMatchMode="contains">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true"  />
+				<f:selectItems value="#{cadastroUsuarioSistemaBean.todasEmpresas}" 
+				  var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome.concat(' - ').concat(empresa.nomeUnidade)}" /> 			
+				</p:selectOneMenu>	 				 				 		
+	 						
 				<p:outputLabel value="Senha" for="senha" />
 				<p:inputText id="senha" size="8" style="text-transform:uppercase"
 					value="#{cadastroUsuarioSistemaBean.usuarioSistema.senha}">
@@ -60,9 +62,51 @@
 								
 				<h:outputLabel />
 			    <p:commandButton value="Salvar" action="#{cadastroUsuarioSistemaBean.salvar}"
-				icon="ui-icon-disk" update="@form" />
+				icon="ui-icon-disk" update="frm" />
 
 			</p:panelGrid>
+			
+			
+			<h1 style="margin-top: 20px">Usuários</h1>
+			
+			
+			
+		<p:dataTable value="#{cadastroUsuarioSistemaBean.listUsuariosSistema()}" var="usuarios"
+			border="1" cellspacing="0" cellpadding="2"
+			paginator="true" rows="5" paginatorPosition="bottom">	
+			
+			
+		<p:column headerText="Id" sortBy="#{usuarios.id}" width="25">
+			<h:outputText value="#{usuarios.id}" />
+		</p:column>
+		
+		<p:column headerText="Login" sortBy="#{usuarios.loginUsuario}" width="35">
+			<h:outputText value="#{usuarios.loginUsuario}" />
+		</p:column>
+		
+		<p:column headerText="Nome" sortBy="#{usuarios.nomeCompleto}" width="50">
+			<h:outputText value="#{usuarios.nomeCompleto}" />
+		</p:column>
+
+		<p:column headerText="Perfil" sortBy="#{usuarios.tipoPerfil.descricao}" width="50">
+			<h:outputText value="#{usuarios.tipoPerfil.descricao}" />
+		</p:column>
+
+		<p:column headerText="Empresa"  width="50" sortBy="#{usuarios.empresaUnidade.empresa.concat(' - ').concat(usuarios.empresaUnidade.nomeUnidade)}">
+			<h:outputText value="#{usuarios.empresaUnidade.empresa.concat(' - ').concat(usuarios.empresaUnidade.nomeUnidade)}" />
+		</p:column>
+		
+		<p:column width="8" style="text-align: center">
+		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroUsuarioSistema">
+			<f:param name="id" value="#{usuarios.id}" />
+		</p:button>
+		<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+				action="#{consultaUsuarioSistemaBean.excluir()}">
+	 				<f:setPropertyActionListener value="#{usuarios}" 
+	 					target="#{consultaUsuarioSistemaBean.usuarioSelecionado}" />
+	 			</p:commandButton>
+		</p:column>				
+		</p:dataTable>	
 	
 		</h:form>
 	 </ui:define>		

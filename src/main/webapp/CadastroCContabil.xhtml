@@ -87,11 +87,11 @@
  		<h:outputText value="#{contaContabil.descricao}" />
 	</p:column>
 
-	<p:column  filterStyle="width:50px" filterBy="#{contaContabil.contaContabilRed}" footerText="contains" filterMatchMode="contains" width="50" headerText="Conta Contabil Red" sortBy="#{contaContabil.contaContabilRed}">
+	<p:column  filterStyle="width:50px" filterBy="#{contaContabil.contaContabilRed}" footerText="contains" filterMatchMode="contains" width="20" headerText="Conta Contabil Red" sortBy="#{contaContabil.contaContabilRed}">
  		<h:outputText value="#{contaContabil.contaContabilRed}" />
 	</p:column>	
 	
-	<p:column width="70" style="text-align: center">
+	<p:column width="8" style="text-align: center">
 	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCContabil">
 		<f:param name="id" value="#{contaContabil.contaContabilRed}" />
 	</p:button>

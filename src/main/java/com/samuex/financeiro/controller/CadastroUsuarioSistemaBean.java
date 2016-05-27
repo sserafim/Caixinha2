@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,6 +13,8 @@ import com.samuex.financeiro.model.TipoPerfil;
 import com.samuex.financeiro.model.UsuarioSistema;
 import com.samuex.financeiro.repository.Empresas;
 import com.samuex.financeiro.repository.UsuarioSistemas;
+import com.samuex.financeiro.service.CadastroUsuarioSistema;
+import com.samuex.financeiro.service.NegocioException;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -27,10 +28,15 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 	private UsuarioSistemas usuarioSistemas;
 	
 	@Inject
-	private Empresas listEmpresas;
+	private CadastroUsuarioSistema cadastro;
 	
+	@Inject
+	private Empresas empresas;
 	
+	private List<Empresa> todasEmpresas;
+
 	public void prepararCadastro(){
+		this.todasEmpresas = this.empresas.todas();
 		
 		if(this.usuarioSistema == null){
 			this.usuarioSistema = new UsuarioSistema();
@@ -38,17 +44,21 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 	}
 	
 	
-	public void empresaSelecionada(AjaxBehaviorEvent event){
-	
-		
-	}
-	
-	
 	public void salvar(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		this.usuarioSistemas.guardar(this.usuarioSistema);		
-		context.addMessage(null, new FacesMessage("Usuário salvo com sucesso!!!"));
+		try{
+			this.cadastro.salvar(this.usuarioSistema);	
+			this.usuarioSistema = new UsuarioSistema();
+			context.addMessage(null, new FacesMessage("Usuário salvo com sucesso!!!"));
+		
+		}catch(NegocioException e) {
+			
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, mensagem);
+		}
+		
 	}
 	
 	public List<UsuarioSistema> listUsuariosSistema(){
@@ -56,9 +66,10 @@ public class CadastroUsuarioSistemaBean implements Serializable {
 	}
 	
 	
-	public List<Empresa> listaEmpresas(){
-		return this.listEmpresas.todas();
+	public List<Empresa> getTodasEmpresas() {
+		return todasEmpresas;
 	}
+
 	
 	public TipoPerfil[] getTipoPerfil(){
 		return TipoPerfil.values();

@@ -14,11 +14,15 @@ import com.samuex.financeiro.repository.LancamentosSaques;
 import com.samuex.financeiro.service.CadastroLacamentoSaque;
 import com.samuex.financeiro.service.NegocioException;
 
+
 @Named
 @javax.faces.view.ViewScoped
 public class CadastroLancamentoSaqueBean  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private Usuario usuarioLogado;
 	
 	private LancamentoSaque lancamentoSaque;
 	
@@ -27,8 +31,7 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 	
 	@Inject
 	private LancamentosSaques lancamentoSaques;
-	
-	
+
 	public void prepararCadastro(){
 		
 		if(this.lancamentoSaque == null){
@@ -40,6 +43,8 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try{
+			
+			this.lancamentoSaque.setUsuarioSaque(this.usuarioLogado.getNome());
 		
 			this.cadastro.salvar(this.lancamentoSaque);
 			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
@@ -56,8 +61,8 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 		return TipoSaque.values();
 	}
 	
-	public List<LancamentoSaque> listLancamentosSaques(){
-		return lancamentoSaques.todos();
+	public List<LancamentoSaque> listSaques(){
+		return lancamentoSaques.todos();		
 	}
 
 	public LancamentoSaque getLancamentoSaque() {
@@ -67,7 +72,14 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 	public void setLancamentoSaque(LancamentoSaque lancamentoSaque) {
 		this.lancamentoSaque = lancamentoSaque;
 	}
-	
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 
 
 }

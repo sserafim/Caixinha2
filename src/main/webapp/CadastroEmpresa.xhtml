@@ -109,7 +109,9 @@
 			<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 				action="#{consultaEmpresaBean.excluir}">
 			<f:setPropertyActionListener value="#{empresa}" 
-				target="#{consultaEmpresaBean.empresaSelecionada}" />		  				
+				target="#{consultaEmpresaBean.empresaSelecionada}" />
+			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir a Empresa?" />	 		
 			</p:commandButton>
 			</p:column>
 		

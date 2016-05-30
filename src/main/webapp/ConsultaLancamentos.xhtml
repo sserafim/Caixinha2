@@ -57,6 +57,8 @@
 							action="#{consultaLancamentosBean.excluir}">
 	    				<f:setPropertyActionListener value="#{lancamento}" 
 	    					target="#{consultaLancamentosBean.lancamentoSelecionado}" />
+	    			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir o Lançamento?" />	 				
 	    			</p:commandButton>
 				</p:column>
 			</p:dataTable>

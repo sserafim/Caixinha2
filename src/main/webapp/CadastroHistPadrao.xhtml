@@ -136,7 +136,9 @@
 	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 		action="#{consultaHistPadraoBean.excluir()}">
 	<f:setPropertyActionListener value="#{historicoP}" 
-		target="#{consultaHistPadraoBean.historicoPadrao}" />		  				
+		target="#{consultaHistPadraoBean.historicoPadrao}" />		
+	<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir o Histórico Padrão?" />	 			  				
 	</p:commandButton>
 	</p:column>
 	

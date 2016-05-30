@@ -38,7 +38,10 @@
 		
 		<div style="float: left ;width: 100px">
     		<h:form>
-    			<p:commandButton style="width: 100px" value="Excluir Todos" id="botaoExcluir" action="#{consultaCContabilBean.delRecords}" process="@this" />
+    			<p:commandButton style="width: 100px" value="Excluir Todos" id="botaoExcluir" action="#{consultaCContabilBean.delRecords}" process="@this" >
+    				<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            					message="Tem certeza que deseja excluir (TODAS) as Contas Contabeis?" />	 		
+            	</p:commandButton>				
     	    </h:form>
     	</div>  
 		
@@ -99,7 +102,9 @@
 			action="#{consultaCContabilBean.excluir}">
  				<f:setPropertyActionListener value="#{contaContabil}" 
  					target="#{consultaCContabilBean.contaContabil}" />
- 			</p:commandButton>
+	<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+           				message="Tem certeza que deseja excluir a Conta Contábil?" />	 		 					
+ 	</p:commandButton>
 	</p:column>	
 
 	</p:dataTable>

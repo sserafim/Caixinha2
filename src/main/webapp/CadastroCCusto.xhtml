@@ -107,7 +107,9 @@
 			action="#{consultaCCustoBean.excluir}">
  				<f:setPropertyActionListener value="#{centroCusto}" 
  					target="#{consultaCCustoBean.centroCustoSelecionado}" />
- 			</p:commandButton>
+		<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir o Centro de Custo?" />	 		 					
+ 	</p:commandButton>
 	</p:column>
 	
 	</p:dataTable>

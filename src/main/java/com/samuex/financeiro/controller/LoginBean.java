@@ -20,7 +20,7 @@ public class LoginBean {
 	
 	@Inject
 	private UsuarioSistemas usuarios;
-	
+		
 	private String nomeUsuario;
 	private String senha;
 
@@ -31,6 +31,9 @@ public class LoginBean {
 		if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
+		//	this.usuario.setLocalUsuario(this.usuarios.porLogin(this.nomeUsuario).getEmpresaUnidade().getNomeUnidade().toString());
+
+			
 			
 			return "/ConsultaLancamentos?faces-redirect=true";
 		} else {

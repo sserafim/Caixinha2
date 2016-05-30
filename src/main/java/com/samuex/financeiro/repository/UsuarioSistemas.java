@@ -24,6 +24,10 @@ public class UsuarioSistemas implements Serializable{
 		return manager.find(UsuarioSistema.class, id);
 	}
 	
+	public UsuarioSistema porLogin(String loginUsuario){
+		return manager.find( UsuarioSistema.class, loginUsuario);
+	}
+	
 	public List<UsuarioSistema> todos(){
 		TypedQuery<UsuarioSistema> query = manager.createQuery("from UsuarioSistema", UsuarioSistema.class);
 		return query.getResultList();	

@@ -23,7 +23,7 @@ public class CadastroLacamentoSaque implements Serializable {
 		this.lancamentosSaques.guardar(lancamentoSaque);		
 	}
 	
-	
+	@Transactional
 	public void excluir(LancamentoSaque lancamentoSaque) throws NegocioException{
 		
 		lancamentoSaque = this.lancamentosSaques.porId(lancamentoSaque.getId());

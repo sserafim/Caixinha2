@@ -104,7 +104,9 @@
 				action="#{consultaUsuarioSistemaBean.excluir()}">
 	 				<f:setPropertyActionListener value="#{usuarios}" 
 	 					target="#{consultaUsuarioSistemaBean.usuarioSelecionado}" />
-	 			</p:commandButton>
+		<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir o usuário?" />	 					
+	 	</p:commandButton>
 		</p:column>				
 		</p:dataTable>	
 	

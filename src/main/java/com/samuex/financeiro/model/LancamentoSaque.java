@@ -24,7 +24,7 @@ public class LancamentoSaque implements Serializable{
 	public static final long serialVersionUID = 1L;
 	
 	private Long 			id;
-	private Long			numeroSaque;
+	private String			numeroSaque;
 	private BigDecimal 		valorSaque;
 	private Date 			DataSaque;
 	private TipoSaque 		tipoSaque;
@@ -44,16 +44,16 @@ public class LancamentoSaque implements Serializable{
 	
 	@NotEmpty
 	@Column(length = 20, nullable = false)
-	public Long getNumeroSaque() {
+	public String getNumeroSaque() {
 		return numeroSaque;
 	}
 
-	public void setNumeroSaque(Long numeroSaque) {
+	public void setNumeroSaque(String numeroSaque) {
 		this.numeroSaque = numeroSaque;
 	}
 //----------------
 	
-	@NotEmpty
+	
 	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValorSaque() {
 		return valorSaque;
@@ -63,8 +63,7 @@ public class LancamentoSaque implements Serializable{
 		this.valorSaque = valorSaque;
 	}
 //----------------
-	
-	@NotEmpty
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "datasaque", nullable = false)
 	public Date getDataSaque() {
@@ -87,7 +86,7 @@ public class LancamentoSaque implements Serializable{
 	}
 //----------------
 	
-	@Column(length = 80, nullable = false)
+	@Column(length = 80, nullable = true)
 	public String getLocalSaque() {
 		return LocalSaque;
 	}
@@ -97,7 +96,7 @@ public class LancamentoSaque implements Serializable{
 	}
 //----------------
 	
-	@Column(length = 80, nullable = false)
+	@Column(length = 80, nullable = true)
 	public String getUsuarioSaque() {
 		return usuarioSaque;
 	}

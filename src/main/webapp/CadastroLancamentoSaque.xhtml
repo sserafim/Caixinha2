@@ -65,7 +65,7 @@
 	<h1 style="margin-top: 20px">Saques</h1>
 	
 	
-	<p:dataTable value="#{cadastroLancamentoSaqueBean.listLancamentosSaques()}" var="lancamentoSaque"
+	<p:dataTable value="#{cadastroLancamentoSaqueBean.listSaques()}" var="lancamentoSaque"
 		border="1" cellspacing="0" cellpadding="2"
 		paginator="true" rows="5" paginatorPosition="bottom">
 		
@@ -99,7 +99,7 @@
 		<h:outputText value="#{lancamentoSaque.usuarioSaque}" />
 	</p:column>	
 		
-	<p:column width="8" style="text-align: center">
+	<p:column width="100" style="text-align: center">
 		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroLancamentoSaque">
 			<f:param name="id" value="#{lancamentoSaque.id}" />
 		</p:button>
@@ -107,7 +107,9 @@
 				action="#{consultaLancamentoSaqueBean.excluir()}">
   				<f:setPropertyActionListener value="#{lancamentoSaque}" 
   					target="#{consultaLancamentoSaqueBean.lancamentoSelecionado}" />
-  			</p:commandButton>
+		<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+           				message="Tem certeza que deseja excluir o Lançamento de Saque?" />	 		  					
+  		</p:commandButton>
 	</p:column>
 		
 	

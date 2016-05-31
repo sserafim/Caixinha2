@@ -14,6 +14,7 @@ public class UsuarioSistemas implements Serializable{
 	public static final long serialVersionUID = 1L;
 	
 	private EntityManager manager;
+
 	
 	@Inject 
 	public UsuarioSistemas(EntityManager manager){
@@ -22,10 +23,6 @@ public class UsuarioSistemas implements Serializable{
 	
 	public UsuarioSistema porID(Long id){
 		return manager.find(UsuarioSistema.class, id);
-	}
-	
-	public UsuarioSistema porLogin(String loginUsuario){
-		return manager.find( UsuarioSistema.class, loginUsuario);
 	}
 	
 	public List<UsuarioSistema> todos(){
@@ -37,6 +34,15 @@ public class UsuarioSistemas implements Serializable{
 	public String buscaLogin(String login) {
 		TypedQuery<String> query = manager.createQuery(
 				"select loginUsuario from UsuarioSistema "
+				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
+				String.class);
+		query.setParameter("loginUsuario",login);
+		return query.getSingleResult();
+	}
+
+	public String buscaLocal(String login) {
+		TypedQuery<String> query = manager.createQuery(
+				"select concat(e.nome,' - ',e.nomeUnidade) from UsuarioSistema u inner join u.empresaUnidade e "
 				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
 				String.class);
 		query.setParameter("loginUsuario",login);
@@ -54,5 +60,5 @@ public class UsuarioSistemas implements Serializable{
 	public void remover (UsuarioSistema usuario){
 		this.manager.remove(usuario);
 	}
-	
+
 }

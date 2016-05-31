@@ -45,6 +45,7 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 		try{
 			
 			this.lancamentoSaque.setUsuarioSaque(this.usuarioLogado.getNome());
+			this.lancamentoSaque.setLocalSaque(this.usuarioLogado.getLocalUsuario());
 		
 			this.cadastro.salvar(this.lancamentoSaque);
 			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));

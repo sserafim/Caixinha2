@@ -29,11 +29,10 @@ public class LoginBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
+			
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
-		//	this.usuario.setLocalUsuario(this.usuarios.porLogin(this.nomeUsuario).getEmpresaUnidade().getNomeUnidade().toString());
-
-			
+			this.usuario.setLocalUsuario(this.usuarios.buscaLocal(this.nomeUsuario));
 			
 			return "/ConsultaLancamentos?faces-redirect=true";
 		} else {

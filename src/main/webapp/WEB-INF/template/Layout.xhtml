@@ -37,7 +37,7 @@
 		</div>	
 			
 		<div style="float: right; margin-right: 20px; margin-top: 8px">
-			Olá #{usuario.nome}!
+		   Olá #{usuario.nome}!   
 		</div>
 
 	</div>
@@ -48,17 +48,18 @@
 				<p:menuitem value="Lançamento Saque" action="/CadastroLancamentoSaque?faces-redirect=true"/>
 				<p:menuitem value="Lançamento Despesa" action="/CadastroLancamento?faces-redirect=true" />
 			</p:submenu>
-			<p:submenu label="Cadastros Sistema">
-				<p:menuitem value="Empresa" action="/CadastroEmpresa?faces-redirect=true" />				
+			<p:submenu label="Cadastros Sistema">					
 				<p:menuitem value="Centro de Custo" action="/CadastroCCusto?faces-redirect=true" />
 				<p:menuitem value="Conta Contábil" action="/CadastroCContabil?faces-redirect=true" />
 				<p:menuitem value="Histórico Padrão" action="/CadastroHistPadrao?faces-redirect=true" />
 			</p:submenu>
 			<p:submenu label="Sistema">
+				<p:menuitem value="Cadastro Empresa" action="/CadastroEmpresa?faces-redirect=true" />		
 				<p:menuitem value="Usuário Sistema" action="/CadastroUsuarioSistema?faces-redirect=true" />
 				<p:menuitem value="Sair" action="#{loginBean.logout}" />
 			</p:submenu>
 		</p:menubar>
+
 	</h:form>
 
 	<div id="conteudo">
@@ -66,7 +67,7 @@
 	</div>
 	
 	<footer class="footer">
-		Sistema Financeiro - ((SAMUEX))
+		Você está Logado em #{usuario.localUsuario}
 	</footer>
 	
 	<h:form>

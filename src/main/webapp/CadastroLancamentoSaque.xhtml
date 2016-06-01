@@ -9,8 +9,7 @@
 	
 	<f:metadata>
 		<o:viewParam name="id" value="#{cadastroLancamentoSaqueBean.lancamentoSaque}" />
-		<f:viewAction action="#{cadastroLancamentoSaqueBean.prepararCadastro}" />
-		<f:viewAction action="#{consultaLancamentoSaqueBean.consultar}" />
+		<f:viewAction action="#{cadastroLancamentoSaqueBean.prepararCadastro}" />		
 	</f:metadata>
 	
 	<ui:define name="titulo">Cadastro Lançamento Saque</ui:define>	
@@ -65,7 +64,7 @@
 	<h1 style="margin-top: 20px">Saques</h1>
 	
 	
-	<p:dataTable value="#{cadastroLancamentoSaqueBean.listSaques()}" var="lancamentoSaque"
+	<p:dataTable value="#{cadastroLancamentoSaqueBean.listSaquesUnidades()}" var="lancamentoSaque"
 		border="1" cellspacing="0" cellpadding="2"
 		paginator="true" rows="5" paginatorPosition="bottom">
 		

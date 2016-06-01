@@ -48,6 +48,7 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 			this.lancamentoSaque.setLocalSaque(this.usuarioLogado.getLocalUsuario());
 		
 			this.cadastro.salvar(this.lancamentoSaque);
+			this.lancamentoSaque = new LancamentoSaque();
 			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
 		
 		}catch(NegocioException e) {
@@ -64,6 +65,10 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 	
 	public List<LancamentoSaque> listSaques(){
 		return lancamentoSaques.todos();		
+	}
+	
+	public List<LancamentoSaque> listSaquesUnidades(){
+		return lancamentoSaques.buscaPorUnidade();
 	}
 
 	public LancamentoSaque getLancamentoSaque() {

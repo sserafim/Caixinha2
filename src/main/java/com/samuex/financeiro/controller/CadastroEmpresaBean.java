@@ -39,6 +39,7 @@ public class CadastroEmpresaBean implements Serializable{
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		this.cadastro.salvar(this.empresa);
+		this.empresa = new Empresa();
 			
 		context.addMessage(null, new FacesMessage("Empresa atualizada com sucesso!!"));
 	}

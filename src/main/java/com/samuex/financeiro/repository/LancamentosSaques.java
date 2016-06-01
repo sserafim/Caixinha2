@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.samuex.financeiro.controller.Usuario;
 import com.samuex.financeiro.model.LancamentoSaque;
 
 public class LancamentosSaques implements Serializable {
@@ -14,6 +15,9 @@ public class LancamentosSaques implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	private EntityManager manager;
+	
+	@Inject
+	private Usuario usuarioLocal;
 	
 	@Inject
 	public LancamentosSaques(EntityManager manager) {
@@ -30,6 +34,13 @@ public class LancamentosSaques implements Serializable {
 				"from LancamentoSaque", LancamentoSaque.class);
 		return query.getResultList();
 	}
+	
+	public List<LancamentoSaque> buscaPorUnidade(){
+		TypedQuery<LancamentoSaque> query = manager.createQuery("from LancamentoSaque where upper(localSaque) like upper(:localSaque)", LancamentoSaque.class);
+		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
+		return query.getResultList();
+	}
+	
 	
 	public void adicionar(LancamentoSaque lancamentoSaque){
 		this.manager.persist(lancamentoSaque);

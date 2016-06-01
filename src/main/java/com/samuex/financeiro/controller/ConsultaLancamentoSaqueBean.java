@@ -51,7 +51,7 @@ public class ConsultaLancamentoSaqueBean implements Serializable {
 	public void consultar(){
 		this.lancamentosSaques = lancamentosRepository.todos();
 	}
-
+	
 	public List<LancamentoSaque> getLancamentosSaques() {
 		return lancamentosSaques;
 	}

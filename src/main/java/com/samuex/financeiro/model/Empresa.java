@@ -20,14 +20,9 @@ public class Empresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String codigo;	
+	private String codigo;
+    private String razaoSocial;
 	private String nome;
-	private String empresa;
-	private String nomeUnidade;	
-	private String CNPJ;
-	private String inscEst;
-	private String emailApoioLocal;
-	
 	
 	
 	@Id
@@ -51,6 +46,17 @@ public class Empresa implements Serializable{
 	}
 
 	@NotEmpty
+	@Size(max = 100)
+	@Column(length = 100, nullable = false)	
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial.toUpperCase();
+	}
+
+	@NotEmpty
 	@Size(max = 80)
 	@Column(length = 80, nullable = false)	
 	public String getNome() {
@@ -59,61 +65,6 @@ public class Empresa implements Serializable{
 	
 	public void setNome(String nome) {
 		this.nome = nome.toUpperCase();
-	}
-
-	@NotEmpty
-	@Column(length = 3, nullable = false)
-	public String getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}
-
-	@NotEmpty
-	@Size(max = 80)
-	@Column(length = 80, nullable = false)	
-	public String getNomeUnidade() {
-		return nomeUnidade;
-	}
-	
-	
-	public void setNomeUnidade(String nomeUnidade) {
-		this.nomeUnidade = nomeUnidade.toUpperCase();
-	}
-
-	@NotEmpty
-	@Size(max = 14)
-	@Column(length = 14, nullable = false)
-	public String getCNPJ() {
-		return CNPJ;
-	}
-	
-	public void setCNPJ(String CNPJ) {
-		this.CNPJ = CNPJ;
-	}
-
-	@NotEmpty
-	@Size(max = 20)		
-	@Column(length = 20, nullable = false)
-	public String getInscEst() {
-		return inscEst;
-	}
-
-	public void setInscEst(String inscEst) {
-		this.inscEst = inscEst;
-	}
-	
-	@NotEmpty
-	@Size(max = 100)
-	@Column(length = 100, nullable = false)
-	public String getEmailApoioLocal() {
-		return emailApoioLocal;
-	}
-
-	public void setEmailApoioLocal(String emailApoioLocal) {
-		this.emailApoioLocal = emailApoioLocal.toLowerCase();
 	}
 
 	@Override

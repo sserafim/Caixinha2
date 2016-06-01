@@ -45,18 +45,19 @@
 	<h:form>
 		<p:menubar style="margin-top: -20px; margin-bottom: 20px">
 			<p:submenu label="Caixinha">
-				<p:menuitem value="Lançamento Saque" action="/CadastroLancamentoSaque?faces-redirect=true"/>
-				<p:menuitem value="Lançamento Despesa" action="/CadastroLancamento?faces-redirect=true" />
+				<p:menuitem value="* Lançamento Saque" action="/CadastroLancamentoSaque?faces-redirect=true"/>
+				<p:menuitem value="* Lançamento Despesa" action="/CadastroLancamento?faces-redirect=true" />
 			</p:submenu>
-			<p:submenu label="Cadastros Sistema">					
-				<p:menuitem value="Centro de Custo" action="/CadastroCCusto?faces-redirect=true" />
-				<p:menuitem value="Conta Contábil" action="/CadastroCContabil?faces-redirect=true" />
-				<p:menuitem value="Histórico Padrão" action="/CadastroHistPadrao?faces-redirect=true" />
+			<p:submenu label="Cadastros Sistema">
+				<p:menuitem value="* Empresa" action="/CadastroEmpresa?faces-redirect=true" />							
+				<p:menuitem value="* Unidade Negócio" action="/CadastroUnidadeNegocio?faces-redirect=true" />
+				<p:menuitem value="* Centro de Custo" action="/CadastroCCusto?faces-redirect=true" />
+				<p:menuitem value="* Conta Contábil" action="/CadastroCContabil?faces-redirect=true" />
+				<p:menuitem value="* Histórico Padrão" action="/CadastroHistPadrao?faces-redirect=true" />
 			</p:submenu>
-			<p:submenu label="Sistema">
-				<p:menuitem value="Cadastro Empresa" action="/CadastroEmpresa?faces-redirect=true" />		
-				<p:menuitem value="Usuário Sistema" action="/CadastroUsuarioSistema?faces-redirect=true" />
-				<p:menuitem value="Sair" action="#{loginBean.logout}" />
+			<p:submenu label="Sistema">				
+				<p:menuitem value="* Usuário Sistema" action="/CadastroUsuarioSistema?faces-redirect=true" />
+				<p:menuitem value="* Sair" action="#{loginBean.logout}" />
 			</p:submenu>
 		</p:menubar>
 

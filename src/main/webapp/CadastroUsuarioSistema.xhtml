@@ -25,7 +25,7 @@
 		    	</p:toolbarGroup>
 		    </p:toolbar>
 		
-			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 
 			<p:panelGrid columns="2" id="grid">
 			
@@ -39,12 +39,12 @@
 					value="#{cadastroUsuarioSistemaBean.usuarioSistema.loginUsuario}">
 	 			</p:inputText>	
 
-	 			<p:outputLabel value="Empresa/Unidade" for="empresa" />
-			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.empresaUnidade}" 
-			 	  id="empresa" filter="true" filterMatchMode="contains">
+	 			<p:outputLabel value="Empresa/Unidade" for="unidadeNegocio" />
+			 	<p:selectOneMenu value="#{cadastroUsuarioSistemaBean.usuarioSistema.unidadeNegocio}" 
+			 	  id="unidadeNegocio" filter="true" filterMatchMode="contains">
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true"  />
-				<f:selectItems value="#{cadastroUsuarioSistemaBean.todasEmpresas}" 
-				  var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome.concat(' - ').concat(empresa.nomeUnidade)}" /> 			
+				<f:selectItems value="#{cadastroUnidadeNegocioBean.listUnidadeNeg()}" 
+				  var="unidadeNegocio" itemValue="#{unidadeNegocio}" itemLabel="#{unidadeNegocio.empresa.nome.concat(' - ').concat(unidadeNegocio.nomeUnidade)}" /> 			
 				</p:selectOneMenu>	 				 				 		
 	 						
 				<p:outputLabel value="Senha" for="senha" />
@@ -65,14 +65,11 @@
 				icon="ui-icon-disk" update="frm" />
 
 			</p:panelGrid>
-			
-			
+						
 			<h1 style="margin-top: 20px">Usuários</h1>
 			
-			
-			
 		<p:dataTable value="#{cadastroUsuarioSistemaBean.listUsuariosSistema()}" var="usuarios"
-			border="1" cellspacing="0" cellpadding="2"
+			border="1" cellspacing="0" cellpadding="2" tableStyle="width:100%; font-size:11px"
 			paginator="true" rows="5" paginatorPosition="bottom">	
 			
 			
@@ -92,8 +89,8 @@
 			<h:outputText value="#{usuarios.tipoPerfil.descricao}" />
 		</p:column>
 
-		<p:column headerText="Empresa"  width="50" sortBy="#{usuarios.empresaUnidade.empresa.concat(' - ').concat(usuarios.empresaUnidade.nomeUnidade)}">
-			<h:outputText value="#{usuarios.empresaUnidade.empresa.concat(' - ').concat(usuarios.empresaUnidade.nomeUnidade)}" />
+		<p:column headerText="Empresa"  width="50" sortBy="#{usuarios.unidadeNegocio.empresa.nome.concat(' - ').concat(usuarios.unidadeNegocio.nomeUnidade)}">
+			<h:outputText value="#{usuarios.unidadeNegocio.empresa.nome.concat(' - ').concat(usuarios.unidadeNegocio.nomeUnidade)}" />
 		</p:column>
 		
 		<p:column width="8" style="text-align: center">

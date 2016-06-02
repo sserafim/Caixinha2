@@ -23,22 +23,26 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	private UnidadeNegocio unidadeNegocio;
 	
 	@Inject
+	private Usuario usuario;
+	
+	@Inject
 	private UnidadesNegocio unidadesNegocio;
 	
 	@Inject
 	private CadastroUnidadeNegocio cadastro;
 	
-	
 	public void prepararCadastro(){
 		if (this.unidadeNegocio == null){
-			this.unidadeNegocio = new UnidadeNegocio();
+			this.unidadeNegocio = new UnidadeNegocio();	
 		}
 	}
 	
 	public void salvar() throws NegocioException{
 		FacesContext context = FacesContext.getCurrentInstance();
 		
+		unidadeNegocio.setUsuarioManutencao(this.usuario.getNome());
 		this.cadastro.salvar(this.unidadeNegocio);
+		
 		this.unidadeNegocio = new UnidadeNegocio();
 			
 		context.addMessage(null, new FacesMessage("Unidade de Negócio atualizada com sucesso!!"));

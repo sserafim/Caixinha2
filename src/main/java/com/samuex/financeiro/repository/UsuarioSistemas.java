@@ -42,7 +42,7 @@ public class UsuarioSistemas implements Serializable{
 
 	public String buscaLocal(String login) {
 		TypedQuery<String> query = manager.createQuery(
-				"select concat(e.nome,' - ',e.nomeUnidade) from UsuarioSistema u inner join u.empresaUnidade e "
+				"select concat(e.empresa.razaoSocial,' - ',e.nomeUnidade) from UsuarioSistema u inner join u.unidadeNegocio e "
 				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
 				String.class);
 		query.setParameter("loginUsuario",login);

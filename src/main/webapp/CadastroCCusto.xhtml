@@ -34,8 +34,8 @@
 	<p:selectOneMenu value="#{cadastroCCustoBean.centroCusto.empresa}"
 	  id="empresa" filter="true" filterMatchMode="contains">		
 		<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-		<f:selectItems value="#{cadastroCCustoBean.todasEmpresas}"
-			var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nomeUnidade.concat(' - ').concat(empresa.nome)}"  />		
+		<f:selectItems value="#{cadastroEmpresaBean.listEmpresas()}"
+			var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.razaoSocial}" />		
 	</p:selectOneMenu>	
 
  	<p:outputLabel value="Codigo Centro Custo" for="codigo" />

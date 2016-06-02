@@ -25,7 +25,7 @@ public class UsuarioSistema implements Serializable {
 		private Long id;
 		private String nomeCompleto;
 		private String loginUsuario;
-		private Empresa empresaUnidade;
+		private UnidadeNegocio unidadeNegocio;
 		private String senha;
 		private TipoPerfil tipoPerfil;
 		
@@ -41,14 +41,13 @@ public class UsuarioSistema implements Serializable {
 		
 		@NotNull
 		@ManyToOne(optional = false)
-		@JoinColumn(name = "empresa_id")
-		public Empresa getEmpresaUnidade() {
-			return empresaUnidade;
+		@JoinColumn(name = "unidadeNegocio_id")		
+		public UnidadeNegocio getUnidadeNegocio() {
+			return unidadeNegocio;
 		}
-		
-		public void setEmpresaUnidade(Empresa empresaUnidade) {
-			this.empresaUnidade = empresaUnidade;
-		}		
+		public void setUnidadeNegocio(UnidadeNegocio unidadeNegocio) {
+			this.unidadeNegocio = unidadeNegocio;
+		}
 		
 		@NotEmpty
 		@Size(max = 100)
@@ -56,7 +55,6 @@ public class UsuarioSistema implements Serializable {
 		public String getNomeCompleto() {
 			return nomeCompleto;
 		}
-		
 		public void setNomeCompleto(String nomeCompleto) {
 			this.nomeCompleto = nomeCompleto.toUpperCase();
 		}

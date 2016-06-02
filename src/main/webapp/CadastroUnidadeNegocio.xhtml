@@ -19,21 +19,130 @@
 		<ui:define name="corpo">
 		<h1>Cadastro Unidade de Negócio</h1>
 		
-		<h:form id="frm">
+		<h:form id="frm" >
 		
 		<p:toolbar style="margin: 10px 10px">
 		    	<p:toolbarGroup>
 		    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroUnidadeNegocio?faces-redirect=true"/>
 		    	</p:toolbarGroup>
-		</p:toolbar>
+		</p:toolbar>		
 		
+		<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 		
+		<p:panelGrid columns="2" id="grid">
 		
+			<p:outputLabel value="Codigo" for="codigo" />
+			<p:inputText   id="codigo" size="10" 
+			value="#{cadastroUnidadeNegocioBean.unidadeNegocio.codigo}">
+		 	</p:inputText>
+		 		
+			<p:outputLabel value="Nome Unidade" for="nomeUniade" />
+			<p:inputText style="text-transform:uppercase"  id="nomeUniade" size="40" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.nomeUnidade}">
+		 	</p:inputText>			 		
 		
-		
-		
-		
+			<p:outputLabel value="Empresa" for="empresa" />
+			<p:selectOneMenu value="#{cadastroUnidadeNegocioBean.unidadeNegocio.empresa}"
+			  id="empresa" filter="true" filterMatchMode="contains">		
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{cadastroEmpresaBean.listEmpresas()}"
+					var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.razaoSocial}"  />		
+			</p:selectOneMenu>	
+		 		
+			<p:outputLabel value="Saldo Inicial" for="saldoInicial" />
+			<p:inputText  id="saldoInicial" size="20" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoInicial}">
+				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+		 	</p:inputText>				
 
+			<p:outputLabel value="CNPJ" for="cnpj" />
+			<p:inputText id="cnpj" size="30" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.CNPJ}">
+		 	</p:inputText>			 		
+
+			<p:outputLabel value="Insc. Estadual" for="inscEstadual" />
+			<p:inputText id="inscEstadual" size="30" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.inscEst}">
+		 	</p:inputText>		
+
+			<p:outputLabel value="Saldo Atual" for="saldoAtual" />
+			<p:inputText  id="saldoAtual" size="20" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoAtual}">
+				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+		 	</p:inputText>				 	
+		 			 		
+			<p:outputLabel value="E-mail apoio" for="emailApoio" />
+			<p:inputText id="emailApoio" size="40" 
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.emailApoioLocal}">
+		 	</p:inputText>	
+
+		 	<h:outputLabel />
+			<p:commandButton value="Salvar" action="#{cadastroUnidadeNegocioBean.salvar()}"
+					icon="ui-icon-disk" update="frm" />		 	
+					
+		</p:panelGrid>	
+		
+		<h1 style="margin-top: 40px">Unidades Negócio</h1>	
+
+			<p:dataTable value="#{cadastroUnidadeNegocioBean.listUnidadeNeg()}" var="unidadeNegocio"
+				 border="1" cellspacing="0" cellpadding="2" tableStyle="width:auto; font-size:11px"  
+			  	 paginator="true" rows="5" paginatorPosition="bottom">
+			  	 
+			<p:column  filterStyle="width:50px" filterBy="#{unidadeNegocio.codigo}" footerText="contains" filterMatchMode="contains" width="100" headerText="Código" sortBy="#{unidadeNegocio.codigo}">
+				<h:outputText value="#{unidadeNegocio.codigo}"  />
+			</p:column>
+ 	 		
+ 	 		<p:column width="100" headerText="Unidade" sortBy="#{unidadeNegocio.nomeUnidade}">
+				<h:outputText value="#{unidadeNegocio.nomeUnidade}" />
+			</p:column>
+
+ 	 		<p:column width="100" headerText="Empresa" sortBy="#{unidadeNegocio.empresa.nome}">
+				<h:outputText value="#{unidadeNegocio.empresa.nome}" />
+			</p:column>
+			
+			<p:column width="100" headerText="Saldo incial" sortBy="#{unidadeNegocio.saldoInicial}">
+					<h:outputText value="#{unidadeNegocio.saldoInicial}">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+			</p:column>			
+
+			<p:column width="100" headerText="CNPJ" sortBy="#{unidadeNegocio.CNPJ}">
+				<h:outputText value="#{unidadeNegocio.CNPJ}" />
+			</p:column>
+		
+			<p:column width="100" headerText="Insc. Estadual" sortBy="#{unidadeNegocio.inscEst}">
+				<h:outputText value="#{unidadeNegocio.inscEst}" />
+			</p:column>		
+
+			<p:column width="100" headerText="Saldo Atual" sortBy="#{unidadeNegocio.saldoAtual}">
+					<h:outputText value="#{unidadeNegocio.saldoAtual}">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+			</p:column>				
+		
+			<p:column width="100" headerText="Email apoio" sortBy="#{unidadeNegocio.emailApoioLocal}">
+				<h:outputText value="#{unidadeNegocio.emailApoioLocal}" />
+			</p:column>						
+
+			<p:column width="100" headerText="Usuário Manut." sortBy="#{unidadeNegocio.usuarioManutencao}">
+				<h:outputText value="#{unidadeNegocio.usuarioManutencao}" />
+			</p:column>								
+
+			<p:column width="100" style="text-align: center">
+			<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroUnidadeNegocio" >	
+				<f:param name="codigo" value="#{unidadeNegocio.codigo}" />						
+			</p:button>
+					
+			<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+				action="#{consultaUnidadeNegocioBean.excluir()}">
+			<f:setPropertyActionListener value="#{unidadeNegocio}" 
+				target="#{consultaUnidadeNegocioBean.unidadeNegSelecionada}" />
+			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+            				message="Tem certeza que deseja excluir a Unidade de Negócio" />	 		
+			</p:commandButton>
+			</p:column>
+
+			</p:dataTable>
 		</h:form>		
 	</ui:define>	
 </ui:composition>	

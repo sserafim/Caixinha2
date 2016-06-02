@@ -2,9 +2,9 @@ package com.samuex.financeiro.model;
 
 public enum TipoPerfil {
 	
-	ADMINISTRADOR("Administrador"),
-	CONTABILIDADE("Contabilidade"),
-	UNIDADE("Unidade");
+	ADMINISTRADOR("ADMINISTRADOR"),
+	CONTABILIDADE("CONTABILIDADE"),
+	UNIDADE("UNIDADE");
 	
 	private String descricao;
 	

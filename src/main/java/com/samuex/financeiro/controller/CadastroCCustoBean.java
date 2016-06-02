@@ -9,9 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.samuex.financeiro.model.CentroCusto;
-import com.samuex.financeiro.model.Empresa;
 import com.samuex.financeiro.repository.CentroCustos;
-import com.samuex.financeiro.repository.Empresas;
 import com.samuex.financeiro.service.CadastroCCustos;
 import com.samuex.financeiro.service.NegocioException;
 
@@ -29,19 +27,15 @@ public class CadastroCCustoBean implements Serializable{
 	private CadastroCCustos cadastro;
 	
 	@Inject
-	private Empresas empresas;
-	
-	@Inject
 	private CentroCustos centroCustos;
 	
-	private List<Empresa> todasEmpresas;
+
 	
 	/////  ------------------------------------------------
 	
 	
 	public void prepararCadastro(){
-		this.todasEmpresas = this.empresas.todas();
-		
+	
 		if (this.centroCusto == null){
 			this.centroCusto = new CentroCusto();
 		}
@@ -62,10 +56,6 @@ public class CadastroCCustoBean implements Serializable{
 	public List<CentroCusto> listCentroCusto(){
 		return centroCustos.todas();
 	}		
-
-	public List<Empresa> getTodasEmpresas() {
-		return todasEmpresas;
-	}
 
 	public CentroCusto getCentroCusto() {
 		return centroCusto;

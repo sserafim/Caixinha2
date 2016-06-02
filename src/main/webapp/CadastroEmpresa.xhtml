@@ -27,7 +27,7 @@
 		    </p:toolbar>
 		
 
-			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			<p:growl showDetail="false" showSummary="true" autoUpdate="true"/>
 
 			<p:panelGrid columns="2" id="grid">		
 			<p:outputLabel value="Código Unidade" for="codigo" />
@@ -54,7 +54,7 @@
 	<h1 style="margin-top: 40px">Empresas</h1>	
 			
 	<p:dataTable value="#{cadastroEmpresaBean.listEmpresas()}" var="empresa"
-				 border="1" cellspacing="0" cellpadding="2"
+				 border="1" cellspacing="0" cellpadding="2" tableStyle="width:100%; font-size:11px"  
 			  	 paginator="true" rows="5" paginatorPosition="bottom">
 			
 		<p:column  filterStyle="width:50px" filterBy="#{empresa.codigo}" footerText="contains" filterMatchMode="contains" width="100" headerText="Código" sortBy="#{empresa.codigo}">

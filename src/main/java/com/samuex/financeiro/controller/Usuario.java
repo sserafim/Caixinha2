@@ -13,7 +13,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String nome;
-	private String localUsuario;
+	private Long unidadeNegocio;
+	private String LocalUsuario;
 	private Date dataLogin;
 	
 	public boolean isLogado() {
@@ -37,12 +38,20 @@ public class Usuario implements Serializable {
 		this.dataLogin = dataLogin;
 	}
 
+	public Long getUnidadeNegocio() {
+		return unidadeNegocio;
+	}
+
+	public void setUnidadeNegocio(Long unidadeNegocio) {
+		this.unidadeNegocio = unidadeNegocio;
+	}
+
 	public String getLocalUsuario() {
-		return localUsuario;
+		return LocalUsuario;
 	}
 
 	public void setLocalUsuario(String localUsuario) {
-		this.localUsuario = localUsuario;
+		LocalUsuario = localUsuario;
 	}
 
 

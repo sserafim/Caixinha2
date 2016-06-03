@@ -27,7 +27,7 @@
     	</p:toolbarGroup>
     </p:toolbar>
 	
-	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+	<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 	
 
 	<p:panelGrid columns="2" id="grid">
@@ -65,25 +65,25 @@
 	
 	
 	<p:dataTable value="#{cadastroLancamentoSaqueBean.listSaquesUnidades()}" var="lancamentoSaque"
-		border="1" cellspacing="0" cellpadding="2"
+		border="1" cellspacing="0" cellpadding="2" tableStyle="width:100%; font-size:11px"
 		paginator="true" rows="5" paginatorPosition="bottom">
 		
-	<p:column headerText="Número do Saque" sortBy="#{lancamentoSaque.numeroSaque}" width="60">
+	<p:column headerText="Número do Saque" sortBy="#{lancamentoSaque.numeroSaque}" width="10">
 		<h:outputText value="#{lancamentoSaque.numeroSaque}" />
 	</p:column>
 
-	<p:column headerText="Tipo Saque" sortBy="#{lancamentoSaque.tipoSaque.descricao}" width="40">
+	<p:column headerText="Tipo Saque" sortBy="#{lancamentoSaque.tipoSaque.descricao}" width="15">
 		<h:outputText value="#{lancamentoSaque.tipoSaque.descricao}" />
 	</p:column>	
 	
 	<p:column headerText="Data Saque" style="text-align: center" sortBy="#{lancamentoSaque.dataSaque}"
-			width="50">
+			width="15">
 		<h:outputText value="#{lancamentoSaque.dataSaque}">
 			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 		</h:outputText>
 	</p:column>
 	
-	<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamentoSaque.valorSaque}" width="40">
+	<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamentoSaque.valorSaque}" width="10">
 		<h:outputText value="#{lancamentoSaque.valorSaque}">
 			<f:convertNumber type="currency" locale="pt_BR" />
 		</h:outputText>
@@ -93,11 +93,11 @@
 		<h:outputText value="#{lancamentoSaque.localSaque}" />
 	</p:column>
 	
-	<p:column headerText="Usuário Saque" sortBy="#{lancamentoSaque.usuarioSaque}" width="50">
+	<p:column headerText="Usuário Saque" sortBy="#{lancamentoSaque.usuarioSaque}" width="15">
 		<h:outputText value="#{lancamentoSaque.usuarioSaque}" />
 	</p:column>	
 		
-	<p:column width="60" style="text-align: center">
+	<p:column width="5" style="text-align: center">
 		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroLancamentoSaque">
 			<f:param name="id" value="#{lancamentoSaque.id}" />
 		</p:button>

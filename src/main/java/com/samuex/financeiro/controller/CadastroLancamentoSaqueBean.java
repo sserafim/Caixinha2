@@ -10,7 +10,9 @@ import javax.inject.Named;
 
 import com.samuex.financeiro.model.LancamentoSaque;
 import com.samuex.financeiro.model.TipoSaque;
+import com.samuex.financeiro.model.UnidadeNegocio;
 import com.samuex.financeiro.repository.LancamentosSaques;
+import com.samuex.financeiro.repository.UnidadesNegocio;
 import com.samuex.financeiro.service.CadastroLacamentoSaque;
 import com.samuex.financeiro.service.NegocioException;
 
@@ -27,13 +29,16 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 	private LancamentoSaque lancamentoSaque;
 	
 	@Inject
+	private UnidadesNegocio unidadesNegocioDAO;
+	
+	@Inject
 	private CadastroLacamentoSaque cadastro;
 	
 	@Inject
 	private LancamentosSaques lancamentoSaques;
 
 	public void prepararCadastro(){
-		
+					
 		if(this.lancamentoSaque == null){
 			this.lancamentoSaque = new LancamentoSaque();
 		}
@@ -43,11 +48,17 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try{
-			
+			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());		
 			this.lancamentoSaque.setUsuarioSaque(this.usuarioLogado.getNome());
-			this.lancamentoSaque.setLocalSaque(this.usuarioLogado.getLocalUsuario());
-		
-			this.cadastro.salvar(this.lancamentoSaque);
+			this.lancamentoSaque.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
+			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaque.getValorSaque()));
+					
+			
+			
+			this.cadastro.salvar(this.lancamentoSaque);	
+			unidadesNegocioDAO.atualizaSaldo(un);	
+
+			
 			this.lancamentoSaque = new LancamentoSaque();
 			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
 		
@@ -86,6 +97,5 @@ public class CadastroLancamentoSaqueBean  implements Serializable {
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
-
 
 }

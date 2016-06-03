@@ -34,11 +34,14 @@ public class LoginBean {
 			this.usuario.setDataLogin(new Date());			
 			
 			return "/ConsultaLancamentos?faces-redirect=true";
-		} else if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
 			
+		} else if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
+		
+		
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
-			this.usuario.setLocalUsuario(this.usuarios.buscaLocal(this.nomeUsuario));
+			this.usuario.setUnidadeNegocio(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getCodigo());
+			this.usuario.setLocalUsuario(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getEmpresa().getRazaoSocial().concat(" - ").concat(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getNomeUnidade()));
 			
 			return "/ConsultaLancamentos?faces-redirect=true";
 			

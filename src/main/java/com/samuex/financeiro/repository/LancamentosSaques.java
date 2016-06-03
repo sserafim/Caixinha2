@@ -18,7 +18,7 @@ public class LancamentosSaques implements Serializable {
 	
 	@Inject
 	private Usuario usuarioLocal;
-	
+
 	@Inject
 	public LancamentosSaques(EntityManager manager) {
 		this.manager = manager;
@@ -28,7 +28,7 @@ public class LancamentosSaques implements Serializable {
 		return manager.find(LancamentoSaque.class, id);
 	}
 	
-	
+
 	public List<LancamentoSaque> todos() {
 		TypedQuery<LancamentoSaque> query = manager.createQuery(
 				"from LancamentoSaque", LancamentoSaque.class);
@@ -36,12 +36,13 @@ public class LancamentosSaques implements Serializable {
 	}
 	
 	public List<LancamentoSaque> buscaPorUnidade(){
-		TypedQuery<LancamentoSaque> query = manager.createQuery("from LancamentoSaque where upper(localSaque) like upper(:localSaque)", LancamentoSaque.class);
+		TypedQuery<LancamentoSaque> query = manager.createQuery(
+				"from LancamentoSaque where upper(localSaque) like upper(:localSaque)", LancamentoSaque.class);
 		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
 		return query.getResultList();
 	}
 	
-	
+
 	public void adicionar(LancamentoSaque lancamentoSaque){
 		this.manager.persist(lancamentoSaque);
 	}

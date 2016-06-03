@@ -19,7 +19,8 @@ public class UnidadesNegocio implements Serializable {
 	public UnidadesNegocio (EntityManager manager){
 		this.manager = manager;
 	}
-	
+
+		
 	public UnidadeNegocio porId (Long codigo) {
 		return manager.find(UnidadeNegocio.class, codigo);
 	}
@@ -29,7 +30,21 @@ public class UnidadesNegocio implements Serializable {
 				"from UnidadeNegocio", UnidadeNegocio.class);
 		return query.getResultList();
 	}
+
+	public String buscaSaldoUnidade(String local) {
+		TypedQuery<String> query = manager.createQuery(
+				"select saldoAtual from UnidadeNegocio"
+				+  "where upper(nomeUnidade) like upper(:nomeUnidade)", String.class);
+		query.setParameter("nomeUnidade",  "%" + local  + "%");
+		return query.getSingleResult();
+	}
 	
+
+	
+	public void atualizaSaldo(UnidadeNegocio unidadeNegocio){
+		manager.persist(unidadeNegocio);
+	}
+
 	public UnidadeNegocio guardar(UnidadeNegocio unidadeNegocio){
 		return this.manager.merge(unidadeNegocio);
 	}

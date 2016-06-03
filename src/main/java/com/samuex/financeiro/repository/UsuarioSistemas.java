@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.samuex.financeiro.model.UsuarioSistema;
@@ -30,6 +31,11 @@ public class UsuarioSistemas implements Serializable{
 		return query.getResultList();	
 	}
 	
+	public UsuarioSistema getLogin(String login) {
+		Query query = manager.createQuery("from UsuarioSistema u where upper(u.loginUsuario) = upper(:loginUsuario)");
+		query.setParameter("loginUsuario",login);
+		return (UsuarioSistema) query.getSingleResult();
+	}
 	
 	public String buscaLogin(String login) {
 		TypedQuery<String> query = manager.createQuery(
@@ -40,14 +46,16 @@ public class UsuarioSistemas implements Serializable{
 		return query.getSingleResult();
 	}
 
-	public String buscaLocal(String login) {
-		TypedQuery<String> query = manager.createQuery(
-				"select concat(e.empresa.razaoSocial,' - ',e.nomeUnidade) from UsuarioSistema u inner join u.unidadeNegocio e "
-				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
-				String.class);
-		query.setParameter("loginUsuario",login);
-		return query.getSingleResult();
-	}
+
+	
+//	public UnidadeNegocio buscaLocalUsuario(String login) {
+//		TypedQuery<UnidadeNegocio> query = manager.createQuery(
+//				"select e.codigo from UsuarioSistema u inner join u.unidadeNegocio e "
+//				+ "where upper(loginUsuario) = upper(:loginUsuario)", 
+//				UnidadeNegocio.class);
+//		query.setParameter("loginUsuario",login);
+//		return query.getSingleResult();
+//	}
 	
 	public void adicionar(UsuarioSistema usuarioSistema){
 		this.manager.persist(usuarioSistema);

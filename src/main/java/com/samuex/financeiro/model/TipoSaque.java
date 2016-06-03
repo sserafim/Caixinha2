@@ -3,8 +3,8 @@ package com.samuex.financeiro.model;
 public enum TipoSaque {
 	
 	
-	BANCO("Banco"), 
-	TESOURARIA("Tesouraria");
+	BANCO("BANCO"), 
+	TESOURARIA("TESOURARIA");
 	
 	private String descricao;
 	

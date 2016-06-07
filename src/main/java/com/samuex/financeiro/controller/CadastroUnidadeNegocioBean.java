@@ -1,10 +1,12 @@
 package com.samuex.financeiro.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,6 +23,7 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	public static final long serialVersionUID = 1L;
 	
 	private UnidadeNegocio unidadeNegocio;
+	private Double valor = 0.00;
 	
 	@Inject
 	private Usuario usuario;
@@ -32,10 +35,13 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	private CadastroUnidadeNegocio cadastro;
 	
 	public void prepararCadastro(){
+		
 		if (this.unidadeNegocio == null){
-			this.unidadeNegocio = new UnidadeNegocio();	
+			this.unidadeNegocio = new UnidadeNegocio();
+			this.unidadeNegocio.setSaldoInicial(new BigDecimal(valor));
+			this.unidadeNegocio.setSaldoAtual(new BigDecimal(valor));
 		}
-	}
+	}	
 	
 	public void salvar() throws NegocioException{
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -51,6 +57,15 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	public List<UnidadeNegocio> listUnidadeNeg(){
 		return this.unidadesNegocio.todas();
 	}
+	
+	public void getAtualizaSaldoAtual(){
+		this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial().add(this.unidadeNegocio.getSaldoAtual()));
+	}
+	
+	public void atualizaSaldoAt(AjaxBehaviorEvent e){
+		this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial().add(this.unidadeNegocio.getSaldoAtual()));
+	}
+
 
 	public UnidadeNegocio getUnidadeNegocio() {
 		return unidadeNegocio;

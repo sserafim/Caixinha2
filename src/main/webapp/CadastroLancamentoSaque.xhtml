@@ -52,8 +52,9 @@
 	</p:inputText>
 						
 	<p:outputLabel value="Data do Saque" for="DataSaque" />
-	<p:calendar size="15" id="DataSaque" pattern="dd/MM/yyyy" mask="99/99/9999"
+	<p:calendar size="15" id="DataSaque" pattern="dd/MM/yyyy" mask="99/99/9999" readonlyInput="true" yearRange="true"
 		value="#{cadastroLancamentoSaqueBean.lancamentoSaque.dataSaque}" />
+
 
 	<h:outputLabel />
 	<p:commandButton value="Salvar" action="#{cadastroLancamentoSaqueBean.salvar}"

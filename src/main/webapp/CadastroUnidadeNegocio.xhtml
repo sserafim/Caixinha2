@@ -47,13 +47,15 @@
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 				<f:selectItems value="#{cadastroEmpresaBean.listEmpresas()}"
 					var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.razaoSocial}"  />		
-			</p:selectOneMenu>	
-		 		
+			</p:selectOneMenu>
+
 			<p:outputLabel value="Saldo Inicial" for="saldoInicial" />
 			<p:inputText  id="saldoInicial" size="20" 
-				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoInicial}">
+				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoInicial}" onblur="atualizaSaldoAtual();" >
+			<p:remoteCommand name="atualizaSaldoAtual"  action="#{cadastroUnidadeNegocioBean.getAtualizaSaldoAtual()}" update="saldoAtual" />	
 				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
-		 	</p:inputText>				
+		 	</p:inputText>	
+		 	
 
 			<p:outputLabel value="CNPJ" for="cnpj" />
 			<p:inputText id="cnpj" size="30" 
@@ -66,7 +68,7 @@
 		 	</p:inputText>		
 
 			<p:outputLabel value="Saldo Atual" for="saldoAtual" />
-			<p:inputText  id="saldoAtual" size="20" 
+			<p:inputText  id="saldoAtual" size="20" readonly="true"
 				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoAtual}">
 				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
 		 	</p:inputText>				 	

@@ -10,8 +10,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.samuex.financeiro.model.LancamentoSaque;
+import com.samuex.financeiro.model.UnidadeNegocio;
 import com.samuex.financeiro.repository.LancamentosSaques;
+import com.samuex.financeiro.repository.UnidadesNegocio;
 import com.samuex.financeiro.service.CadastroLacamentoSaque;
+import com.samuex.financeiro.service.CadastroUnidadeNegocio;
 import com.samuex.financeiro.service.NegocioException;
 
 
@@ -20,12 +23,22 @@ import com.samuex.financeiro.service.NegocioException;
 public class ConsultaLancamentoSaqueBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private Usuario usuarioLogado;
+	
 
 	@Inject 
 	private LancamentosSaques lancamentosRepository;
 
 	@Inject
 	private CadastroLacamentoSaque cadastro;
+	
+	@Inject
+	private UnidadesNegocio unidadesNegocioDAO;
+	
+	@Inject
+	private CadastroUnidadeNegocio unidadeNegocioService;
 
 	private List<LancamentoSaque> lancamentosSaques;
 	
@@ -37,6 +50,11 @@ public class ConsultaLancamentoSaqueBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try{
+			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
+			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSelecionado.getValorSaque()));
+			
+			this.unidadeNegocioService.salvar(un);
+			
 			this.cadastro.excluir(this.lancamentoSelecionado);
 		
 			context.addMessage( null, new FacesMessage("Lancamento Excluído com sucesso!!"));			

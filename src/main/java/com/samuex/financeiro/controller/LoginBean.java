@@ -40,6 +40,7 @@ public class LoginBean {
 		
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
+			this.usuario.setPerfil(usuarios.getLogin(this.nomeUsuario).getTipoPerfil().getDescricao());
 			this.usuario.setUnidadeNegocio(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getCodigo());
 			this.usuario.setLocalUsuario(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getEmpresa().getRazaoSocial().concat(" - ").concat(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getNomeUnidade()));
 			

@@ -16,9 +16,23 @@ public class Usuario implements Serializable {
 	private Long unidadeNegocio;
 	private String LocalUsuario;
 	private Date dataLogin;
+	private String Perfil;
 	
 	public boolean isLogado() {
 		return nome != null;
+	}
+	
+		
+	public Boolean perfilContabilidade(){
+		return this.getPerfil() == "UNIDADE";
+	}
+
+	public Boolean perfilUnidade(){
+		return this.getPerfil() == "CONTABILIDADE";  
+	}
+
+	public Boolean perfilAdministrador(){
+		return this.getPerfil() == "UNIDADE"; 
 	}
 
 	public String getNome() {
@@ -52,6 +66,14 @@ public class Usuario implements Serializable {
 
 	public void setLocalUsuario(String localUsuario) {
 		LocalUsuario = localUsuario;
+	}
+
+	public String getPerfil() {
+		return Perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		Perfil = perfil;
 	}
 
 

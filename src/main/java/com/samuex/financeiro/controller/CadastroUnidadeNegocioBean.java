@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -61,11 +60,6 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	public void getAtualizaSaldoAtual(){
 		this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial().add(this.unidadeNegocio.getSaldoAtual()));
 	}
-	
-	public void atualizaSaldoAt(AjaxBehaviorEvent e){
-		this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial().add(this.unidadeNegocio.getSaldoAtual()));
-	}
-
 
 	public UnidadeNegocio getUnidadeNegocio() {
 		return unidadeNegocio;

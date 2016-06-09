@@ -8,7 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -36,22 +36,23 @@ public class HistoricoPadrao implements Serializable {
 	@Column(length = 100, nullable = false)	
 	private String 		utilizacao;
 	
-	@OneToOne(optional = false)
+	
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "contaContabil_ctaCtbCred")
 	private ContaContabil ctaCtbCred;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "contaContabil_ctaCtbDeb")
 	private ContaContabil ctaCtbDeb;
 	
 	@NotNull
 	@NotEmpty
-	@Column(length = 3, nullable = false)
+	@Column(length = 4, nullable = false)
 	private String 	codHistCred;
 	
 	@NotNull
 	@NotEmpty
-	@Column(length = 3, nullable = false)
+	@Column(length = 4, nullable = false)
 	private String 	codHistDeb;
 	
 	@Column(length = 1, nullable = false)

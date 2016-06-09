@@ -29,7 +29,7 @@
     	</p:toolbarGroup>
     </p:toolbar>
     
-   	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+   	<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
     
     <p:outputLabel value="Codigo Histórico" for="codHistorico" />
@@ -112,7 +112,7 @@
 		<h:outputText  value="#{historicoP.ctaCtbCred}" />
 	</p:column>		
 	
-	<p:column width="100" headerText="Conta ctb Créd." sortBy="#{historicoP.ctaCtbDeb}">
+	<p:column width="100" headerText="Conta ctb Déb." sortBy="#{historicoP.ctaCtbDeb}">
 		<h:outputText  value="#{historicoP.ctaCtbDeb}" />
 	</p:column>
 

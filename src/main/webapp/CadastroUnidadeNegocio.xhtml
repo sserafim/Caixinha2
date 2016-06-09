@@ -52,7 +52,7 @@
 			<p:outputLabel value="Saldo Inicial" for="saldoInicial" />
 			<p:inputText  id="saldoInicial" size="20" 
 				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoInicial}" onblur="atualizaSaldoAtual();" >
-			<p:remoteCommand name="atualizaSaldoAtual"  action="#{cadastroUnidadeNegocioBean.getAtualizaSaldoAtual()}" update="saldoAtual" />	
+			<p:remoteCommand process="@this" name="atualizaSaldoAtual" immediate="true" action="#{cadastroUnidadeNegocioBean.getAtualizaSaldoAtual()}" update="saldoAtual" />	
 				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
 		 	</p:inputText>	
 		 	

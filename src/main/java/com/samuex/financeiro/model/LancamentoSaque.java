@@ -10,6 +10,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +32,7 @@ public class LancamentoSaque implements Serializable{
 	private TipoSaque 		tipoSaque;
 	private String 			LocalSaque;
 	private String 			usuarioSaque;
+	private HistoricoPadrao historicoPadrao;
 	
 	@Id
 	@GeneratedValue
@@ -106,6 +109,19 @@ public class LancamentoSaque implements Serializable{
 	}
 
 //----------------	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "historicoPadrao")
+	public HistoricoPadrao getHistoricoPadrao() {
+		return historicoPadrao;
+	}
+
+	public void setHistoricoPadrao(HistoricoPadrao historicoPadrao) {
+		this.historicoPadrao = historicoPadrao;
+	}	
+	
+
+//----------------	
+	
 	
 	
 	@Override

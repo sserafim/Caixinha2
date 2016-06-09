@@ -50,6 +50,7 @@ public class CadastroHistPadraoBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		this.cadastro.salvar(historicoPadrao);
+		this.historicoPadrao = new HistoricoPadrao();
 		context.addMessage(null, new FacesMessage("Histórico atualizado com sucesso"));
 	}
 

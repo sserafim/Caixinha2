@@ -4,117 +4,134 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
-	
-	<f:metadata>
-		<o:viewParam name="id" value="#{cadastroLancamentoSaqueBean.lancamentoSaque}" />
-		<f:viewAction action="#{cadastroLancamentoSaqueBean.prepararCadastro}" />		
-	</f:metadata>
-	
-	<ui:define name="titulo">Cadastro Lançamento Saque</ui:define>	
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	
+	<f:metadata>
+		<o:viewParam name="id"
+			value="#{cadastroLancamentoSaqueBean.lancamentoSaque}" />
+		<f:viewAction action="#{cadastroLancamentoSaqueBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro Lançamento Saque</ui:define>
+
+
 	<ui:define name="corpo">
 		<h1>Cadastro Lançamento Saque</h1>
-	
-		
-	<h:form id="frm">
-	
-	<p:toolbar style="margin: 10px 10px">
-    	<p:toolbarGroup>
-    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroLancamentoSaque?faces-redirect=true"/>
-    	</p:toolbarGroup>
-    </p:toolbar>
-	
-	<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
-	
-
-	<p:panelGrid columns="2" id="grid">
-
-	<p:outputLabel value="Tipo Saque" for="tipoSaque" />
-	<p:selectOneButton id="tipoSaque" 
-			value="#{cadastroLancamentoSaqueBean.lancamentoSaque.tipoSaque}">
-		<f:selectItems value="#{cadastroLancamentoSaqueBean.tiposSaques}"
-			var="tipoSaque" itemValue="#{tipoSaque}" 
-			itemLabel="#{tipoSaque.descricao}" />
-	</p:selectOneButton>
-
-	<p:outputLabel value="Número do Saque" for="numeroSaque" />
-	<p:inputText id="numeroSaque" size="15" 
-			value="#{cadastroLancamentoSaqueBean.lancamentoSaque.numeroSaque}">		
-	</p:inputText>
-		
-	<p:outputLabel value="Valor Saque" for="valorSaque" />
-	<p:inputText id="valorSaque" size="15" 
-			value="#{cadastroLancamentoSaqueBean.lancamentoSaque.valorSaque}">
-		<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
-	</p:inputText>
-						
-	<p:outputLabel value="Data do Saque" for="DataSaque" />
-	<p:calendar size="15" id="DataSaque" pattern="dd/MM/yyyy" mask="99/99/9999" readonlyInput="true" yearRange="true"
-		value="#{cadastroLancamentoSaqueBean.lancamentoSaque.dataSaque}" />
 
 
-	<h:outputLabel />
-	<p:commandButton value="Salvar" action="#{cadastroLancamentoSaqueBean.salvar}"
-		icon="ui-icon-disk" update="frm" />
+		<h:form id="frm">
 
-	</p:panelGrid>
-	
-	<h1 style="margin-top: 20px">Saques</h1>
-	
-	
-	<p:dataTable value="#{cadastroLancamentoSaqueBean.listSaquesUnidades()}" var="lancamentoSaque"
-		border="1" cellspacing="0" cellpadding="2" tableStyle="width:100%; font-size:11px"
-		paginator="true" rows="5" paginatorPosition="bottom">
-		
-	<p:column headerText="Número do Saque" sortBy="#{lancamentoSaque.numeroSaque}" width="10">
-		<h:outputText value="#{lancamentoSaque.numeroSaque}" />
-	</p:column>
+			<p:toolbar style="margin: 10px 10px">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" id="botaoNovo"
+						action="/CadastroLancamentoSaque?faces-redirect=true" />
+				</p:toolbarGroup>
+			</p:toolbar>
 
-	<p:column headerText="Tipo Saque" sortBy="#{lancamentoSaque.tipoSaque.descricao}" width="15">
-		<h:outputText value="#{lancamentoSaque.tipoSaque.descricao}" />
-	</p:column>	
-	
-	<p:column headerText="Data Saque" style="text-align: center" sortBy="#{lancamentoSaque.dataSaque}"
-			width="15">
-		<h:outputText value="#{lancamentoSaque.dataSaque}">
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-		</h:outputText>
-	</p:column>
-	
-	<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamentoSaque.valorSaque}" width="10">
-		<h:outputText value="#{lancamentoSaque.valorSaque}">
-			<f:convertNumber type="currency" locale="pt_BR" />
-		</h:outputText>
-	</p:column>
-	
-	<p:column headerText="Local do Saque" sortBy="#{lancamentoSaque.localSaque}" width="100">
-		<h:outputText value="#{lancamentoSaque.localSaque}" />
-	</p:column>
-	
-	<p:column headerText="Usuário Saque" sortBy="#{lancamentoSaque.usuarioSaque}" width="15">
-		<h:outputText value="#{lancamentoSaque.usuarioSaque}" />
-	</p:column>	
-		
-	<p:column width="5" style="text-align: center">
-		<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroLancamentoSaque">
-			<f:param name="id" value="#{lancamentoSaque.id}" />
-		</p:button>
-		<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
-				action="#{consultaLancamentoSaqueBean.excluir()}">
-  				<f:setPropertyActionListener value="#{lancamentoSaque}" 
-  					target="#{consultaLancamentoSaqueBean.lancamentoSelecionado}" />
-		<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-           				message="Tem certeza que deseja excluir o Lançamento de Saque?" />	 		  					
-  		</p:commandButton>
-	</p:column>
-		
-	
-	
-	</p:dataTable>
-	</h:form>
+			<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
+
+
+			<p:panelGrid columns="2" id="grid">
+
+				<p:outputLabel value="Tipo Saque" for="tipoSaque" />
+				<p:selectOneButton id="tipoSaque"
+					value="#{cadastroLancamentoSaqueBean.lancamentoSaque.tipoSaque}">
+					<p:ajax process="tipoSaque" event="change"
+						listener="#{cadastroLancamentoSaqueBean.getAtualizaHistoricoPadrao()}" />
+					<f:selectItems value="#{cadastroLancamentoSaqueBean.tiposSaques}"
+						var="tipoSaque" itemValue="#{tipoSaque}"
+						itemLabel="#{tipoSaque.descricao}" />
+				</p:selectOneButton>
+				
+
+				<p:outputLabel value="Número do Saque" for="numeroSaque" />
+				<p:inputText id="numeroSaque" size="15"
+					value="#{cadastroLancamentoSaqueBean.lancamentoSaque.numeroSaque}">
+				</p:inputText>
+
+				<p:outputLabel value="Valor Saque" for="valorSaque" />
+				<p:inputText id="valorSaque" size="15"
+					value="#{cadastroLancamentoSaqueBean.lancamentoSaque.valorSaque}">
+					<f:convertNumber locale="pt_BR" maxFractionDigits="2"
+						minFractionDigits="2" />
+				</p:inputText>
+
+				<p:outputLabel value="Data do Saque" for="DataSaque" />
+				<p:calendar size="15" id="DataSaque" pattern="dd/MM/yyyy"
+					mask="99/99/9999" readonlyInput="true" yearRange="true"
+					value="#{cadastroLancamentoSaqueBean.lancamentoSaque.dataSaque}" />
+
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					action="#{cadastroLancamentoSaqueBean.salvar}" icon="ui-icon-disk"
+					update="frm" />
+
+			</p:panelGrid>
+
+			<h1 style="margin-top: 20px">Saques</h1>
+
+
+			<p:dataTable
+				value="#{cadastroLancamentoSaqueBean.listSaquesUnidades()}"
+				var="lancamentoSaque" border="1" cellspacing="0" cellpadding="2"
+				tableStyle="width:100%; font-size:11px" paginator="true" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Número do Saque"
+					sortBy="#{lancamentoSaque.numeroSaque}" width="10">
+					<h:outputText value="#{lancamentoSaque.numeroSaque}" />
+				</p:column>
+
+				<p:column headerText="Tipo Saque"
+					sortBy="#{lancamentoSaque.tipoSaque.descricao}" width="15">
+					<h:outputText value="#{lancamentoSaque.tipoSaque.descricao}" />
+				</p:column>
+
+				<p:column headerText="Data Saque" style="text-align: center"
+					sortBy="#{lancamentoSaque.dataSaque}" width="15">
+					<h:outputText value="#{lancamentoSaque.dataSaque}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Valor" style="text-align: right"
+					sortBy="#{lancamentoSaque.valorSaque}" width="10">
+					<h:outputText value="#{lancamentoSaque.valorSaque}">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Local do Saque"
+					sortBy="#{lancamentoSaque.localSaque}" width="100">
+					<h:outputText value="#{lancamentoSaque.localSaque}" />
+				</p:column>
+
+				<p:column headerText="Usuário Saque"
+					sortBy="#{lancamentoSaque.usuarioSaque}" width="15">
+					<h:outputText value="#{lancamentoSaque.usuarioSaque}" />
+				</p:column>
+
+				<p:column width="5" style="text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/CadastroLancamentoSaque">
+						<f:param name="id" value="#{lancamentoSaque.id}" />
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						process="@this" update="@form"
+						action="#{consultaLancamentoSaqueBean.excluir()}">
+						<f:setPropertyActionListener value="#{lancamentoSaque}"
+							target="#{consultaLancamentoSaqueBean.lancamentoSelecionado}" />
+						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+							message="Tem certeza que deseja excluir o Lançamento de Saque?" />
+					</p:commandButton>
+				</p:column>
+
+
+
+			</p:dataTable>
+		</h:form>
 	</ui:define>
-	
-	</ui:composition>
+
+</ui:composition>

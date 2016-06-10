@@ -21,7 +21,7 @@ public class CentroCustoConverter implements Converter{
 		CentroCusto retorno = null;
 		
 		if (value != null && !"".equals(value)) {
-			retorno = this.centroCustos.porId(new Long(value));
+			retorno = this.centroCustos.porId(value);
 		}
 
 		return retorno;
@@ -31,7 +31,7 @@ public class CentroCustoConverter implements Converter{
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
 			CentroCusto centroCusto = ((CentroCusto) value); 
-			return centroCusto.getId() == null ? null : centroCusto.getId().toString();
+			return centroCusto.getCodigo() == null ? null : centroCusto.getCodigo().toString();
 		}
 		return null;
 	}

@@ -50,6 +50,8 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 		this.cadastro.salvar(this.unidadeNegocio);
 		
 		this.unidadeNegocio = new UnidadeNegocio();
+		this.unidadeNegocio.setSaldoInicial(new BigDecimal(valor));
+		this.unidadeNegocio.setSaldoAtual(new BigDecimal(valor));
 			
 		context.addMessage(null, new FacesMessage("Unidade de Negócio atualizada com sucesso!!"));
 	}

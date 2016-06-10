@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,46 +13,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 
 @Entity
-@Table(name = "centrocusto")
+@Table(name = "centrocustos")
 public class CentroCusto implements Serializable {
 	
 	public static final long serialVersionUID = 1L;
-	
-	
-	private Long id;
+		
 	private String codigo;
-	private Empresa empresa;
+	private UnidadeNegocio unidadeNegocio;
 	private String descricao;
 	private String codigoGc;
-	private String CodigoGcReduzido;
+	private String codigoGcReduzido;
 	private Date dataExclusao;	
 
 	@Id
-	@GeneratedValue
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	@NotNull
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "empresa_id")
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
-	@NotEmpty
 	@Column(length = 6, nullable = false)	
 	public String getCodigo() {
 		return codigo;
@@ -61,6 +35,17 @@ public class CentroCusto implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	@NotNull
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "unidadeNegocio")
+	public UnidadeNegocio getUnidadeNegocio() {
+		return unidadeNegocio;
+	}
+
+	public void setUnidadeNegocio(UnidadeNegocio unidadeNegocio) {
+		this.unidadeNegocio = unidadeNegocio;
 	}
 
 	@Column(length = 78, nullable = false)	
@@ -83,11 +68,11 @@ public class CentroCusto implements Serializable {
 	
 	@Column(length = 3, nullable = false)	
 	public String getCodigoGcReduzido() {
-		return CodigoGcReduzido;
+		return codigoGcReduzido;
 	}
 
 	public void setCodigoGcReduzido(String codigoGcReduzido) {
-		CodigoGcReduzido = codigoGcReduzido;
+		this.codigoGcReduzido = codigoGcReduzido;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -104,7 +89,7 @@ public class CentroCusto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -117,10 +102,10 @@ public class CentroCusto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CentroCusto other = (CentroCusto) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}

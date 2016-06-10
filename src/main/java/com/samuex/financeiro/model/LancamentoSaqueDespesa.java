@@ -26,14 +26,22 @@ public class LancamentoSaqueDespesa implements Serializable{
 	public static final long serialVersionUID = 1L;
 	
 	private Long 			id;
+	//Saques
 	private String			numeroSaque;
 	private BigDecimal 		valorSaque;
-	private Date 			DataSaque;
+	private Date 			dataSaque;
 	private TipoSaque 		tipoSaque;
-	private String 			LocalSaque;
+	private String 			localSaque;
 	private String 			usuarioSaque;
 	private HistoricoPadrao historicoPadrao;
+	//Despesas
+	private CentroCusto 	centroCusto;
+	private String 			numeroNfCupon;
+	private String 			nomeFornecedor;
+	private BigDecimal		valorDespesa;
+	private String			observacao;
 	
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -45,8 +53,8 @@ public class LancamentoSaqueDespesa implements Serializable{
 	}
 //----------------
 	
-	@NotEmpty
-	@Column(length = 20, nullable = false)
+
+	@Column(length = 20, nullable = true)
 	public String getNumeroSaque() {
 		return numeroSaque;
 	}
@@ -57,7 +65,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 //----------------
 	
 	
-	@Column(precision = 10, scale = 2, nullable = false)
+	@Column(precision = 10, scale = 2, nullable = true)
 	public BigDecimal getValorSaque() {
 		return valorSaque;
 	}
@@ -68,18 +76,18 @@ public class LancamentoSaqueDespesa implements Serializable{
 //----------------
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "datasaque", nullable = false)
+	@Column(name = "datasaque", nullable = true)
 	public Date getDataSaque() {
-		return DataSaque;
+		return dataSaque;
 	}
 
 	public void setDataSaque(Date dataSaque) {
-		DataSaque = dataSaque;
+		this.dataSaque = dataSaque;
 	}
 //----------------
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	public TipoSaque getTipoSaque() {
 		return tipoSaque;
 	}
@@ -91,11 +99,11 @@ public class LancamentoSaqueDespesa implements Serializable{
 	
 	@Column(length = 80, nullable = true)
 	public String getLocalSaque() {
-		return LocalSaque;
+		return localSaque;
 	}
 
 	public void setLocalSaque(String localSaque) {
-		LocalSaque = localSaque;
+		this.localSaque = localSaque;
 	}
 //----------------
 	
@@ -109,6 +117,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 	}
 
 //----------------	
+	@NotEmpty
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "historicoPadrao")
 	public HistoricoPadrao getHistoricoPadrao() {
@@ -118,10 +127,53 @@ public class LancamentoSaqueDespesa implements Serializable{
 	public void setHistoricoPadrao(HistoricoPadrao historicoPadrao) {
 		this.historicoPadrao = historicoPadrao;
 	}	
-	
-
 //----------------	
-	
+	@NotEmpty
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "CentroCusto")	
+	public CentroCusto getCentroCusto() {
+		return centroCusto;
+	}
+
+	public void setCentroCusto(CentroCusto centroCusto) {
+		this.centroCusto = centroCusto;
+	}
+//----------------	
+	@Column(length = 20, nullable = true)
+	public String getNumeroNfCupon() {
+		return numeroNfCupon;
+	}
+
+	public void setNumeroNfCupon(String numeroNfCupon) {
+		this.numeroNfCupon = numeroNfCupon;
+	}
+//----------------	
+	@Column(length = 100, nullable = true)
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
+//----------------	
+	@Column(precision = 10, scale = 2, nullable = true)
+	public BigDecimal getValorDespesa() {
+		return valorDespesa;
+	}
+
+	public void setValorDespesa(BigDecimal valorDespesa) {
+		this.valorDespesa = valorDespesa;
+	}
+//----------------		
+	@Column(length = 200, nullable = true)
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 	
 	
 	@Override

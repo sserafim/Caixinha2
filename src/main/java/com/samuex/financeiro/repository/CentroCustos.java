@@ -20,10 +20,9 @@ public class CentroCustos implements Serializable {
 		this.manager = manager;
 	}	
 		
-	public CentroCusto porId(Long id){
+	public CentroCusto porId(String id){
 		return manager.find(CentroCusto.class, id);
-	}
-	
+	}	
 	
 	public List<String> descricaoQueContem(String descricao){
 		TypedQuery<String> query = manager.createQuery(

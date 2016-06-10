@@ -30,12 +30,12 @@
 	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
 
-	<p:outputLabel value="Empresa" for="empresa" />
-	<p:selectOneMenu value="#{cadastroCCustoBean.centroCusto.empresa}"
-	  id="empresa" filter="true" filterMatchMode="contains">		
+	<p:outputLabel value="UnidadeNegocio" for="unidadeNegocio" />
+	<p:selectOneMenu value="#{cadastroCCustoBean.centroCusto.unidadeNegocio}"
+	  id="unidadeNegocio" filter="true" filterMatchMode="contains">		
 		<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-		<f:selectItems value="#{cadastroEmpresaBean.listEmpresas()}"
-			var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.razaoSocial}" />		
+		<f:selectItems value="#{cadastroUnidadeNegocioBean.listUnidadeNeg()}"
+			var="unidadeNegocio" itemValue="#{unidadeNegocio}" itemLabel="#{unidadeNegocio.empresa.nome.concat(' - ').concat(unidadeNegocio.nomeUnidade)}" />		
 	</p:selectOneMenu>	
 
  	<p:outputLabel value="Codigo Centro Custo" for="codigo" />
@@ -95,13 +95,13 @@
 		<h:outputText value="#{centroCusto.dataExclusao}" />
 	</p:column>	
 
-	<p:column headerText="Empresa / Unidade" width="100" sortBy="#{centroCusto.empresa.empresa.concat(' - ').concat(centroCusto.empresa.nomeUnidade)}">
-		<h:outputText value="#{centroCusto.empresa.empresa.concat(' - ').concat(centroCusto.empresa.nomeUnidade)}" />
+	<p:column headerText="Empresa / Unidade" width="100" sortBy="#{centroCusto.unidadeNegocio.empresa.nome.concat(' - ').concat(centroCusto.unidadeNegocio.nomeUnidade)}">
+		<h:outputText value="#{centroCusto.unidadeNegocio.empresa.nome.concat(' - ').concat(centroCusto.unidadeNegocio.nomeUnidade)}" />
 	</p:column>	
 	
 	<p:column width="40" style="text-align: center">
 	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCCusto">
-		<f:param name="id" value="#{centroCusto.id}" />
+		<f:param name="id" value="#{centroCusto.codigo}" />
 	</p:button>
 	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 			action="#{consultaCCustoBean.excluir}">

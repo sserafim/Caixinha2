@@ -23,6 +23,7 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	
 	private UnidadeNegocio unidadeNegocio;
 	private Double valor = 0.00;
+	private BigDecimal valorAtual;
 	
 	@Inject
 	private Usuario usuario;
@@ -58,8 +59,14 @@ public class CadastroUnidadeNegocioBean implements Serializable{
 	}
 	
 	public void getAtualizaSaldoAtual(){
-		this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial().add(this.unidadeNegocio.getSaldoAtual()));
+		if(this.unidadeNegocio.getCodigo() == null){
+			this.unidadeNegocio.setSaldoAtual(this.unidadeNegocio.getSaldoInicial());
+		}else{
+			valorAtual = this.unidadesNegocio.porId(this.unidadeNegocio.getCodigo()).getSaldoAtual();
+			this.unidadeNegocio.setSaldoAtual(valorAtual.add(this.unidadeNegocio.getSaldoInicial()));
+		}	
 	}
+		
 
 	public UnidadeNegocio getUnidadeNegocio() {
 		return unidadeNegocio;

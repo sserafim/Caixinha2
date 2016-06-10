@@ -4,27 +4,27 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import com.samuex.financeiro.model.LancamentoSaque;
-import com.samuex.financeiro.repository.LancamentosSaques;
+import com.samuex.financeiro.model.LancamentoSaqueDespesa;
+import com.samuex.financeiro.repository.LancamentosSaquesDespesas;
 import com.samuex.financeiro.util.Transactional;
 
-public class CadastroLacamentoSaque implements Serializable {
+public class CadastroLacamentoSaqueDespesa implements Serializable {
 	
 	public static final long serialVersionUID = 1L;
 
 	
 	@Inject
-	private LancamentosSaques lancamentosSaques;
+	private LancamentosSaquesDespesas lancamentosSaques;
 	
 	
 	@Transactional
-	public void salvar(LancamentoSaque lancamentoSaque) throws NegocioException{
+	public void salvar(LancamentoSaqueDespesa lancamentoSaque) throws NegocioException{
 		
 		this.lancamentosSaques.guardar(lancamentoSaque);		
 	}
 	
 	@Transactional
-	public void excluir(LancamentoSaque lancamentoSaque) throws NegocioException{
+	public void excluir(LancamentoSaqueDespesa lancamentoSaque) throws NegocioException{
 		
 		lancamentoSaque = this.lancamentosSaques.porId(lancamentoSaque.getId());
 		

@@ -9,18 +9,18 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.samuex.financeiro.model.LancamentoSaque;
+import com.samuex.financeiro.model.LancamentoSaqueDespesa;
 import com.samuex.financeiro.model.UnidadeNegocio;
-import com.samuex.financeiro.repository.LancamentosSaques;
+import com.samuex.financeiro.repository.LancamentosSaquesDespesas;
 import com.samuex.financeiro.repository.UnidadesNegocio;
-import com.samuex.financeiro.service.CadastroLacamentoSaque;
+import com.samuex.financeiro.service.CadastroLacamentoSaqueDespesa;
 import com.samuex.financeiro.service.CadastroUnidadeNegocio;
 import com.samuex.financeiro.service.NegocioException;
 
 
 @Named
 @ViewScoped
-public class ConsultaLancamentoSaqueBean implements Serializable {
+public class ConsultaLancSaqueDespesaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,10 +29,10 @@ public class ConsultaLancamentoSaqueBean implements Serializable {
 	
 
 	@Inject 
-	private LancamentosSaques lancamentosRepository;
+	private LancamentosSaquesDespesas lancamentosRepository;
 
 	@Inject
-	private CadastroLacamentoSaque cadastro;
+	private CadastroLacamentoSaqueDespesa cadastro;
 	
 	@Inject
 	private UnidadesNegocio unidadesNegocioDAO;
@@ -40,9 +40,9 @@ public class ConsultaLancamentoSaqueBean implements Serializable {
 	@Inject
 	private CadastroUnidadeNegocio unidadeNegocioService;
 
-	private List<LancamentoSaque> lancamentosSaques;
+	private List<LancamentoSaqueDespesa> lancamentosSaques;
 	
-	private LancamentoSaque lancamentoSelecionado;
+	private LancamentoSaqueDespesa lancamentoSelecionado;
 	
 	
 	public void excluir(){
@@ -70,15 +70,15 @@ public class ConsultaLancamentoSaqueBean implements Serializable {
 		this.lancamentosSaques = lancamentosRepository.todos();
 	}
 	
-	public List<LancamentoSaque> getLancamentosSaques() {
+	public List<LancamentoSaqueDespesa> getLancamentosSaques() {
 		return lancamentosSaques;
 	}
 
-	public LancamentoSaque getLancamentoSelecionado() {
+	public LancamentoSaqueDespesa getLancamentoSelecionado() {
 		return lancamentoSelecionado;
 	}
 
-	public void setLancamentoSelecionado(LancamentoSaque lancamentoSelecionado) {
+	public void setLancamentoSelecionado(LancamentoSaqueDespesa lancamentoSelecionado) {
 		this.lancamentoSelecionado = lancamentoSelecionado;
 	}
 

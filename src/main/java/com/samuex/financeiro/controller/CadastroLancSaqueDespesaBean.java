@@ -13,19 +13,19 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.samuex.financeiro.model.LancamentoSaque;
+import com.samuex.financeiro.model.LancamentoSaqueDespesa;
 import com.samuex.financeiro.model.TipoSaque;
 import com.samuex.financeiro.model.UnidadeNegocio;
 import com.samuex.financeiro.repository.HistoricosPadrao;
-import com.samuex.financeiro.repository.LancamentosSaques;
+import com.samuex.financeiro.repository.LancamentosSaquesDespesas;
 import com.samuex.financeiro.repository.UnidadesNegocio;
-import com.samuex.financeiro.service.CadastroLacamentoSaque;
+import com.samuex.financeiro.service.CadastroLacamentoSaqueDespesa;
 import com.samuex.financeiro.service.CadastroUnidadeNegocio;
 import com.samuex.financeiro.service.NegocioException;
 
 @Named
 @javax.faces.view.ViewScoped
-public class CadastroLancamentoSaqueBean implements Serializable {
+public class CadastroLancSaqueDespesaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,8 +33,8 @@ public class CadastroLancamentoSaqueBean implements Serializable {
 	private Usuario usuarioLogado;
 
 	private BigDecimal valorAtual;
-
-	private LancamentoSaque lancamentoSaque;
+	
+	private LancamentoSaqueDespesa lancamentoSaqueDespesa;
 
 	@Inject
 	private HistoricosPadrao historicoPadraoDAO;
@@ -46,19 +46,19 @@ public class CadastroLancamentoSaqueBean implements Serializable {
 	private CadastroUnidadeNegocio unidadeNegocioService;
 
 	@Inject
-	private CadastroLacamentoSaque cadastro;
+	private CadastroLacamentoSaqueDespesa cadastro;
 
 	@Inject
-	private LancamentosSaques lancamentoSaques;
+	private LancamentosSaquesDespesas lancamentoSaquesDespesas;
 
 	public void prepararCadastro() throws ParseException {
 
-		if (this.lancamentoSaque == null) {
-			this.lancamentoSaque = new LancamentoSaque();
+		if (this.lancamentoSaqueDespesa == null) {
+			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
 
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
-			this.lancamentoSaque.setDataSaque(data);
+			this.lancamentoSaqueDespesa.setDataSaque(data);
 		}
 	}
 
@@ -66,9 +66,9 @@ public class CadastroLancamentoSaqueBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		try {
-			this.lancamentoSaque.setUsuarioSaque(this.usuarioLogado.getNome());
+			this.lancamentoSaqueDespesa.setUsuarioSaque(this.usuarioLogado.getNome());
 			atualizaSaldoAtual();
-			this.cadastro.salvar(this.lancamentoSaque);
+			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			consultarNovo();
 
 			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
@@ -86,54 +86,54 @@ public class CadastroLancamentoSaqueBean implements Serializable {
 	}
 
 	public void getAtualizaHistoricoPadrao() {
-		if (this.lancamentoSaque.getTipoSaque().getDescricao() == "BANCO") {
-			this.lancamentoSaque.setHistoricoPadrao(this.historicoPadraoDAO.porId("9001"));
+		if (this.lancamentoSaqueDespesa.getTipoSaque().getDescricao() == "BANCO") {
+			this.lancamentoSaqueDespesa.setHistoricoPadrao(this.historicoPadraoDAO.porId("9001"));
 
-		} else if (this.lancamentoSaque.getTipoSaque().getDescricao() == "TESOURARIA") {
-			this.lancamentoSaque.setHistoricoPadrao(this.historicoPadraoDAO.porId("9002"));
+		} else if (this.lancamentoSaqueDespesa.getTipoSaque().getDescricao() == "TESOURARIA") {
+			this.lancamentoSaqueDespesa.setHistoricoPadrao(this.historicoPadraoDAO.porId("9002"));
 		}
 	}
 
 	public void atualizaSaldoAtual() {
 
 		UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
-		this.lancamentoSaque.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
+		this.lancamentoSaqueDespesa.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
 
-		if (this.lancamentoSaque.getId() == null) {
-			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaque.getValorSaque()));
+		if (this.lancamentoSaqueDespesa.getId() == null) {
+			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaqueDespesa.getValorSaque()));
 			this.unidadeNegocioService.salvar(un);
 		} else {
-			valorAtual = this.lancamentoSaques.porId(this.lancamentoSaque.getId()).getValorSaque();
-			un.setSaldoAtual(un.getSaldoAtual().subtract(valorAtual).add(this.lancamentoSaque.getValorSaque()));
+			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorSaque();
+			un.setSaldoAtual(un.getSaldoAtual().subtract(valorAtual).add(this.lancamentoSaqueDespesa.getValorSaque()));
 			this.unidadeNegocioService.salvar(un);
 		}
 	}
 
 	public void consultarNovo() throws ParseException {
-		this.lancamentoSaque = new LancamentoSaque();
+		this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse(this.getDateTime());
-		this.lancamentoSaque.setDataSaque(data);
+		this.lancamentoSaqueDespesa.setDataSaque(data);
 	}
 
 	public TipoSaque[] getTiposSaques() {
 		return TipoSaque.values();
 	}
 
-	public List<LancamentoSaque> listSaques() {
-		return lancamentoSaques.todos();
+	public List<LancamentoSaqueDespesa> listSaquesDespesas() {
+		return lancamentoSaquesDespesas.todos();
 	}
 
-	public List<LancamentoSaque> listSaquesUnidades() {
-		return lancamentoSaques.buscaPorUnidade();
+	public List<LancamentoSaqueDespesa> listSaquesUnidades() {
+		return lancamentoSaquesDespesas.buscaPorUnidade();
 	}
 
-	public LancamentoSaque getLancamentoSaque() {
-		return lancamentoSaque;
+	public LancamentoSaqueDespesa getLancamentoSaqueDespesa() {
+		return lancamentoSaqueDespesa;
 	}
 
-	public void setLancamentoSaque(LancamentoSaque lancamentoSaque) {
-		this.lancamentoSaque = lancamentoSaque;
+	public void setLancamentoSaqueDespesa(LancamentoSaqueDespesa lancamentoSaqueDespesa) {
+		this.lancamentoSaqueDespesa = lancamentoSaqueDespesa;
 	}
 
 	public Usuario getUsuarioLogado() {

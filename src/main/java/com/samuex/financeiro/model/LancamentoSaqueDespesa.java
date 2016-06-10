@@ -20,8 +20,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "lancamentosaque")
-public class LancamentoSaque implements Serializable{
+@Table(name = "lancamentoSaqueDespesa")
+public class LancamentoSaqueDespesa implements Serializable{
 	
 	public static final long serialVersionUID = 1L;
 	
@@ -140,7 +140,7 @@ public class LancamentoSaque implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LancamentoSaque other = (LancamentoSaque) obj;
+		LancamentoSaqueDespesa other = (LancamentoSaqueDespesa) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

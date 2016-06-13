@@ -24,7 +24,7 @@ public class CadastroCCustos implements Serializable{
 		
 	@Transactional	
 	public void excluir (CentroCusto centroCusto) throws NegocioException{
-		centroCusto = this.centroCustos.porId(centroCusto.getCodigo());
+		centroCusto = this.centroCustos.porId(centroCusto.getCodigoGc());
 		
 		this.centroCustos.remover(centroCusto);
 	}

@@ -34,7 +34,7 @@
 			<p:panelGrid columns="2" id="grid">
 
 				<p:outputLabel value="Tipo Saque" for="tipoSaque" />
-				<p:selectOneButton id="tipoSaque"
+				<p:selectOneButton id="tipoSaque" required="true"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.tipoSaque}">
 					<p:ajax process="tipoSaque" event="change"
 						listener="#{cadastroLancSaqueDespesaBean.getAtualizaHistoricoPadrao()}" />
@@ -45,12 +45,12 @@
 				
 
 				<p:outputLabel value="Número do Saque" for="numeroSaque" />
-				<p:inputText id="numeroSaque" size="15"
+				<p:inputText id="numeroSaque" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.numeroSaque}">
 				</p:inputText>
 
 				<p:outputLabel value="Valor Saque" for="valorSaque" />
-				<p:inputText id="valorSaque" size="15"
+				<p:inputText id="valorSaque" size="15" required="true"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorSaque}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2"
 						minFractionDigits="2" />
@@ -74,8 +74,8 @@
 
 			<p:dataTable
 				value="#{cadastroLancSaqueDespesaBean.listSaquesUnidades()}"
-				var="lancamentoSaqueDespesa" border="1" cellspacing="0" cellpadding="2"
-				tableStyle="width:100%; font-size:11px" paginator="true" rows="5"
+				var="lancamentoSaqueDespesa" border="1" cellspacing="0" cellpadding="2" 
+				tableStyle="width:100%; font-size:11px" paginator="true" rows="5" 
 				paginatorPosition="bottom">
 
 				<p:column headerText="Número do Saque"

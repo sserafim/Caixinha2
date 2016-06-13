@@ -20,21 +20,20 @@ public class CentroCusto implements Serializable {
 	
 	public static final long serialVersionUID = 1L;
 		
-	private String codigo;
-	private UnidadeNegocio unidadeNegocio;
-	private String descricao;
 	private String codigoGc;
+	private UnidadeNegocio unidadeNegocio;
+	private String descricao;	
 	private String codigoGcReduzido;
 	private Date dataExclusao;	
 
 	@Id
-	@Column(length = 6, nullable = false)	
-	public String getCodigo() {
-		return codigo;
+	@Column(length = 5, nullable = false)	
+	public String getCodigoGc() {
+		return codigoGc;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigoGc(String codigoGc) {
+		this.codigoGc = codigoGc;
 	}
 	
 	@NotNull
@@ -57,14 +56,7 @@ public class CentroCusto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	@Column(length = 5, nullable = false)	
-	public String getCodigoGc() {
-		return codigoGc;
-	}
 
-	public void setCodigoGc(String codigoGc) {
-		this.codigoGc = codigoGc;
-	}
 	
 	@Column(length = 3, nullable = false)	
 	public String getCodigoGcReduzido() {
@@ -89,7 +81,7 @@ public class CentroCusto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((codigoGc == null) ? 0 : codigoGc.hashCode());
 		return result;
 	}
 
@@ -102,10 +94,10 @@ public class CentroCusto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CentroCusto other = (CentroCusto) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (codigoGc == null) {
+			if (other.codigoGc != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!codigoGc.equals(other.codigoGc))
 			return false;
 		return true;
 	}

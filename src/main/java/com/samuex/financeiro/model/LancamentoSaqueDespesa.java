@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -43,7 +43,9 @@ public class LancamentoSaqueDespesa implements Serializable{
 	
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "inc")
+	@GenericGenerator(name = "inc", strategy = "increment")
+	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -117,7 +119,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 	}
 
 //----------------	
-	@NotEmpty
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "historicoPadrao")
 	public HistoricoPadrao getHistoricoPadrao() {
@@ -128,7 +130,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 		this.historicoPadrao = historicoPadrao;
 	}	
 //----------------	
-	@NotEmpty
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "CentroCusto")	
 	public CentroCusto getCentroCusto() {

@@ -16,6 +16,7 @@ import javax.inject.Named;
 import com.samuex.financeiro.model.LancamentoSaqueDespesa;
 import com.samuex.financeiro.model.TipoSaque;
 import com.samuex.financeiro.model.UnidadeNegocio;
+import com.samuex.financeiro.repository.CentroCustos;
 import com.samuex.financeiro.repository.HistoricosPadrao;
 import com.samuex.financeiro.repository.LancamentosSaquesDespesas;
 import com.samuex.financeiro.repository.UnidadesNegocio;
@@ -33,8 +34,11 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	private Usuario usuarioLogado;
 
 	private BigDecimal valorAtual;
-	
+
 	private LancamentoSaqueDespesa lancamentoSaqueDespesa;
+
+	@Inject
+	private CentroCustos centroCustosDAO;
 
 	@Inject
 	private HistoricosPadrao historicoPadraoDAO;
@@ -59,6 +63,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
 			this.lancamentoSaqueDespesa.setDataSaque(data);
+
 		}
 	}
 
@@ -68,6 +73,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		try {
 			this.lancamentoSaqueDespesa.setUsuarioSaque(this.usuarioLogado.getNome());
 			atualizaSaldoAtual();
+			atualizaCentroCusto();
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			consultarNovo();
 
@@ -94,10 +100,15 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		}
 	}
 
+	public void atualizaCentroCusto() {
+		this.lancamentoSaqueDespesa.setCentroCusto(this.centroCustosDAO.porId(this.centroCustosDAO.centroCustoSaque("11")));
+	}
+
 	public void atualizaSaldoAtual() {
 
 		UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
-		this.lancamentoSaqueDespesa.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
+		this.lancamentoSaqueDespesa
+				.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
 
 		if (this.lancamentoSaqueDespesa.getId() == null) {
 			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaqueDespesa.getValorSaque()));

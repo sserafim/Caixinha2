@@ -27,7 +27,7 @@
     	</p:toolbarGroup>
     </p:toolbar>
 
-	<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+	<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 	<p:panelGrid columns="2" id="grid">
 
 	<p:outputLabel value="UnidadeNegocio" for="unidadeNegocio" />
@@ -38,19 +38,15 @@
 			var="unidadeNegocio" itemValue="#{unidadeNegocio}" itemLabel="#{unidadeNegocio.empresa.nome.concat(' - ').concat(unidadeNegocio.nomeUnidade)}" />		
 	</p:selectOneMenu>	
 
- 	<p:outputLabel value="Codigo Centro Custo" for="codigo" />
-	<p:inputText id="codigo" size="6" 
-		value="#{cadastroCCustoBean.centroCusto.codigo}">
+
+ 	<p:outputLabel value="CodigoGC" for="codigoGC" />
+	<p:inputText id="codigoGC" size="6" 
+		value="#{cadastroCCustoBean.centroCusto.codigoGc}">
  	</p:inputText>
 
  	<p:outputLabel value="Descricao" for="descricao" />
 	<p:inputText id="descricao" size="78" 
 		value="#{cadastroCCustoBean.centroCusto.descricao}">
- 	</p:inputText>
-
- 	<p:outputLabel value="CodigoGC" for="codigoGC" />
-	<p:inputText id="codigoGC" size="6" 
-		value="#{cadastroCCustoBean.centroCusto.codigoGc}">
  	</p:inputText>
 
  	<p:outputLabel value="CodigoGcReduzido" for="codigoGcReduzido" />
@@ -71,20 +67,15 @@
 	<h1 style="margin-top: 20px">Centro de Custos</h1>
 
 	<p:dataTable value="#{cadastroCCustoBean.listCentroCusto()}" var="centroCusto"
-		border="1" cellspacing="0" cellpadding="2"
+		border="1" cellspacing="0" cellpadding="2" tableStyle="width:100%; font-size:11px"
 		paginator="true" rows="5" paginatorPosition="bottom">	
 	
-	
-	<p:column headerText="Código" sortBy="#{centroCusto.codigo}" width="50">
-		<h:outputText value="#{centroCusto.codigo}" />
+	<p:column headerText="CódigoGC" sortBy="#{centroCusto.codigoGc}" width="60">
+		<h:outputText value="#{centroCusto.codigoGc}" />
 	</p:column>
 
 	<p:column headerText="Descrição" width="180" sortBy="#{centroCusto.descricao}">
 		<h:outputText value="#{centroCusto.descricao}" />
-	</p:column>
-	
-	<p:column headerText="CódigoGC" sortBy="#{centroCusto.codigoGc}" width="60">
-		<h:outputText value="#{centroCusto.codigoGc}" />
 	</p:column>	
 
 	<p:column headerText="Cód. GC Red." sortBy="#{centroCusto.codigoGcReduzido}" width="60">
@@ -101,7 +92,7 @@
 	
 	<p:column width="40" style="text-align: center">
 	<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroCCusto">
-		<f:param name="id" value="#{centroCusto.codigo}" />
+		<f:param name="id" value="#{centroCusto.codigoGc}" />
 	</p:button>
 	<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
 			action="#{consultaCCustoBean.excluir}">

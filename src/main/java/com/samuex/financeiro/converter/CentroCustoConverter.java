@@ -31,7 +31,7 @@ public class CentroCustoConverter implements Converter{
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
 			CentroCusto centroCusto = ((CentroCusto) value); 
-			return centroCusto.getCodigo() == null ? null : centroCusto.getCodigo().toString();
+			return centroCusto.getCodigoGc() == null ? null : centroCusto.getCodigoGc().toString();
 		}
 		return null;
 	}

@@ -48,9 +48,10 @@ public class CadastroCCustoBean implements Serializable{
 	public void salvar() throws NegocioException{
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		this.cadastro.salvar(this.centroCusto);
+		this.cadastro.salvar(this.centroCusto);		
+		this.centroCusto = new CentroCusto();
 			
-		context.addMessage(null, new FacesMessage("Centro de Csutos atualizado com sucesso!!"));
+		context.addMessage(null, new FacesMessage("Centro de Custo atualizado com sucesso!!"));
 	}
 	
 	public List<CentroCusto> listCentroCusto(){

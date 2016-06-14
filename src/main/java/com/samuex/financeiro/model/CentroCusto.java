@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -36,7 +35,6 @@ public class CentroCusto implements Serializable {
 		this.codigoGc = codigoGc;
 	}
 	
-	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "unidadeNegocio")
 	public UnidadeNegocio getUnidadeNegocio() {
@@ -56,8 +54,6 @@ public class CentroCusto implements Serializable {
 		this.descricao = descricao;
 	}
 
-
-	
 	@Column(length = 3, nullable = false)	
 	public String getCodigoGcReduzido() {
 		return codigoGcReduzido;

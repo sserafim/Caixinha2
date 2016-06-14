@@ -47,12 +47,13 @@
 				<p:outputLabel value="Número do Saque" for="numeroSaque" />
 				<p:inputText id="numeroSaque" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.numeroSaque}">
+					<f:convertNumber integerOnly="true" />
 				</p:inputText>
 
 				<p:outputLabel value="Valor Saque" for="valorSaque" />
-				<p:inputText id="valorSaque" size="15" required="true"
+				<p:inputText id="valorSaque" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorSaque}">
-					<f:convertNumber locale="pt_BR" maxFractionDigits="2"
+					<f:convertNumber locale="pt_BR" maxFractionDigits="2" type="number" groupingUsed="true"
 						minFractionDigits="2" />
 				</p:inputText>
 
@@ -98,7 +99,7 @@
 
 				<p:column headerText="Valor" style="text-align: right"
 					sortBy="#{lancamentoSaqueDespesa.valorSaque}" width="10">
-					<h:outputText value="#{lancamentoSaqueDespesa.valorSaque}">
+					<h:outputText value="#{lancamentoSaqueDespesa.valorSaque}" style="font-weight: bold" >
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 				</p:column>

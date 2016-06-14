@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.samuex.financeiro.controller.Usuario;
 import com.samuex.financeiro.model.CentroCusto;
 
 public class CentroCustos implements Serializable {
@@ -14,6 +15,10 @@ public class CentroCustos implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	private EntityManager manager;
+	
+	
+	@Inject
+	private Usuario usuarioLocal;
 	
 	@Inject
 	public CentroCustos (EntityManager manager){
@@ -40,13 +45,13 @@ public class CentroCustos implements Serializable {
 		return query.getResultList();
 	}
 	
-	public String centroCustoSaque(String unidade){
+	public String buscaCCusto(){
 		TypedQuery<String> query = manager.createQuery(
-				"select min(codigoGc) from CentroCusto "
-				+ "where unidadeNegocio = unidadeNegocio", String.class);
-		query.setParameter("unidadeNegocio", unidade);
-		return query.getSingleResult();		
-	}	
+				"select min(codigoGc) from CentroCusto " 
+				+ "where unidadeNegocio.codigo = :unidadeCC",String.class);
+		query.setParameter("unidadeCC", this.usuarioLocal.getUnidadeNegocio());
+		return query.getSingleResult();
+	}
 	
 	public void adicionar(CentroCusto centroCusto){
 		this.manager.persist(centroCusto);

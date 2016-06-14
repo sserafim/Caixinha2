@@ -59,11 +59,10 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		if (this.lancamentoSaqueDespesa == null) {
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
-
+			
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
 			this.lancamentoSaqueDespesa.setDataSaque(data);
-
 		}
 	}
 
@@ -101,7 +100,8 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	}
 
 	public void atualizaCentroCusto() {
-		this.lancamentoSaqueDespesa.setCentroCusto(this.centroCustosDAO.porId(this.centroCustosDAO.centroCustoSaque("11")));
+			
+		this.lancamentoSaqueDespesa.setCentroCusto(this.centroCustosDAO.porId(centroCustosDAO.buscaCCusto()));
 	}
 
 	public void atualizaSaldoAtual() {

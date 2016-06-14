@@ -103,7 +103,7 @@
 			</p:column>
 			
 			<p:column width="100" headerText="Saldo incial" sortBy="#{unidadeNegocio.saldoInicial}">
-					<h:outputText value="#{unidadeNegocio.saldoInicial}">
+					<h:outputText value="#{unidadeNegocio.saldoInicial}" style="font-weight: bold">
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 			</p:column>			
@@ -117,7 +117,7 @@
 			</p:column>		
 
 			<p:column width="100" headerText="Saldo Atual" sortBy="#{unidadeNegocio.saldoAtual}">
-					<h:outputText value="#{unidadeNegocio.saldoAtual}">
+					<h:outputText value="#{unidadeNegocio.saldoAtual}" style="font-weight: bold" >
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 			</p:column>				

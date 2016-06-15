@@ -55,7 +55,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	@Inject
 	private LancamentosSaquesDespesas lancamentoSaquesDespesas;
 
-	public void prepararCadastro() throws ParseException {
+	public void prepararCadastroSaque() throws ParseException {
 
 		if (this.lancamentoSaqueDespesa == null) {
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
@@ -65,14 +65,23 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			this.lancamentoSaqueDespesa.setDataSaque(data);
 		}
 	}
+	
+	
+	public void prepararCadastroDespesa() throws ParseException {
 
-	public void salvar() {
+		if (this.lancamentoSaqueDespesa == null) {
+			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
+		}
+	}	
+
+	public void salvarSaque() {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		try {
 			this.lancamentoSaqueDespesa.setUsuarioSaque(this.usuarioLogado.getNome());
 			atualizaSaldoAtual();
 			atualizaCentroCusto();
+			
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			consultarNovo();
 
@@ -83,6 +92,22 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			context.addMessage(null, mensagem);
 		}
 	}
+
+	
+	public void salvarDespesa() {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		try {			
+			this.cadastro.salvar(this.lancamentoSaqueDespesa);
+			consultarNovo();
+
+			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
+		} catch (NegocioException | ParseException e) {
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, mensagem);
+		}
+	}	
 
 	private String getDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -99,8 +124,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		}
 	}
 
-	public void atualizaCentroCusto() {
-			
+	public void atualizaCentroCusto() {			
 		this.lancamentoSaqueDespesa.setCentroCusto(this.centroCustosDAO.porId(centroCustosDAO.buscaCCusto()));
 	}
 

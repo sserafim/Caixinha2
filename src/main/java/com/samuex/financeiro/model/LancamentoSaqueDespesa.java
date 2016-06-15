@@ -40,6 +40,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 	private String 			nomeFornecedor;
 	private BigDecimal		valorDespesa;
 	private String			observacao;
+	private Date			dataDespesa;
 	
 
 	@Id
@@ -156,7 +157,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 	}
 
 	public void setNomeFornecedor(String nomeFornecedor) {
-		this.nomeFornecedor = nomeFornecedor;
+		this.nomeFornecedor = nomeFornecedor.toUpperCase();
 	}
 //----------------	
 	@Column(precision = 10, scale = 2, nullable = true)
@@ -175,7 +176,19 @@ public class LancamentoSaqueDespesa implements Serializable{
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+
 	}
+//----------------		
+	@Temporal(TemporalType.DATE)
+	@Column(name = "datadespesa", nullable = true)
+	public Date getDataDespesa() {
+		return dataDespesa;
+	}
+
+	public void setDataDespesa(Date dataDespesa) {
+		this.dataDespesa = dataDespesa;
+	}
+//----------------		
 	
 	
 	@Override

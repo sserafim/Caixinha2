@@ -45,13 +45,13 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 	private LancamentoSaqueDespesa lancamentoSelecionado;
 	
 	
-	public void excluir(){
+	public void excluirSaque(){
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try{
 			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
-			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSelecionado.getValorSaque()));
+			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSelecionado.getValorLancamento()));
 			
 			this.unidadeNegocioService.salvar(un);
 			
@@ -65,7 +65,24 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 			context.addMessage(null, mensagem);						
 		}
 	}
+
+	public void excluirDespesa(){
 		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try{			
+			this.cadastro.excluir(this.lancamentoSelecionado);
+		
+			context.addMessage( null, new FacesMessage("Lancamento Excluído com sucesso!!"));			
+		}catch (NegocioException e){			
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, mensagem);						
+		}
+	}
+	
+	
+	
 	public void consultar(){
 		this.lancamentosSaques = lancamentosRepository.todos();
 	}

@@ -37,7 +37,7 @@ public class LancamentosSaquesDespesas implements Serializable {
 	
 	public List<LancamentoSaqueDespesa> buscaPorUnidade(){
 		TypedQuery<LancamentoSaqueDespesa> query = manager.createQuery(
-				"from LancamentoSaqueDespesa where upper(localSaque) like upper(:localSaque)", LancamentoSaqueDespesa.class);
+				"from LancamentoSaqueDespesa where upper(local) like upper(:localSaque)", LancamentoSaqueDespesa.class);
 		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
 		return query.getResultList();
 	}

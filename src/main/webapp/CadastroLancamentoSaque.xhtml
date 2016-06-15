@@ -52,7 +52,7 @@
 
 				<p:outputLabel value="Valor Saque" for="valorSaque" />
 				<p:inputText id="valorSaque" size="15" required="true" 
-					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorSaque}">
+					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorLancamento}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2" type="number" groupingUsed="true"
 						minFractionDigits="2" />
 				</p:inputText>
@@ -60,7 +60,7 @@
 				<p:outputLabel value="Data do Saque" for="DataSaque" />
 				<p:calendar size="15" id="DataSaque" pattern="dd/MM/yyyy"
 					mask="99/99/9999" readonlyInput="true" yearRange="true"
-					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataSaque}" />
+					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataLancamento}" />
 
 
 				<h:outputLabel />
@@ -90,28 +90,28 @@
 				</p:column>
 
 				<p:column headerText="Data Saque" style="text-align: center"
-					sortBy="#{lancamentoSaque.dataSaque}" width="15">
-					<h:outputText value="#{lancamentoSaque.dataSaque}">
+					sortBy="#{lancamentoSaque.dataLancamento}" width="15">
+					<h:outputText value="#{lancamentoSaque.dataLancamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Valor" style="text-align: right"
-					sortBy="#{lancamentoSaque.valorSaque}" width="10">
-					<h:outputText value="#{lancamentoSaque.valorSaque}" style="font-weight: bold" >
+					sortBy="#{lancamentoSaque.valorLancamento}" width="10">
+					<h:outputText value="#{lancamentoSaque.valorLancamento}" style="font-weight: bold" >
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Local do Saque"
-					sortBy="#{lancamentoSaque.localSaque}" width="100">
-					<h:outputText value="#{lancamentoSaque.localSaque}" />
+					sortBy="#{lancamentoSaque.local}" width="100">
+					<h:outputText value="#{lancamentoSaque.local}" />
 				</p:column>
 
 				<p:column headerText="Usuário Saque"
-					sortBy="#{lancamentoSaque.usuarioSaque}" width="15">
-					<h:outputText value="#{lancamentoSaque.usuarioSaque}" />
+					sortBy="#{lancamentoSaque.usuarioLancamento}" width="15">
+					<h:outputText value="#{lancamentoSaque.usuarioLancamento}" />
 				</p:column>
 
 				<p:column width="5" style="text-align: center">
@@ -121,7 +121,7 @@
 					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						process="@this" update="@form"
-						action="#{consultaLancSaqueDespesaBean.excluir()}">
+						action="#{consultaLancSaqueDespesaBean.excluirSaque()}">
 						<f:setPropertyActionListener value="#{lancamentoSaque}"
 							target="#{consultaLancSaqueDespesaBean.lancamentoSelecionado}" />
 						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"

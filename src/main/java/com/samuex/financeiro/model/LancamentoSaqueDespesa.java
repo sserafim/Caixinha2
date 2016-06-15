@@ -28,19 +28,19 @@ public class LancamentoSaqueDespesa implements Serializable{
 	private Long 			id;
 	//Saques
 	private String			numeroSaque;
-	private BigDecimal 		valorSaque;
-	private Date 			dataSaque;
+	private BigDecimal 		valorLancamento;
+	private Date 			dataLancamento;
 	private TipoSaque 		tipoSaque;
-	private String 			localSaque;
-	private String 			usuarioSaque;
+	private String 			local;
+	private String 			usuarioLancamento;
 	private HistoricoPadrao historicoPadrao;
-	//Despesas
+
 	private CentroCusto 	centroCusto;
 	private String 			numeroNfCupon;
 	private String 			nomeFornecedor;
-	private BigDecimal		valorDespesa;
 	private String			observacao;
-	private Date			dataDespesa;
+	private TipoLancamento 	tipoLancamento;
+
 	
 
 	@Id
@@ -66,26 +66,24 @@ public class LancamentoSaqueDespesa implements Serializable{
 		this.numeroSaque = numeroSaque;
 	}
 //----------------
-	
-	
 	@Column(precision = 10, scale = 2, nullable = true)
-	public BigDecimal getValorSaque() {
-		return valorSaque;
+	public BigDecimal getValorLancamento() {
+		return valorLancamento;
 	}
 
-	public void setValorSaque(BigDecimal valorSaque) {
-		this.valorSaque = valorSaque;
+	public void setValorLancamento(BigDecimal valorLancamento) {
+		this.valorLancamento = valorLancamento;
 	}
 //----------------
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "datasaque", nullable = true)
-	public Date getDataSaque() {
-		return dataSaque;
+	@Column(name = "datalancamento", nullable = true)
+	public Date getDataLancamento() {
+		return dataLancamento;
 	}
 
-	public void setDataSaque(Date dataSaque) {
-		this.dataSaque = dataSaque;
+	public void setDataLancamento(Date dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
 //----------------
 
@@ -101,22 +99,22 @@ public class LancamentoSaqueDespesa implements Serializable{
 //----------------
 	
 	@Column(length = 80, nullable = true)
-	public String getLocalSaque() {
-		return localSaque;
+	public String getLocal() {
+		return local;
 	}
 
-	public void setLocalSaque(String localSaque) {
-		this.localSaque = localSaque;
+	public void setLocal(String local) {
+		this.local = local;
 	}
 //----------------
 	
 	@Column(length = 80, nullable = true)
-	public String getUsuarioSaque() {
-		return usuarioSaque;
+	public String getUsuarioLancamento() {
+		return usuarioLancamento;
 	}
 
-	public void setUsuarioSaque(String usuarioSaque) {
-		this.usuarioSaque = usuarioSaque;
+	public void setUsuarioLancamento(String usuarioLancamento) {
+		this.usuarioLancamento = usuarioLancamento;
 	}
 
 //----------------	
@@ -133,7 +131,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 //----------------	
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "CentroCusto")	
+	@JoinColumn(name = "centroCusto")	
 	public CentroCusto getCentroCusto() {
 		return centroCusto;
 	}
@@ -157,16 +155,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 	}
 
 	public void setNomeFornecedor(String nomeFornecedor) {
-		this.nomeFornecedor = nomeFornecedor.toUpperCase();
-	}
-//----------------	
-	@Column(precision = 10, scale = 2, nullable = true)
-	public BigDecimal getValorDespesa() {
-		return valorDespesa;
-	}
-
-	public void setValorDespesa(BigDecimal valorDespesa) {
-		this.valorDespesa = valorDespesa;
+		this.nomeFornecedor = nomeFornecedor;
 	}
 //----------------		
 	@Column(length = 200, nullable = true)
@@ -179,16 +168,18 @@ public class LancamentoSaqueDespesa implements Serializable{
 
 	}
 //----------------		
-	@Temporal(TemporalType.DATE)
-	@Column(name = "datadespesa", nullable = true)
-	public Date getDataDespesa() {
-		return dataDespesa;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = true)
+	public TipoLancamento getTipoLancamento() {
+		return tipoLancamento;
 	}
 
-	public void setDataDespesa(Date dataDespesa) {
-		this.dataDespesa = dataDespesa;
+	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+		this.tipoLancamento = tipoLancamento;
 	}
-//----------------		
+//----------------
+	
+	
 	
 	
 	@Override
@@ -198,6 +189,7 @@ public class LancamentoSaqueDespesa implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {

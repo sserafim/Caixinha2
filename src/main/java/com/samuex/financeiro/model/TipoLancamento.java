@@ -2,8 +2,8 @@ package com.samuex.financeiro.model;
 
 public enum TipoLancamento {
 
-	RECEITA("Receita"), 
-	DESPESA("Despesa");
+	SAQUE("SAQUE"), 
+	DESPESA("DESPESA");
 
 	private String descricao;
 	

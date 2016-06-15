@@ -53,6 +53,15 @@ public class CentroCustos implements Serializable {
 		return query.getSingleResult();
 	}
 	
+	public List<CentroCusto> listPorUnidade(){
+		TypedQuery<CentroCusto> query = manager.createQuery(
+				"from CentroCusto where unidadeNegocio.codigo = :unidadeCC", CentroCusto.class);
+		query.setParameter("unidadeCC", this.usuarioLocal.getUnidadeNegocio());
+		return query.getResultList();
+	}
+	
+	
+	
 	public void adicionar(CentroCusto centroCusto){
 		this.manager.persist(centroCusto);
 	}

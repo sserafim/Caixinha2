@@ -18,17 +18,23 @@ public class CadastroLacamentoSaqueDespesa implements Serializable {
 	
 	
 	@Transactional
-	public void salvar(LancamentoSaqueDespesa lancamentoSaque) throws NegocioException{
+	public void salvar(LancamentoSaqueDespesa lancamentoSaqueDespesa) throws NegocioException{
 		
-		this.lancamentosSaques.guardar(lancamentoSaque);		
+		this.lancamentosSaques.guardar(lancamentoSaqueDespesa);		
+	}
+
+	@Transactional
+	public void salvarDespesa(LancamentoSaqueDespesa lancamentoSaqueDespesa) throws NegocioException{
+		
+		this.lancamentosSaques.adicionar(lancamentoSaqueDespesa);		
 	}
 	
 	@Transactional
-	public void excluir(LancamentoSaqueDespesa lancamentoSaque) throws NegocioException{
+	public void excluir(LancamentoSaqueDespesa lancamentoSaqueDespesa) throws NegocioException{
 		
-		lancamentoSaque = this.lancamentosSaques.porId(lancamentoSaque.getId());
+		lancamentoSaqueDespesa = this.lancamentosSaques.porId(lancamentoSaqueDespesa.getId());
 		
-		this.lancamentosSaques.remover(lancamentoSaque);
+		this.lancamentosSaques.remover(lancamentoSaqueDespesa);
 		
 	}
 	

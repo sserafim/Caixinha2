@@ -22,7 +22,7 @@
 		
 			<p:toolbar style="margin: 10px 10px">
 		    	<p:toolbarGroup>
-		    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroLancamento?faces-redirect=true"/>
+		    		<p:commandButton value="Novo" id="botaoNovo" action="/CadastroLancamentoDespesa?faces-redirect=true"/>
 		    	</p:toolbarGroup>
 		    </p:toolbar>
 		
@@ -32,7 +32,7 @@
 				
 				<p:outputLabel value="Data Despesa" for="dtdespesa" />
 				<p:calendar id="dtdespesa" size="12" pattern="dd/mm/yyyy" mask="99/99/9999"
-					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataDespesa}" />					
+					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataLancamento}" />					
 				
 				<p:outputLabel value="Tipo Despesa" for="tpdespesa" />
 				<p:selectOneMenu value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.historicoPadrao}"
@@ -41,6 +41,15 @@
 					<f:selectItems value="#{cadastroHistPadraoBean.listHistoricoPadrao()}" 
 						var="tpdespesa" itemValue="#{tpdespesa}" itemLabel="#{tpdespesa.codHistorico.concat(' - ').concat(tpdespesa.utilizacao)}" />					
 				</p:selectOneMenu>
+				
+				<p:outputLabel value="Centro de Custo" for="ccusto" />
+				<p:selectOneMenu value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.centroCusto}" 
+						id="ccusto" filter="true" filterMatchMode="contains" >
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroCCustoBean.listCCustoPorUnidade()}"
+						var="ccusto" itemValue="#{ccusto}" itemLabel="#{ccusto.codigoGcReduzido.concat(' - ').concat(ccusto.descricao)}" />					
+				</p:selectOneMenu>
+				
 				
 				<p:outputLabel value="NF / Cupom" for="nfcupom" />
 				<p:inputText id="nfcupom" size="15" required="true" 
@@ -58,7 +67,7 @@
 
 				<p:outputLabel value="Valor" for="valor" />
 				<p:inputText id="valor" size="12" 
-						value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorDespesa}">
+						value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorLancamento}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" type="number" groupingUsed="true"/>
 				</p:inputText>
 
@@ -71,46 +80,43 @@
 			
 			<h1 style="margin-top: 20px">Lançamentos</h1>
 			
-			<p:dataTable value="#{cadastroLancSaqueDespesaBean.listSaquesDespesas()}" var="lancamento"
+			<p:dataTable value="#{cadastroLancSaqueDespesaBean.listSaquesDespesas()}" var="lancamentoDespesa"
 					border="1" cellspacing="0" cellpadding="2"  tableStyle="width:100%; font-size:11px"
 					paginator="true" rows="5" paginatorPosition="bottom">
 				
-				<p:column headerText="Data Despesa" style="text-align: center" sortBy="#{lancamento.dataDespesa}" width="100">
-					<h:outputText value="#{lancamento.dataDespesa}">
+				<p:column headerText="Data Despesa" style="text-align: center" sortBy="#{lancamentoDespesa.dataLancamento}" width="100">
+					<h:outputText value="#{lancamentoDespesa.dataLancamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamento.valorDespesa}" width="100">
-					<h:outputText value="#{lancamento.valorDespesa}">
+				<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamentoDespesa.valorLancamento}" width="100">
+					<h:outputText value="#{lancamentoDespesa.valorLancamento}">
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 				</p:column>			
 				
-				<p:column headerText="Fornecedor" sortBy="#{lancamento.nomeFornecedor}" width="100" > 
-					<h:outputText value="#{lancamento.nomeFornecedor}" />
+				<p:column headerText="Fornecedor" sortBy="#{lancamentoDespesa.nomeFornecedor}" width="100" > 
+					<h:outputText value="#{lancamentoDespesa.nomeFornecedor}" />
 				</p:column>	
 
-				<p:column headerText="NF/Cupom" sortBy="#{lancamento.numeroNfCupon}" width="100" > 
-					<h:outputText value="#{lancamento.numeroNfCupon}" />
+				<p:column headerText="NF/Cupom" sortBy="#{lancamentoDespesa.numeroNfCupon}" width="100" > 
+					<h:outputText value="#{lancamentoDespesa.numeroNfCupon}" />
 				</p:column>				
 				
 				<p:column width="100" style="text-align: center">
 					<p:button icon="ui-icon-pencil" title="Editar" outcome="/CadastroLancamentoDespesa">
-						<f:param name="id" value="#{lancamento.id}" />
+						<f:param name="id" value="#{lancamentoDespesa.id}" />
 					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
-							action="#{consultaLancSaqueDespesaBean.excluir()}">
-	    				<f:setPropertyActionListener value="#{lancamento}" 
+							action="#{consultaLancSaqueDespesaBean.excluirDespesa()}">
+	    				<f:setPropertyActionListener value="#{lancamentoDespesa}" 
 	    					target="#{consultaLancSaqueDespesaBean.lancamentoSelecionado}" />
 	    					<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-            				message="Tem certeza que deseja excluir o Lançamento" />	 		
+            				message="Tem certeza que deseja excluir o Lançamento de Despesa?" />	 		
 	    			</p:commandButton>
 				</p:column>
 			</p:dataTable>
-			
-			
-			
 		</h:form>
 	</ui:define>
 

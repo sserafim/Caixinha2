@@ -57,6 +57,10 @@ public class CadastroCCustoBean implements Serializable{
 	public List<CentroCusto> listCentroCusto(){
 		return centroCustos.todas();
 	}		
+	
+	public List<CentroCusto> listCCustoPorUnidade(){
+		return centroCustos.listPorUnidade();
+	}
 
 	public CentroCusto getCentroCusto() {
 		return centroCusto;

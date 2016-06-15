@@ -62,12 +62,14 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
-			this.lancamentoSaqueDespesa.setDataSaque(data);
+			this.lancamentoSaqueDespesa.setDataLancamento(data);
+			
+		
 		}
 	}
 	
 	
-	public void prepararCadastroDespesa() throws ParseException {
+	public void prepararCadastroDespesa(){
 
 		if (this.lancamentoSaqueDespesa == null) {
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
@@ -78,14 +80,15 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		try {
-			this.lancamentoSaqueDespesa.setUsuarioSaque(this.usuarioLogado.getNome());
+			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+			
 			atualizaSaldoAtual();
 			atualizaCentroCusto();
 			
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			consultarNovo();
 
-			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
+			context.addMessage(null, new FacesMessage("Lançamento Saque salvo com sucesso!"));
 		} catch (NegocioException | ParseException e) {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -97,12 +100,14 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	public void salvarDespesa() {
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		try {			
+		try {	
+			
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
-			consultarNovo();
+			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
+		
 
-			context.addMessage(null, new FacesMessage("Lançamento salvo com sucesso!"));
-		} catch (NegocioException | ParseException e) {
+			context.addMessage(null, new FacesMessage("Lançamento Despesa salvo com sucesso!"));
+		} catch (NegocioException e) {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, mensagem);
@@ -132,14 +137,13 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
 		this.lancamentoSaqueDespesa
-				.setLocalSaque(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
-
+				.setLocal(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
 		if (this.lancamentoSaqueDespesa.getId() == null) {
-			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaqueDespesa.getValorSaque()));
+			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSaqueDespesa.getValorLancamento()));
 			this.unidadeNegocioService.salvar(un);
 		} else {
-			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorSaque();
-			un.setSaldoAtual(un.getSaldoAtual().subtract(valorAtual).add(this.lancamentoSaqueDespesa.getValorSaque()));
+			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorLancamento();
+			un.setSaldoAtual(un.getSaldoAtual().subtract(valorAtual).add(this.lancamentoSaqueDespesa.getValorLancamento()));
 			this.unidadeNegocioService.salvar(un);
 		}
 	}
@@ -148,7 +152,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse(this.getDateTime());
-		this.lancamentoSaqueDespesa.setDataSaque(data);
+		this.lancamentoSaqueDespesa.setDataLancamento(data);
 	}
 
 	public TipoSaque[] getTiposSaques() {

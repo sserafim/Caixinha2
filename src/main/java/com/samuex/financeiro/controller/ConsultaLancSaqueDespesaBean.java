@@ -70,7 +70,12 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		try{			
+		try{		
+			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
+			un.setSaldoAtual(un.getSaldoAtual().add(this.lancamentoSelecionado.getValorLancamento()));
+			
+			this.unidadeNegocioService.salvar(un);
+			
 			this.cadastro.excluir(this.lancamentoSelecionado);
 		
 			context.addMessage( null, new FacesMessage("Lancamento Excluído com sucesso!!"));			

@@ -41,7 +41,8 @@ public class CentroCustos implements Serializable {
 		
 	public List<CentroCusto> todas() {
 		TypedQuery<CentroCusto> query = manager.createQuery(
-				"from CentroCusto", CentroCusto.class);
+				"from CentroCusto "
+				+ "order by unidadeNegocio.codigo asc", CentroCusto.class);
 		return query.getResultList();
 	}
 	

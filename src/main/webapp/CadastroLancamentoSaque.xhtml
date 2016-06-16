@@ -33,7 +33,7 @@
 
 			<p:panelGrid columns="2" id="grid">
 
-				<p:outputLabel value="Tipo Saque" for="tipoSaque" />
+				<p:outputLabel value="Tipo Saque" for="tipoSaque" indicateRequired="false" />
 				<p:selectOneButton id="tipoSaque" required="true"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.tipoSaque}">
 					<p:ajax process="tipoSaque" event="change"
@@ -44,13 +44,13 @@
 				</p:selectOneButton>
 				
 
-				<p:outputLabel value="Número do Saque" for="numeroSaque" />
+				<p:outputLabel value="Número do Saque" for="numeroSaque" indicateRequired="false" />
 				<p:inputText id="numeroSaque" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.numeroSaque}">
 					<f:convertNumber integerOnly="true" />
 				</p:inputText>
 
-				<p:outputLabel value="Valor Saque" for="valorSaque" />
+				<p:outputLabel value="Valor Saque" for="valorSaque" indicateRequired="false"/>
 				<p:inputText id="valorSaque" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorLancamento}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2" type="number" groupingUsed="true"

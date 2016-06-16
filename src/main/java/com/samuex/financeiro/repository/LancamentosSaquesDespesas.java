@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import com.samuex.financeiro.controller.Usuario;
 import com.samuex.financeiro.model.LancamentoSaqueDespesa;
+import com.samuex.financeiro.model.TipoLancamento;
 
 public class LancamentosSaquesDespesas implements Serializable {
 	
@@ -34,14 +35,27 @@ public class LancamentosSaquesDespesas implements Serializable {
 				"from LancamentoSaqueDespesa", LancamentoSaqueDespesa.class);
 		return query.getResultList();
 	}
+
 	
-	public List<LancamentoSaqueDespesa> buscaPorUnidade(){
+	public List<LancamentoSaqueDespesa> buscaPorUnidadeSaque(){
 		TypedQuery<LancamentoSaqueDespesa> query = manager.createQuery(
-				"from LancamentoSaqueDespesa where upper(local) like upper(:localSaque)", LancamentoSaqueDespesa.class);
+				"from LancamentoSaqueDespesa "
+				+ "where upper(local) like upper(:localSaque)"
+				+ "and tipoLancamento = :tpLancamento", LancamentoSaqueDespesa.class);
 		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
+		query.setParameter("tpLancamento", TipoLancamento.SAQUE);
 		return query.getResultList();
 	}
 	
+	public List<LancamentoSaqueDespesa> buscaPorUnidadeDespesa(){
+		TypedQuery<LancamentoSaqueDespesa> query = manager.createQuery(
+				"from LancamentoSaqueDespesa "
+				+ "where upper(local) like upper(:localSaque)"
+				+ "and tipoLancamento = :tpLancamento", LancamentoSaqueDespesa.class);
+		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
+		query.setParameter("tpLancamento", TipoLancamento.DESPESA);
+		return query.getResultList();
+	}
 
 	public void adicionar(LancamentoSaqueDespesa lancamentoSaqueDespesa){
 		this.manager.persist(lancamentoSaqueDespesa);

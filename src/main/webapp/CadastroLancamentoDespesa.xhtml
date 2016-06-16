@@ -30,43 +30,42 @@
 		
 			<p:panelGrid columns="2" id="grid">
 				
-				<p:outputLabel value="Data Despesa" for="dtdespesa" />
-				<p:calendar id="dtdespesa" size="12" pattern="dd/mm/yyyy" mask="99/99/9999"
+				<p:outputLabel value="Data Despesa" for="dtdespesa" indicateRequired="false"/>
+				<p:calendar id="dtdespesa" size="15" pattern="dd/mm/yyyy" mask="99/99/9999" required="true"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataLancamento}" />					
 				
-				<p:outputLabel value="Tipo Despesa" for="tpdespesa" />
+				<p:outputLabel value="Tipo Despesa" for="tpdespesa" indicateRequired="false"/>
 				<p:selectOneMenu value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.historicoPadrao}"
-						id="tpdespesa" filter="true" filterMatchMode="contains">
+						id="tpdespesa" filter="true" filterMatchMode="contains" required="true">
 					<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 					<f:selectItems value="#{cadastroHistPadraoBean.listHistoricoPadrao()}" 
 						var="tpdespesa" itemValue="#{tpdespesa}" itemLabel="#{tpdespesa.codHistorico.concat(' - ').concat(tpdespesa.utilizacao)}" />					
 				</p:selectOneMenu>
 				
-				<p:outputLabel value="Centro de Custo" for="ccusto" />
+				<p:outputLabel value="Centro de Custo" for="ccusto" indicateRequired="false"/>
 				<p:selectOneMenu value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.centroCusto}" 
-						id="ccusto" filter="true" filterMatchMode="contains" >
+						id="ccusto" filter="true" filterMatchMode="contains" required="true" >
 					<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 					<f:selectItems value="#{cadastroCCustoBean.listCCustoPorUnidade()}"
 						var="ccusto" itemValue="#{ccusto}" itemLabel="#{ccusto.codigoGcReduzido.concat(' - ').concat(ccusto.descricao)}" />					
 				</p:selectOneMenu>
-				
-				
-				<p:outputLabel value="NF / Cupom" for="nfcupom" />
+								
+				<p:outputLabel value="NF / Cupom" for="nfcupom" indicateRequired="false"/>
 				<p:inputText id="nfcupom" size="15" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.numeroNfCupon}">
 					<f:convertNumber integerOnly="true" />
 				</p:inputText>
 
-				<p:outputLabel value="Fornecedor" for="fornecedor" />
-				<p:inputText id="fornecedor" size="60" style="text-transform:uppercase"
+				<p:outputLabel value="Fornecedor" for="fornecedor" indicateRequired="false"/>
+				<p:inputText id="fornecedor" size="60" style="text-transform:uppercase" required="true" 
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.nomeFornecedor}" />
 				
-				<p:outputLabel value="Observação" for="observacao"/>
-				<p:inputTextarea rows="3" cols="33" id="observacao" style="text-transform:uppercase"
+				<p:outputLabel value="Observação" for="observacao" indicateRequired="false"/>
+				<p:inputTextarea rows="3" cols="33" id="observacao" style="text-transform:uppercase" required="true"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.observacao}" />	
 
-				<p:outputLabel value="Valor" for="valor" />
-				<p:inputText id="valor" size="12" 
+				<p:outputLabel value="Valor" for="valor" indicateRequired="false"/>
+				<p:inputText id="valor" size="12" required="true"
 						value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorLancamento}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" type="number" groupingUsed="true"/>
 				</p:inputText>
@@ -80,7 +79,7 @@
 			
 			<h1 style="margin-top: 20px">Lançamentos</h1>
 			
-			<p:dataTable value="#{cadastroLancSaqueDespesaBean.listSaquesDespesas()}" var="lancamentoDespesa"
+			<p:dataTable value="#{cadastroLancSaqueDespesaBean.listDespesasUnidades()}" var="lancamentoDespesa"
 					border="1" cellspacing="0" cellpadding="2"  tableStyle="width:100%; font-size:11px"
 					paginator="true" rows="5" paginatorPosition="bottom">
 				

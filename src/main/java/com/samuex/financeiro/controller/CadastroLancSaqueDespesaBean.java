@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.samuex.financeiro.model.LancamentoSaqueDespesa;
+import com.samuex.financeiro.model.TipoLancamento;
 import com.samuex.financeiro.model.TipoSaque;
 import com.samuex.financeiro.model.UnidadeNegocio;
 import com.samuex.financeiro.repository.CentroCustos;
@@ -63,8 +64,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
 			this.lancamentoSaqueDespesa.setDataLancamento(data);
-			
-		
+			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.SAQUE);
 		}
 	}
 	
@@ -73,6 +73,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		if (this.lancamentoSaqueDespesa == null) {
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
+			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.DESPESA);
 		}
 	}	
 
@@ -102,6 +103,8 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		try {	
 			
+			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+			atualizaSaldoAtualDespesa();
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
 		
@@ -147,6 +150,23 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			this.unidadeNegocioService.salvar(un);
 		}
 	}
+	
+	
+	public void atualizaSaldoAtualDespesa() {
+
+		UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
+		this.lancamentoSaqueDespesa
+				.setLocal(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
+		if (this.lancamentoSaqueDespesa.getId() == null){
+			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSaqueDespesa.getValorLancamento()));
+			this.unidadeNegocioService.salvar(un);
+		}else{
+			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorLancamento();
+			un.setSaldoAtual(un.getSaldoAtual().add(valorAtual).subtract(this.lancamentoSaqueDespesa.getValorLancamento()));
+			this.unidadeNegocioService.salvar(un);
+		}
+	}	
+	
 
 	public void consultarNovo() throws ParseException {
 		this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
@@ -158,14 +178,19 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	public TipoSaque[] getTiposSaques() {
 		return TipoSaque.values();
 	}
-
+	
+	
 	public List<LancamentoSaqueDespesa> listSaquesDespesas() {
 		return lancamentoSaquesDespesas.todos();
 	}
 
 	public List<LancamentoSaqueDespesa> listSaquesUnidades() {
-		return lancamentoSaquesDespesas.buscaPorUnidade();
+		return lancamentoSaquesDespesas.buscaPorUnidadeSaque();
 	}
+	
+	public List<LancamentoSaqueDespesa> listDespesasUnidades() {
+		return lancamentoSaquesDespesas.buscaPorUnidadeDespesa();
+	} 
 
 	public LancamentoSaqueDespesa getLancamentoSaqueDespesa() {
 		return lancamentoSaqueDespesa;

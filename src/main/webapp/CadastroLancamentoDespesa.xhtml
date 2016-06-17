@@ -31,7 +31,7 @@
 			<p:panelGrid columns="2" id="grid">
 				
 				<p:outputLabel value="Data Despesa" for="dtdespesa" indicateRequired="false"/>
-				<p:calendar id="dtdespesa" size="15" pattern="dd/mm/yyyy" mask="99/99/9999" required="true"
+				<p:calendar id="dtdespesa" size="15" pattern="dd/mm/yyyy" mask="99/99/9999" required="true" locale="pt_BR"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.dataLancamento}" />					
 				
 				<p:outputLabel value="Tipo Despesa" for="tpdespesa" indicateRequired="false"/>

@@ -64,7 +64,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
 			this.lancamentoSaqueDespesa.setDataLancamento(data);
-			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.SAQUE);
+			
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		if (this.lancamentoSaqueDespesa == null) {
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
-			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.DESPESA);
+			
 		}
 	}	
 
@@ -82,6 +82,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 
 		try {
 			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.SAQUE);
 			
 			atualizaSaldoAtual();
 			atualizaCentroCusto();
@@ -104,6 +105,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		try {	
 			
 			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.DESPESA);
 			atualizaSaldoAtualDespesa();
 			this.cadastro.salvar(this.lancamentoSaqueDespesa);
 			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();

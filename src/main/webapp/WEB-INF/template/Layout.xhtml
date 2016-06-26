@@ -8,79 +8,130 @@
 <h:head>
 	<title><ui:insert name="titulo">Sistema Financeiro</ui:insert></title>
 	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputScript library="js" name="locale-primefaces.js" />
+	<h:outputScript library="js" name="jquery.maskMoney.js" />
 </h:head>
 
 <h:body>
- <div style="margin:20px auto; max-width:1150px; border:1px solid #c5c5c5; box-shadow:10px 10px 10px black; border-radius:0px 0px 20px 20px ">
-	<f:metadata>
-		<f:viewAction action="#{consultaLancamentosBean.consultar}" />
-	</f:metadata>
+	<div
+		style="margin: 20px auto; max-width: 1150px; border: 1px solid #c5c5c5; box-shadow: 10px 10px 10px black; border-radius: 0px 0px 20px 20px">
+		<f:metadata>
+			<f:viewAction action="#{consultaLancamentosBean.consultar}" />
+		</f:metadata>
 
-	<p:ajaxStatus styleClass="ajax-status">
-		<f:facet name="start">
-			<h:graphicImage library="image" name="loading.gif" />
-		</f:facet>
-		<f:facet name="complete">
-			<h:outputText value="" />
-		</f:facet>
-	</p:ajaxStatus>
+		<p:ajaxStatus styleClass="ajax-status">
+			<f:facet name="start">
+				<h:graphicImage library="image" name="loading.gif" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
 
-	 <div class="header">
-		<h:graphicImage library="image" name="logo.png" />
-	
-		<div style="float: right">
-			<h:form title="Sair">
-				<h:commandLink action="#{loginBean.logout}">
-					<h:graphicImage library="image" name="exit.png" value="Sair"/>
-				</h:commandLink>
-			</h:form>		
-		</div>	
-			
-		<div style="float: right; margin-right: 20px; margin-top: 8px">
-		   Olá #{usuario.nome}!   
+		<div class="header">
+			<div style="float: left">
+				<h:form title="Home">
+					<h:commandLink action="#{loginBean.Home()}">
+						<h:graphicImage library="image" name="comolatti.png" value="Home" />
+					</h:commandLink>
+				</h:form>
+			</div>
+
+
+			<div style="float: right">
+				<h:form title="Sair">
+					<h:commandLink action="#{loginBean.logout}">
+						<h:graphicImage library="image" name="exit.png" value="Sair" />
+					</h:commandLink>
+				</h:form>
+			</div>
+
+			<div style="float: right; margin-right: 20px; margin-top: 8px">
+				Olá #{usuario.nome}!</div>
+
 		</div>
 
-	</div>
-	
-	<h:form>
-		<p:menubar style="margin-top: -20px; margin-bottom: 20px">
-			<p:submenu label="Caixinha">
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Lançamento Saque" action="/CadastroLancamentoSaque?faces-redirect=true" disabled="#{usuario.perfilUnidade()}" />
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Lançamento Despesa" action="/CadastroLancamentoDespesa?faces-redirect=true" disabled="#{usuario.perfilUnidade()}"  />
-			</p:submenu>
-			<p:submenu label="Cadastros Sistema">
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Empresa" action="/CadastroEmpresa?faces-redirect=true" disabled="#{usuario.perfilContabilidade()}" />							
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Unidade Negócio" action="/CadastroUnidadeNegocio?faces-redirect=true"  disabled="#{usuario.perfilContabilidade()}" />
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Centro de Custo" action="/CadastroCCusto?faces-redirect=true" disabled="#{usuario.perfilContabilidade()}" />
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Conta Contábil" action="/CadastroCContabil?faces-redirect=true" disabled="#{usuario.perfilContabilidade()}" />
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Histórico Padrão" action="/CadastroHistPadrao?faces-redirect=true" disabled="#{usuario.perfilContabilidade()}" />
-			</p:submenu>
-			<p:submenu label="Sistema">				
-				<p:menuitem icon="ui-icon-circle-triangle-e" style="font-weight: bold" value="Usuário Sistema" action="/CadastroUsuarioSistema?faces-redirect=true" disabled="#{usuario.perfilAdministrador()}" />				
-			</p:submenu>
-		</p:menubar>
+		<h:form>
+			<p:menubar style="margin-top: 60px; margin-bottom: 20px"
+				styleClass="menubar">
+				<p:submenu label="Caixinha">
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Lançamento Saque"
+						action="/CadastroLancamentoSaque?faces-redirect=true"
+						disabled="#{usuario.perfilUnidade()}" />
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Lançamento Despesa"
+						action="/CadastroLancamentoDespesa?faces-redirect=true"
+						disabled="#{usuario.perfilUnidade()}" />
+				</p:submenu>
+				<p:submenu label="Cadastros Sistema">
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Empresa"
+						action="/CadastroEmpresa?faces-redirect=true"
+						disabled="#{usuario.perfilContabilidade()}" />
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Unidade Negócio"
+						action="/CadastroUnidadeNegocio?faces-redirect=true"
+						disabled="#{usuario.perfilContabilidade()}" />
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Centro de Custo"
+						action="/CadastroCCusto?faces-redirect=true"
+						disabled="#{usuario.perfilContabilidade()}" />
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Conta Contábil"
+						action="/CadastroCContabil?faces-redirect=true"
+						disabled="#{usuario.perfilContabilidade()}" />
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Histórico Padrão"
+						action="/CadastroHistPadrao?faces-redirect=true"
+						disabled="#{usuario.perfilContabilidade()}" />
+				</p:submenu>
+				<p:submenu label="Sistema">
+					<p:menuitem icon="ui-icon-circle-triangle-e"
+						style="font-weight: bold" value="Usuário Sistema"
+						action="/CadastroUsuarioSistema?faces-redirect=true"
+						disabled="#{usuario.perfilAdministrador()}" />
+				</p:submenu>
+				<f:facet name="options">
+					<font style='text-decoration: underline;'>Saldo Atual da
+						Unidade:</font>
+					<b>#{usuario.saldoAtual.saldoAtual}</b>
+				</f:facet>
+			</p:menubar>
 
-	</h:form>
+		</h:form>
 
-	<div id="conteudo">
-		<ui:insert name="corpo" />
+		<div id="conteudo">
+			<ui:insert name="corpo" />
+		</div>
+
+		<footer class="footer">
+			<H4>Você está conectado em #{usuario.localUsuario}</H4>
+		</footer>
+
+		<h:form>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			</p:confirmDialog>
+		</h:form>
+
 	</div>
-	
-	<footer class="footer">
-		<H4>Você está conectado em #{usuario.localUsuario}</H4>
-	</footer>
-	
-	<h:form>
-		<p:confirmDialog global="true">
-			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"
-				icon="ui-icon-close" />
-				
-			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
-				icon="ui-icon-check" />
-		</p:confirmDialog>
-	</h:form>
-	
-	</div>
+
+	<script>
+      function configurarMoeda() {
+        $(".moeda").maskMoney({ decimal: ",", thousands: ".", allowZero: true });
+      }
+      
+      $(document).ready(function() {
+        configurarMoeda();
+      });
+    </script>
+
+
 </h:body>
 
 </html>

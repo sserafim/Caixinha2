@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import com.samuex.financeiro.model.UnidadeNegocio;
+import com.samuex.financeiro.repository.UnidadesNegocio;
 
 @Named
 @SessionScoped
@@ -18,11 +22,13 @@ public class Usuario implements Serializable {
 	private Date dataLogin;
 	private String Perfil;
 	
+	@Inject
+	private UnidadesNegocio unidadeNegocioDAO;
+	
 	public boolean isLogado() {
 		return nome != null;
 	}
-	
-		
+			
 	public Boolean perfilContabilidade(){
 		return this.getPerfil() == "UNIDADE";
 	}
@@ -33,6 +39,10 @@ public class Usuario implements Serializable {
 
 	public Boolean perfilAdministrador(){
 		return this.getPerfil() == "UNIDADE"; 
+	}
+	
+	public UnidadeNegocio getSaldoAtual(){
+		return unidadeNegocioDAO.porId(this.unidadeNegocio);
 	}
 
 	public String getNome() {

@@ -1,5 +1,6 @@
 package com.samuex.financeiro.controller;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
@@ -7,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import com.samuex.financeiro.repository.UsuarioSistemas;
 
@@ -31,7 +33,7 @@ public class LoginBean {
 			this.usuario.setNome(this.nomeUsuario);
 			this.usuario.setDataLogin(new Date());
 
-			return "/ConsultaLancamentos?faces-redirect=true";
+			return "/HomeCaixinha?faces-redirect=true";
 
 		} else if (this.usuarios.buscaLogin(this.nomeUsuario).equals(this.nomeUsuario) && "123".equals(this.senha)) {
 
@@ -43,7 +45,7 @@ public class LoginBean {
 					usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getEmpresa().getRazaoSocial().concat(" - ")
 							.concat(usuarios.getLogin(this.nomeUsuario).getUnidadeNegocio().getNomeUnidade()));
 
-			return "/ConsultaLancamentos?faces-redirect=true";
+			return "/HomeCaixinha?faces-redirect=true";
 
 		} else {
 			FacesMessage mensagem = new FacesMessage("Usuário/senha inválidos!");
@@ -57,6 +59,18 @@ public class LoginBean {
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/Login?faces-redirect=true";
+	}
+	
+	public void Home() {
+		 FacesContext context = FacesContext.getCurrentInstance();
+		    HttpServletRequest origRequest = (HttpServletRequest)context.getExternalContext().getRequest();
+		    String contextPath = origRequest.getContextPath();
+		try {
+		        FacesContext.getCurrentInstance().getExternalContext()
+		                .redirect(contextPath  + "/HomeCaixinha.xhtml");
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 	}
 
 	public String getNomeUsuario() {

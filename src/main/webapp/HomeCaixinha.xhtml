@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Caixinha</ui:define>
+
+	<ui:define name="corpo">
+
+		<h1>Caixinha</h1>
+
+		<h:form id="frm">
+			<p:growl showDetail="false" showSummary="true" autoUpdate="true" />
+
+
+			<p:dataTable
+				value="#{consultaLancSaqueDespesaBean.listLancamentosHome()}"
+				var="lancHome" border="1" cellspacing="0" cellpadding="2"
+				tableStyle="width:100%; font-size:11px" paginator="true" rows="5"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Data lançamento" width="100"
+					style="text-align: center">
+					<h:outputText value="#{lancHome[0]}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Valor Total Saque" width="100"
+					style="text-align: right">
+					<h:outputText value="#{lancHome[1]}" style="font-weight: bold">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Valor Total Despesa" width="100"
+					style="text-align: right">
+					<h:outputText value="#{lancHome[2]}" style="font-weight: bold">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+				<p:column width="100" style="text-align: center">
+
+					<p:commandButton id="lancOverlayBtn" icon="ui-icon-circle-zoomout"
+						title="Detalhe do Lançamento" />
+					<p:overlayPanel id="lancOverPanel" for="lancOverlayBtn"
+						hideEffect="fade" my="right top" dynamic="true"
+						style="width:600px">
+
+						<p:dataTable var="lancamentosHome"
+							value="#{consultaLancSaqueDespesaBean.listLancamentosHomeDetalhe(lancHome)}"
+							rows="5" paginator="true">
+							<p:column headerText="Data Lançamento">
+								<h:outputText value="#{lancamentosHome[0]}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Lançamento Saldo">
+								<h:outputText value="#{lancamentosHome[1]}"
+									style="font-weight: bold">
+									<f:convertNumber type="currency" locale="pt_BR" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Lançamento Despesa">
+								<h:outputText value="#{lancamentosHome[2]}"
+									style="font-weight: bold">
+									<f:convertNumber type="currency" locale="pt_BR" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Usuário Lançamento">
+								<h:outputText />
+							</p:column>
+						</p:dataTable>
+					</p:overlayPanel>
+
+
+					<p:commandButton icon="ui-icon-transferthick-e-w"
+						title="Fechar Caixinha" action="#{consultaLancSaqueDespesaBean.fechamentoCaixinha(lancHome)}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação Fechamento Caixinha"
+            				message="Tem certeza que deseja fechar o Caixinha ?" />	 
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

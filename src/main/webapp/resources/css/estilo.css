@@ -11,8 +11,8 @@ body {
 	padding: 5px;
 	margin-bottom: 20px;
 	height: 30px;
-	background-color: #545454;
-	color: #fff;
+	background-color: white;
+	color: black;
 	box-shadow: 0px 2px 2px #ccc
 }
 
@@ -35,6 +35,10 @@ h1 {
 	margin-bottom: 10px
 }
 
+.menubar {
+	  background-color: #ffffff;
+	}
+		
 .ajax-status {
 	position: fixed;
 	top: 85px;

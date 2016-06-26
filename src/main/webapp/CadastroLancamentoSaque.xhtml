@@ -51,7 +51,7 @@
 				</p:inputText>
 
 				<p:outputLabel value="Valor Saque" for="valorSaque" indicateRequired="false"/>
-				<p:inputText id="valorSaque" size="15" required="true" 
+				<p:inputText id="valorSaque" size="15" required="true"  styleClass="moeda"
 					value="#{cadastroLancSaqueDespesaBean.lancamentoSaqueDespesa.valorLancamento}">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2" type="number" groupingUsed="true"
 						minFractionDigits="2" />

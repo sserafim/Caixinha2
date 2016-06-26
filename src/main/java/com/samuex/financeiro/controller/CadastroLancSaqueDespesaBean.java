@@ -63,17 +63,14 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
-			this.lancamentoSaqueDespesa.setDataLancamento(data);
-			
+			this.lancamentoSaqueDespesa.setDataLancamento(data);			
 		}
-	}
-	
+	}	
 	
 	public void prepararCadastroDespesa(){
 
 		if (this.lancamentoSaqueDespesa == null) {
-			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
-			
+			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();			
 		}
 	}	
 
@@ -81,50 +78,27 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		try {
-			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
-			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.SAQUE);
+			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
 			
-			atualizaSaldoAtual();
-			atualizaCentroCusto();
-			
-			this.cadastro.salvar(this.lancamentoSaqueDespesa);
-			consultarNovo();
-
-			context.addMessage(null, new FacesMessage("Lançamento Saque salvo com sucesso!"));
+			if(verificaAlteracaoSaldo(un.getSaldoAtual()) != null){
+				 FacesMessage mensagem = new FacesMessage("ERRO: Saldo insuficiente!!!!");
+				 mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+				 context.addMessage(null, mensagem);	
+			}else{
+				this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+				this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.SAQUE);			
+				atualizaSaldoAtual();
+				atualizaCentroCusto();			
+				this.cadastro.salvar(this.lancamentoSaqueDespesa);
+				consultarNovo();
+				context.addMessage(null, new FacesMessage("Lançamento Saque salvo com sucesso!"));
+			}
 		} catch (NegocioException | ParseException e) {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-			context.addMessage(null, mensagem);
 		}
 	}
-
 	
-	public void salvarDespesa() {
-		FacesContext context = FacesContext.getCurrentInstance();
-
-		try {	
-			
-			this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
-			this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.DESPESA);
-			atualizaSaldoAtualDespesa();
-			this.cadastro.salvar(this.lancamentoSaqueDespesa);
-			this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
-		
-
-			context.addMessage(null, new FacesMessage("Lançamento Despesa salvo com sucesso!"));
-		} catch (NegocioException e) {
-			FacesMessage mensagem = new FacesMessage(e.getMessage());
-			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-			context.addMessage(null, mensagem);
-		}
-	}	
-
-	private String getDateTime() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = new Date();
-		return dateFormat.format(date.getTime());
-	}
-
 	public void getAtualizaHistoricoPadrao() {
 		if (this.lancamentoSaqueDespesa.getTipoSaque().getDescricao() == "BANCO") {
 			this.lancamentoSaqueDespesa.setHistoricoPadrao(this.historicoPadraoDAO.porId("9001"));
@@ -133,6 +107,31 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			this.lancamentoSaqueDespesa.setHistoricoPadrao(this.historicoPadraoDAO.porId("9002"));
 		}
 	}
+	
+	public void salvarDespesa() {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		try {	
+			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());	
+			
+			if(verificaSaldoCaixinha(un.getSaldoAtual()) != null){
+				FacesMessage mensagem = new FacesMessage("ERRO: Saldo insuficiente!!!!");
+				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+				context.addMessage(null, mensagem);				
+			}else{
+				this.lancamentoSaqueDespesa.setUsuarioLancamento(this.usuarioLogado.getNome());
+				this.lancamentoSaqueDespesa.setTipoLancamento(TipoLancamento.DESPESA);
+				atualizaSaldoAtualDespesa(un);
+				this.cadastro.salvar(this.lancamentoSaqueDespesa);
+				this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
+				context.addMessage(null, new FacesMessage("Lançamento Despesa salvo com sucesso!"));
+			}
+		} catch (NegocioException e) {
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, mensagem);
+		}
+	}	
 
 	public void atualizaCentroCusto() {			
 		this.lancamentoSaqueDespesa.setCentroCusto(this.centroCustosDAO.porId(centroCustosDAO.buscaCCusto()));
@@ -154,14 +153,13 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 	}
 	
 	
-	public void atualizaSaldoAtualDespesa() {
-
-		UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
-		this.lancamentoSaqueDespesa
-				.setLocal(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
-		if (this.lancamentoSaqueDespesa.getId() == null){
+	public void atualizaSaldoAtualDespesa(UnidadeNegocio un) {
+					
+		this.lancamentoSaqueDespesa.setLocal(un.getEmpresa().getRazaoSocial().concat(" - ").concat(un.getNomeUnidade()));
+		
+		if (this.lancamentoSaqueDespesa.getId() == null){	
 			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSaqueDespesa.getValorLancamento()));
-			this.unidadeNegocioService.salvar(un);
+			this.unidadeNegocioService.salvar(un);			
 		}else{
 			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorLancamento();
 			un.setSaldoAtual(un.getSaldoAtual().add(valorAtual).subtract(this.lancamentoSaqueDespesa.getValorLancamento()));
@@ -169,12 +167,47 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		}
 	}	
 	
-
+	public String verificaSaldoCaixinha(BigDecimal valor){
+		if(this.lancamentoSaqueDespesa.getId() == null){
+			if(valor.doubleValue() <= this.lancamentoSaqueDespesa.getValorLancamento().doubleValue()){
+				return "Erro";
+			}else{			
+				return null;
+			}
+		}else{
+			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorLancamento();
+			if((valor.doubleValue() + valorAtual.doubleValue()) <= this.lancamentoSaqueDespesa.getValorLancamento().doubleValue()){
+				return "Erro";
+			}else{			
+				return null;
+			}		
+		}
+	}
+	
+	
+	public String verificaAlteracaoSaldo(BigDecimal valor){
+		if(this.lancamentoSaqueDespesa.getId() != null){
+			valorAtual = this.lancamentoSaquesDespesas.porId(this.lancamentoSaqueDespesa.getId()).getValorLancamento();
+			if((valorAtual.doubleValue() - valor.doubleValue()) > this.lancamentoSaqueDespesa.getValorLancamento().doubleValue()){
+				return "Erro";
+			}else{
+				return null;
+			}
+		}
+		return null;
+	}
+	
 	public void consultarNovo() throws ParseException {
 		this.lancamentoSaqueDespesa = new LancamentoSaqueDespesa();
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse(this.getDateTime());
 		this.lancamentoSaqueDespesa.setDataLancamento(data);
+	}
+	
+	private String getDateTime() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		return dateFormat.format(date.getTime());
 	}
 
 	public TipoSaque[] getTiposSaques() {

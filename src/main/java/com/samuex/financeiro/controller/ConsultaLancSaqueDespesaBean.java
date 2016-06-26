@@ -1,6 +1,9 @@
 package com.samuex.financeiro.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -51,18 +54,23 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 		
 		try{
 			UnidadeNegocio un = unidadesNegocioDAO.porId(this.usuarioLogado.getUnidadeNegocio());
-			un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSelecionado.getValorLancamento()));
 			
-			this.unidadeNegocioService.salvar(un);
 			
-			this.cadastro.excluir(this.lancamentoSelecionado);
-		
-			context.addMessage( null, new FacesMessage("Lancamento Excluído com sucesso!!"));			
+			if(verificaSaldoCaixinha(un.getSaldoAtual()) != null){
+				FacesMessage mensagem = new FacesMessage("ERRO: Saldo não pode ficar negativo!!");
+				mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+				context.addMessage(null, mensagem);					
+			}else{
+				un.setSaldoAtual(un.getSaldoAtual().subtract(this.lancamentoSelecionado.getValorLancamento()));
+				this.unidadeNegocioService.salvar(un);			
+				this.cadastro.excluir(this.lancamentoSelecionado);
+				context.addMessage( null, new FacesMessage("Lancamento Excluído com sucesso!!"));		
+			}		
 		}catch (NegocioException e){
 			
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-			context.addMessage(null, mensagem);						
+								
 		}
 	}
 
@@ -86,8 +94,21 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 		}
 	}
 	
+	public void fechamentoCaixinha(Object[] dataLanc) throws ParseException{
+		
+		FacesContext context = FacesContext.getCurrentInstance();		
+		this.lancamentosRepository.geraArquivoFechamentoCaixinha((Date) dataLanc[0]);
+		context.addMessage(null, new FacesMessage("Fechamento caixinha efetuado com sucesso!!!"));
+	}
 	
-	
+	public String verificaSaldoCaixinha(BigDecimal valor){
+			if(valor.doubleValue() < this.lancamentoSelecionado.getValorLancamento().doubleValue()){
+				return "Erro";
+			}else{			
+				return null;
+			}		
+	}
+
 	public void consultar(){
 		this.lancamentosSaques = lancamentosRepository.todos();
 	}
@@ -95,7 +116,15 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 	public List<LancamentoSaqueDespesa> getLancamentosSaques() {
 		return lancamentosSaques;
 	}
-
+	
+	public List<Object[]> listLancamentosHome() {
+		return lancamentosRepository.buscaLancamentosHome();
+	}
+	
+	public List<Object[]> listLancamentosHomeDetalhe(Object[] data){
+		return lancamentosRepository.buscaLancamentosHomeDetalhe((Date) data[0]);
+	}
+		
 	public LancamentoSaqueDespesa getLancamentoSelecionado() {
 		return lancamentoSelecionado;
 	}

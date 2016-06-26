@@ -50,7 +50,7 @@
 			</p:selectOneMenu>
 
 			<p:outputLabel value="Saldo Inicial" for="saldoInicial" />
-			<p:inputText  id="saldoInicial" size="20" 
+			<p:inputText  id="saldoInicial" size="20" styleClass="moeda"
 				value="#{cadastroUnidadeNegocioBean.unidadeNegocio.saldoInicial}" onblur="atualizaSaldoAtual()" >
 			<p:remoteCommand name="atualizaSaldoAtual" process="saldoInicial" actionListener="#{cadastroUnidadeNegocioBean.getAtualizaSaldoAtual()}"  update="saldoAtual" />	
 				<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />

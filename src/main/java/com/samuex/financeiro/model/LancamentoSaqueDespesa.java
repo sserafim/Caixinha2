@@ -40,8 +40,8 @@ public class LancamentoSaqueDespesa implements Serializable{
 	private String 			nomeFornecedor;
 	private String			observacao;
 	private TipoLancamento 	tipoLancamento;
+	private String 			statusIntegracao;
 
-	
 
 	@Id
 	@GeneratedValue(generator = "inc")
@@ -178,7 +178,14 @@ public class LancamentoSaqueDespesa implements Serializable{
 		this.tipoLancamento = tipoLancamento;
 	}
 //----------------
-	
+	@Column(length = 1, nullable = true)
+	public String getStatusIntegracao() {
+		return statusIntegracao;
+	}
+
+	public void setStatusIntegracao(String statusIntegracao) {
+		this.statusIntegracao = statusIntegracao;
+	}
 	
 	
 	

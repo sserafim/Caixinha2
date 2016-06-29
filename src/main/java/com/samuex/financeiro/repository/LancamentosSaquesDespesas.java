@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
 import com.samuex.financeiro.controller.Usuario;
 import com.samuex.financeiro.model.LancamentoSaqueDespesa;
 import com.samuex.financeiro.model.TipoLancamento;
+import com.samuex.financeiro.service.NegocioException;
 
 public class LancamentosSaquesDespesas implements Serializable {
 	
@@ -26,6 +27,8 @@ public class LancamentosSaquesDespesas implements Serializable {
 	private EntityManager manager;
 	private String descHistoPadrao;
 	private String numNfCupom;
+	private String naturezaContabil;
+	
 	BufferedWriter Writer = null;
 	
 	@Inject
@@ -53,6 +56,7 @@ public class LancamentosSaquesDespesas implements Serializable {
 				"from LancamentoSaqueDespesa "
 				+ "where upper(local) like upper(:localSaque)"
 				+ "and tipoLancamento = :tpLancamento "
+				+ "and usuarioLancamento <> ('ADMIN') "
 				+ "order by (dataLancamento) desc", LancamentoSaqueDespesa.class);
 		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
 		query.setParameter("tpLancamento", TipoLancamento.SAQUE);
@@ -64,6 +68,7 @@ public class LancamentosSaquesDespesas implements Serializable {
 				"from LancamentoSaqueDespesa "
 				+ "where upper(local) like upper(:localSaque)"
 				+ "and tipoLancamento = :tpLancamento "
+				+ "and usuarioLancamento <> ('ADMIN') "
 				+ "order by (dataLancamento) desc", LancamentoSaqueDespesa.class);
 		query.setParameter("localSaque", "%" + usuarioLocal.getLocalUsuario() + "%");
 		query.setParameter("tpLancamento", TipoLancamento.DESPESA);
@@ -77,6 +82,7 @@ public class LancamentosSaquesDespesas implements Serializable {
 				+ "sum(case when tipoLancamento = 'DESPESA' then valorLancamento else 0.00 end) as DESPESA "
 				+ "from LancamentoSaqueDespesa "
 				+ "where local like upper (:localHome) "
+				+ "and usuarioLancamento <> ('ADMIN') "
 				+ "group by dataLancamento "
 				+ "order by dataLancamento desc", Object[].class);
 		query.setParameter("localHome","%" + usuarioLocal.getLocalUsuario() + "%");
@@ -92,6 +98,7 @@ public class LancamentosSaquesDespesas implements Serializable {
 				+ "from LancamentoSaqueDespesa "
 				+ "where local like upper (:localHome) "
 				+ "and dataLancamento = (:dataLanc) "
+				+ "and usuarioLancamento <> ('ADMIN') "
 				+ "order by dataLancamento desc", Object[].class);
 		query.setParameter("localHome", "%" + usuarioLocal.getLocalUsuario() + "%");
 		query.setParameter("dataLanc", data);
@@ -99,10 +106,10 @@ public class LancamentosSaquesDespesas implements Serializable {
 		return query.getResultList();
 	}
 	
-public void geraArquivoFechamentoCaixinha(Date dtLancamento) throws ParseException {
+public void geraArquivoFechamentoCaixinha(Date dtLancamento) throws ParseException, NegocioException {
 		
 		SimpleDateFormat fmtString = new SimpleDateFormat("ddMMyyyy");
-		
+
 		TypedQuery<LancamentoSaqueDespesa> query = manager.createQuery(
 						"from LancamentoSaqueDespesa "
 								+ "where local like upper (:localHome) "
@@ -118,11 +125,15 @@ public void geraArquivoFechamentoCaixinha(Date dtLancamento) throws ParseExcepti
 			int sequencia = 0;
 			for (LancamentoSaqueDespesa valores : resultado) {
 				
-				atualizaStatusIntegracao(valores.getId());
-				
 				String dataLancamento = fmtString.format(valores.getDataLancamento());
 				String dataUltimodiaMes = fmtString.format(buscaUltimoDiaMes());
-				String naturezaContabil = valores.getTipoLancamento().toString().replace("SAQUE", "C").replace("DESPESA", "D");
+				
+				if(valores.getUsuarioLancamento().equals("ADMIN")){
+					this.naturezaContabil = valores.getTipoLancamento().toString().replace("SAQUE", "D").replace("DESPESA", "C");
+				}else{
+					this.naturezaContabil = valores.getTipoLancamento().toString().replace("SAQUE", "C").replace("DESPESA", "D");
+				}
+
 				sequencia = sequencia + 1;
 				
 				if(valores.getNomeFornecedor() == null){					
@@ -195,11 +206,23 @@ public void geraArquivoFechamentoCaixinha(Date dtLancamento) throws ParseExcepti
 		return null;		
 	}
 	
-	public void atualizaStatusIntegracao(Long id){
-		LancamentoSaqueDespesa LancSaqueDespesa = this.porId(id);
-		LancSaqueDespesa.setStatusIntegracao("S");
-	}
-	
+	public Object[] buscaTotaisFechamentoCx(Date dataFechamento) throws NegocioException{
+		TypedQuery<Object[]> query = manager.createQuery(
+				"select dataLancamento, "
+				+ "local, "
+				+ "sum(case when tipoLancamento = 'SAQUE' then valorLancamento else 0.00 end) as SAQUE, "
+				+ "sum(case when tipoLancamento = 'DESPESA' then valorLancamento else 0.00 end) as DESPESA "
+				+ "from LancamentoSaqueDespesa "
+				+ "where local like upper (:localHome) "
+				+ "and dataLancamento = (:dataLanc) "
+				+ "group by dataLancamento, "
+				+ "local", Object[].class);
+		query.setParameter("localHome","%" + usuarioLocal.getLocalUsuario() + "%");
+		query.setParameter("dataLanc", dataFechamento);
+		
+		return query.getSingleResult();		
+		
+		}
 
 	public void adicionar(LancamentoSaqueDespesa lancamentoSaqueDespesa){
 		this.manager.persist(lancamentoSaqueDespesa);

@@ -46,6 +46,16 @@ public class CentroCustos implements Serializable {
 		return query.getResultList();
 	}
 	
+	public CentroCusto buscaCCustoGeral(){			
+		TypedQuery<CentroCusto> query = manager.createQuery(
+				"from CentroCusto " 
+				+ "where codigoGc = (select min(codigoGc) from CentroCusto where unidadeNegocio.codigo = :unidadeCC )",CentroCusto.class);
+		query.setParameter("unidadeCC", this.usuarioLocal.getUnidadeNegocio());
+		
+		return query.getSingleResult();
+	}
+	
+	
 	public String buscaCCusto(){
 		TypedQuery<String> query = manager.createQuery(
 				"select min(codigoGc) from CentroCusto " 

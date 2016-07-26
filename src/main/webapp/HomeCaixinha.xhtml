@@ -4,7 +4,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">Caixinha</ui:define>
 
@@ -84,11 +85,13 @@
 					</p:overlayPanel>
 
 
-					<p:commandButton icon="ui-icon-transferthick-e-w"
-						title="Fechar Caixinha" action="#{consultaLancSaqueDespesaBean.fechamentoCaixinha(lancHome)}">
+					<p:commandButton icon="ui-icon-transferthick-e-w" id="lock" actionListener="#{consultaLancSaqueDespesaBean.getAtualizaStatusCaixinha(lancHome)}"
+						title="Fechar Caixinha" action="#{consultaLancSaqueDespesaBean.fechamentoCaixinha(lancHome)}" >			
+						 	
 						<p:confirm icon="ui-icon-alert" header="Confirmação Fechamento Caixinha"
             				message="Tem certeza que deseja fechar o Caixinha ?" />	 
 					</p:commandButton>
+					
 				</p:column>
 
 			</p:dataTable>

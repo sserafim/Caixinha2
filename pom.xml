@@ -9,17 +9,20 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<name>Financeiro</name>
+	<description>Demo project for Spring Boot</description>
 
 	<dependencies>
-	
-	<!-- http://mvnrepository.com/artifact/javax.el/el-api -->
-<dependency>
-    <groupId>javax.el</groupId>
-    <artifactId>el-api</artifactId>
-    <version>2.2.1-b04</version>
-</dependency>
-	
-	
+
+		<!-- http://mvnrepository.com/artifact/javax.el/el-api -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2.1-b04</version>
+		</dependency>
+
+
 		<!-- OmniFaces (utilitarios para JSF) -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
@@ -98,9 +101,22 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>2.0.2-beta</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

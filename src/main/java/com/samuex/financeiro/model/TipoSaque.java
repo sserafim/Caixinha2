@@ -4,8 +4,8 @@ public enum TipoSaque {
 	
 	
 	BANCO("BANCO"), 
-	TESOURARIA("TESOURARIA"),
-	FECHAMENTO("FECHAMENTO");
+	TESOURARIA("TESOURARIA");
+
 	
 	private String descricao;
 	

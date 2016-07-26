@@ -49,6 +49,14 @@ public class LancamentosSaquesDespesas implements Serializable {
 				"from LancamentoSaqueDespesa", LancamentoSaqueDespesa.class);
 		return query.getResultList();
 	}
+	
+	public List<LancamentoSaqueDespesa> todosLancamDia(Date dataLanc) {
+		TypedQuery<LancamentoSaqueDespesa> query = manager.createQuery(
+				"from LancamentoSaqueDespesa "
+				+ "where dataLancamento = (:dtLancamento)", LancamentoSaqueDespesa.class);		
+		query.setParameter("dtLancamento", dataLanc);
+		return query.getResultList();
+	}
 
 	
 	public List<LancamentoSaqueDespesa> buscaPorUnidadeSaque(){

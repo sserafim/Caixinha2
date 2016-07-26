@@ -63,7 +63,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 			
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = formato.parse(this.getDateTime());
-			this.lancamentoSaqueDespesa.setDataLancamento(data);			
+			this.lancamentoSaqueDespesa.setDataLancamento(data);
 		}
 	}	
 	
@@ -209,6 +209,7 @@ public class CadastroLancSaqueDespesaBean implements Serializable {
 		Date date = new Date();
 		return dateFormat.format(date.getTime());
 	}
+	
 
 	public TipoSaque[] getTiposSaques() {
 		return TipoSaque.values();

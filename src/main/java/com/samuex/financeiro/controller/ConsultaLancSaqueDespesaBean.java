@@ -14,7 +14,6 @@ import javax.inject.Named;
 
 import com.samuex.financeiro.model.LancamentoSaqueDespesa;
 import com.samuex.financeiro.model.TipoLancamento;
-import com.samuex.financeiro.model.TipoSaque;
 import com.samuex.financeiro.model.UnidadeNegocio;
 import com.samuex.financeiro.repository.CentroCustos;
 import com.samuex.financeiro.repository.HistoricosPadrao;
@@ -118,7 +117,6 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 			lancamentoSaque.setLocal(local);
 			lancamentoSaque.setTipoLancamento(TipoLancamento.SAQUE);
 			lancamentoSaque.setValorLancamento(saque);
-			lancamentoSaque.setTipoSaque(TipoSaque.FECHAMENTO);
 			lancamentoSaque.setCentroCusto(this.centroCustoDAO.buscaCCustoGeral());
 			lancamentoSaque.setHistoricoPadrao(this.historicoPadraoDAO.porId("9001"));
 			lancamentoSaque.setUsuarioLancamento("ADMIN");
@@ -132,7 +130,6 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 			lancamentoDespesa.setLocal(local);
 			lancamentoDespesa.setTipoLancamento(TipoLancamento.DESPESA);
 			lancamentoDespesa.setValorLancamento(despesa);
-			lancamentoDespesa.setTipoSaque(TipoSaque.FECHAMENTO);
 			lancamentoDespesa.setCentroCusto(this.centroCustoDAO.buscaCCustoGeral());
 			lancamentoDespesa.setHistoricoPadrao(this.historicoPadraoDAO.porId("9000"));
 			lancamentoDespesa.setUsuarioLancamento("ADMIN");
@@ -140,6 +137,7 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 		    this.cadastro.salvar(lancamentoDespesa);
 		}
 		
+
 
 		FacesContext context = FacesContext.getCurrentInstance();		
 		this.lancamentosRepository.geraArquivoFechamentoCaixinha((Date) lancamentosFecham[0]);
@@ -152,6 +150,16 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 			}else{			
 				return null;
 			}		
+	}
+	
+	public void getAtualizaStatusCaixinha(Object[] dataLancFec) throws NegocioException{
+		List<LancamentoSaqueDespesa> valores = this.lancamentosRepository.todosLancamDia((Date) dataLancFec[0]);
+	
+			for(LancamentoSaqueDespesa x : valores){
+				x.setStatusIntegracao("S");
+				
+				this.cadastro.salvar(x);
+			}
 	}
 
 	public void consultar(){
@@ -180,7 +188,3 @@ public class ConsultaLancSaqueDespesaBean implements Serializable {
 
 		
 }
-
-
-
-
